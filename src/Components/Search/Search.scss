@@ -1,0 +1,25 @@
+@import "../../utilities/vars.scss";
+
+.Search {
+  width: 300px;
+  border: 2px solid $color-border;
+  display: flex;
+  justify-content: space-between;
+
+  & > input {
+    color: $color-text-secondary;
+    padding: 7px 20px;
+    &::placeholder {
+        color: $color-border;
+    }
+  }
+
+  & > button {
+    width: 60px;
+    background-color: $color-border;
+    cursor: pointer;
+    & > i {
+        color: #fff
+    }
+  }
+}

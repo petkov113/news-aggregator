@@ -1,0 +1,19 @@
+@import './utilities/bootstrap-grid.min.css';
+@import './utilities/reset.scss';
+@import './utilities/vars';
+
+.App {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    font-family: 'Open-sans', sans-serif;
+    color: $color-dark;
+    font-size: 16px;
+
+    & h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 33px;
+        font-weight: 800;
+        color: $color-accent;
+    }
+}

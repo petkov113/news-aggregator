@@ -1,0 +1,31 @@
+@import "../../utilities/vars.scss";
+
+.Sidebar {
+  background-color: $color-dark;
+  flex: 0 0 70px;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 25px;
+    height: 200px;
+  }
+
+  &__item {
+    font-size: 20px;
+
+    & a {
+      color: $color-light;   
+      transition: all .2s;
+
+      &.active {
+        color: $color-accent;
+      }
+      &:hover {
+        color: $color-accent-light
+      }
+    }
+  }
+}

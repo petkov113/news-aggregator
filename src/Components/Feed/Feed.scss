@@ -1,0 +1,84 @@
+@import "../../utilities/vars.scss";
+@import "./bootstrap-grid.css";
+
+.Feed {
+  position: relative;
+  width: 100%;
+
+  &__header {
+    padding: 20px 40px;
+    position: fixed;
+    right: 0;
+    left: 70px;
+    background-color: #fff;
+    height: fit-content;
+    z-index: 100;
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  &__categories_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  &__error {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  &__category {
+    display: block;
+    padding: 5px 20px;
+
+    & > button {
+      font-family: 'Open-sans', sans-serif;
+      color: $color-text-secondary;
+      cursor: pointer;
+
+      &:hover {
+        color: $color-accent;
+      }
+    }
+
+    &.active {
+      background-color: $color-accent;
+      & > button {
+        color: #fff;
+      }
+    }
+  }
+
+  &__wrapper {
+    height: calc(100vh - 135px);
+    margin-top: 135px;
+    padding: 20px 40px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__content {
+      flex: 1 0 auto;
+    }
+
+  &__footer {
+    flex-grow: 0;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: grey;
+
+    & a {
+      color: $color-accent
+    }
+  }
+}

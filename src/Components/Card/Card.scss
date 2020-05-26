@@ -1,0 +1,48 @@
+@import "../../utilities/vars";
+
+.Card {
+  display: flex;
+  flex-direction: column;
+  min-height: 350px;
+  margin-bottom: 20px;
+
+  &__title {
+    color: $color-dark;
+    margin-top: 10px;
+    line-height: 25px;
+    font-weight: 600;
+  }
+
+  &__source {
+    margin-top: 10px;
+    color: $color-text-secondary;
+  }
+
+  &__image {
+    display: block;
+    height: 220px;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+[data-tooltip] {
+  position: relative;
+  &::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 220px;
+    color: #fff;
+    padding: 1rem; 
+    pointer-events: none; 
+    opacity: 0;
+    transition: .5s; 
+  }
+  &:hover::after {
+    opacity: 1; 
+    background-color: rgba(228, 63, 90, 0.861);
+  }
+}
