@@ -1,48 +1,74 @@
-@import "../../utilities/vars";
+@import '../../utilities/vars';
 
 .Card {
-  display: flex;
-  flex-direction: column;
-  min-height: 350px;
-  margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	min-height: 350px;
+	margin-bottom: 40px;
 
-  &__title {
-    color: $color-dark;
-    margin-top: 10px;
-    line-height: 25px;
-    font-weight: 600;
-  }
+	&__title {
+		color: $color-dark;
+		margin-top: 10px;
+		line-height: 25px;
+		font-weight: 600;
+	}
 
-  &__source {
-    margin-top: 10px;
-    color: $color-text-secondary;
-  }
+	&__source {
+		margin-top: 10px;
+		color: $color-text-secondary;
+	}
 
-  &__image {
-    display: block;
-    height: 220px;
-    width: 100%;
-    object-fit: cover;
-  }
+	&__image {
+		display: block;
+		height: 220px;
+		width: 100%;
+		object-fit: cover;
+	}
+
+	&__buttons {
+		opacity: 0;
+		transition: all 0.2s;
+		margin-top: 15px;
+	}
+
+	&__btn {
+    cursor: pointer;
+		color: $color-text-secondary;
+		padding: 5px 15px;
+		border: 1px solid $color-text-secondary;
+		margin-right: 10px;
+
+		&:hover {
+			background-color: $color-accent;
+			color: #fff;
+			border: 1px solid $color-accent;
+		}
+	}
+
+	&:hover {
+		.Card__buttons {
+			opacity: 1;
+		}
+	}
 }
 
 [data-tooltip] {
-  position: relative;
-  &::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    height: 220px;
-    color: #fff;
-    padding: 1rem; 
-    pointer-events: none; 
-    opacity: 0;
-    transition: .5s; 
-  }
-  &:hover::after {
-    opacity: 1; 
-    background-color: rgba(228, 63, 90, 0.861);
-  }
+	position: relative;
+	&::after {
+		content: attr(data-tooltip);
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		height: 220px;
+		color: #fff;
+		padding: 1rem;
+		pointer-events: none;
+		opacity: 0;
+		transition: 0.5s;
+	}
+	&:hover::after {
+		opacity: 1;
+		background-color: rgba(228, 63, 90, 0.681);
+	}
 }

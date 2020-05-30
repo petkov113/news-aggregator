@@ -1,0 +1,50 @@
+@import '../../utilities/vars';
+
+.Profile {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+  &__title {
+    font-size: 52px;
+    line-height: 81px;
+  }
+
+  &__subtitle {
+    color: $color-text-secondary;
+    font-size: 25px;
+    align-self: center;
+    margin-bottom: 25px;
+  }
+
+  &__intro {
+    padding: 20px 40px;
+    flex: 1 1 50%;
+    background: no-repeat url('./intro.svg');
+    background-size: 80%;
+    background-position: 50% 80%;
+  }
+
+  &__form {
+    color: $color-text-secondary;
+    flex: 1 0 50%;
+    padding: 90px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    & li {
+      padding-left: 20px;
+      &::before {
+        content: '';
+        display: inline-block;
+        background-color: $color-accent;
+        width: 10px;
+        height: 10px;
+        margin: 0px 10px;
+      }
+    }
+  }
+}

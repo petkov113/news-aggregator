@@ -1,0 +1,41 @@
+@import '../../utilities/vars';
+
+.Form {
+  color: $color-dark;
+
+  &__wrapper {
+    width: 100%;
+    margin-bottom: 10px;
+    height: 90px;
+
+    &-buttons {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  &__field {
+    display: block;
+    width: 100%;
+    border: 1px solid $color-light;
+    padding: 15px 30px;
+    margin-bottom: 5px;
+  }
+
+  &__error {
+    color: $color-accent;
+    transition: all 0.2s;
+
+    & > i {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+
+    &-form {
+      color: $color-accent;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}

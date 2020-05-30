@@ -1,20 +1,19 @@
-import { StateTypes } from "./types";
+import { FeedState } from './ReducersTypes';
 import { ActionTypes } from "../actions/ActionTypes";
 import {
   SET_ARTICLES,
   SET_ERROR,
   SHOW_LOADER,
   HIDE_LOADER,
-} from "../actions/constants";
+} from "../constants";
 
-const initialState: StateTypes = {
-  loading: false,
-  country: "us",
-  articles: null,
-  error: null,
+const initialState: FeedState = {
+	loading: false,
+	articles: null,
+	error: null,
 };
 
-export default (state = initialState, action: ActionTypes): StateTypes => {
+export default (state = initialState, action: ActionTypes): FeedState => {
   switch (action.type) {
     case SET_ARTICLES:
       return {

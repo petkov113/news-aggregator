@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { PropsTypes } from "./SerachTypes";
+import { PropsTypes } from "./SearchTypes";
 import "./Search.scss";
 
 const Search: FC<PropsTypes> = ({ onChange, onSubmit, value }) => {

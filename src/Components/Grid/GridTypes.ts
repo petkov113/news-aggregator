@@ -1,5 +1,5 @@
-import { IArticle } from './../../redux/reducers/types';
+import { Article } from '../../redux/reducers/ReducersTypes';
 
 export type PropsTypes = {
-    items: IArticle[],
+    items: Article[],
 }

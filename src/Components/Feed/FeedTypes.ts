@@ -1,9 +1,8 @@
-import { IArticle, Category, Country } from "../../redux/reducers/types";
+import { Article, Category } from "../../redux/reducers/ReducersTypes";
 
 export type MapStateTypes = {
   loading: boolean;
-  country: Country;
-  articles: null | IArticle[];
+  articles: null | Article[];
   error: null | string;
 };
 
