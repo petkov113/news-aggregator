@@ -1,9 +1,10 @@
-import { Article, Category } from "../../redux/reducers/ReducersTypes";
+import { Article, Category } from "../../../redux/reducers/ReducersTypes";
 
 export type MapStateTypes = {
   loading: boolean;
   articles: null | Article[];
   error: null | string;
+  isAuthenticated: boolean
 };
 
 export type MapDispatchTypes = {

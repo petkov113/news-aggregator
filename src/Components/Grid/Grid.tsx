@@ -1,19 +1,18 @@
-import React, { FC } from "react";
-import { PropsTypes } from "./GridTypes";
-import Card from "../Card/Card";
+import React, { FC } from 'react';
+import Card from '../Card/Card';
+import { Article } from '../../redux/reducers/ReducersTypes';
 
-const Grid: FC<PropsTypes> = ({ items }) => {
+type GridTypes = {
+  items: Article[];
+  showButtons: boolean
+};
+
+const Grid: FC<GridTypes> = ({ items, showButtons }) => {
   return (
-    <div className="row">
+    <div className='row'>
       {items.map((item, index) => (
-        <div key={index} className="col-12 col-md-6 col-lg-4 col-xl-3">
-          <Card
-            source={item.source}
-            url={item.url}
-            urlToImage={item.urlToImage}
-            title={item.title}
-            description={item.description}
-          />
+        <div key={index} className='col-12 col-md-6 col-lg-4 col-xl-3'>
+          <Card {...item} showButtons={showButtons} />
         </div>
       ))}
     </div>

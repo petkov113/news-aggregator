@@ -1,4 +1,4 @@
-@import '../../utilities/vars';
+@import '../../../utilities/vars.scss';
 
 .Profile {
   position: relative;
@@ -6,10 +6,10 @@
   height: 100%;
   display: flex;
   flex-wrap: wrap;
+  padding: 20px 40px;
 
   &__title {
-    font-size: 52px;
-    line-height: 81px;
+    font-size: 40px;
   }
 
   &__subtitle {
@@ -19,8 +19,11 @@
     margin-bottom: 25px;
   }
 
+  &__info {
+    line-height: 34px;
+  }
+
   &__intro {
-    padding: 20px 40px;
     flex: 1 1 50%;
     background: no-repeat url('./intro.svg');
     background-size: 80%;

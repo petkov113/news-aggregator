@@ -1,4 +1,4 @@
-import { ActionTypes } from './../actions/ActionTypes';
+import { ActionTypes } from '../actions/ActionsTypes';
 import { SavedState } from './ReducersTypes';
 import {
   SHOW_LOADER,

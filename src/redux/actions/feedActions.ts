@@ -2,7 +2,7 @@ import { showLoader, hideLoader } from './commonActions';
 import axios from '../../axios/axios';
 import { ThunkAction } from 'redux-thunk';
 import { SET_ARTICLES, SET_ERROR } from '../constants';
-import { ActionTypes } from './ActionTypes';
+import { ActionTypes } from './ActionsTypes';
 import { RootState } from '../reducers/rootReducer';
 import { Article, APIResponseType, Category } from '../reducers/ReducersTypes';
 
@@ -12,12 +12,13 @@ export const requestArticles = (
 ): ThunkAction<Promise<void>, RootState, unknown, ActionTypes> => async (dispatch, getState) => {
   const state = getState();
   let url: string;
-
+  const country = state.profile.country.code
+  
   category !== 'all'
-    ? (url = `top-headlines?country=${state.app.country}&category=${category}&pageSize=100&apiKey=${process.env.REACT_APP_API_KEY}`)
+    ? (url = `top-headlines?country=${country}&category=${category}&pageSize=100&apiKey=${process.env.REACT_APP_API_KEY}`)
     : keyword
     ? (url = `everything?q=${keyword}&pageSize=30&sortBy=relevancy&apiKey=${process.env.REACT_APP_API_KEY}`)
-    : (url = `top-headlines?country=${state.app.country}&pageSize=100&apiKey=${process.env.REACT_APP_API_KEY}`);
+    : (url = `top-headlines?country=${country}&pageSize=100&apiKey=${process.env.REACT_APP_API_KEY}`);
 
   dispatch(showLoader());
   try {

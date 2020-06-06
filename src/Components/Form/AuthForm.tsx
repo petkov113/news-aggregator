@@ -1,26 +1,22 @@
-import React, { FC } from 'react';
 import {
   Formik,
   Form,
-  Field,
   FormikValues,
   ErrorMessage,
   FormikHelpers,
-  FormikProps
+  FormikProps,
+  Field,
 } from 'formik';
-import * as Yup from 'yup';
+import { FieldType, AuthProps } from './AuthTypes';
 import Button from '../UI/Button/Button';
+import React, { FC } from 'react';
+import * as Yup from 'yup';
 import './AuthForm.scss';
-import { onRegister } from '../../redux/actions/appActions';
-import { connect, ConnectedProps  } from 'react-redux';
-
-const connector = connect(null, { onRegister });
-type PropsFromRedux = ConnectedProps<typeof connector>
+import Loader from '../UI/Loader/Loader';
 
 const initialValues: FormikValues = { email: '', password: '' };
 
 const onSubmit = async (values: FormikValues, actions: FormikHelpers<FormikValues>) => {
-  console.log(values, actions);
   actions.setSubmitting(false);
 };
 
@@ -29,16 +25,19 @@ const validationSchema = Yup.object().shape({
   password: Yup.string()
     .min(6, 'The password should contain at least 6 symbols')
     .required('The field is required'),
+  generall: Yup.string(),
 });
 
-const renderError = (message: string) => (
-  <span className='Form__error'>
-    <i className='fas fa-exclamation-circle'></i>
-    {message}
-  </span>
-);
+const renderError = (message: string) => {
+  return (
+    <span className='Form__error'>
+      <i className='fas fa-exclamation-circle'></i>
+      {message}
+    </span>
+  );
+};
 
-const renderField = (type: 'email' | 'password' | 'text' | 'checkbox', name?: string) => {
+const renderField = (type: FieldType, name?: string) => {
   return (
     <Field
       className='Form__field'
@@ -54,7 +53,7 @@ const renderField = (type: 'email' | 'password' | 'text' | 'checkbox', name?: st
   );
 };
 
-const AuthForm: FC<PropsFromRedux> = ({ onRegister }) => {
+const AuthForm: FC<AuthProps> = ({ handleRegister, isLoading, handleLogin }) => {
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
       {(props: FormikProps<FormikValues>) => (
@@ -69,24 +68,28 @@ const AuthForm: FC<PropsFromRedux> = ({ onRegister }) => {
           </div>
           <div className='Form__wrapper-buttons'>
             <Button
-              type='submit'
               btnType='primary'
               disabled={!(props.isValid && props.dirty)}
+              onClick={() => handleLogin(props.values, props.setStatus, true)}
               value='Login'
             />
             <Button
-              onClick={() => onRegister(props.values, props.setErrors, props.setSubmitting)}
-              type='button'
               btnType='secondary'
+              onClick={() => handleRegister(props.values, props.setStatus, false)}
               disabled={!(props.isValid && props.dirty)}
               value='Register'
             />
           </div>
-          <span className='Form__error-form'>Bad request</span>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            props.status && <span className='Form__error-form'>{props.status.generall}</span>
+          )}
+          {/* {props.status && <span className='Form__error-form'>{props.status.generall}</span>} */}
         </Form>
       )}
     </Formik>
   );
 };
 
-export default connector(AuthForm);
+export default AuthForm;

@@ -1,6 +1,6 @@
 import { Article } from '../reducers/ReducersTypes';
 import { SAVE_ARTICLE, DELETE_ARTICLE, SUBSCRIBE, UNSUBSCRIBE } from '../constants';
-import { ActionTypes } from './ActionTypes';
+import { ActionTypes } from './ActionsTypes';
 
 const toggleSave = (id: string): void => {
     

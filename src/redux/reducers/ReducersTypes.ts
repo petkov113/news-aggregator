@@ -7,7 +7,16 @@ export type Category =
   | 'sports'
   | 'technology';
 
-export type Country = 'ru' | 'bg' | 'us' | 'ro' | 'au' | 'bg';
+export type Theme = 'light' | 'dark'
+
+  export type Country =
+  | { name: 'USA'; code: 'us' }
+  | { name: 'Russia'; code: 'ru' }
+  | { name: 'Bulgaria'; code: 'bg' }
+  | { name: 'Romania'; code: 'ro' }
+  | { name: 'Austria'; code: 'au' }
+  | { name: 'Great Britain'; code: 'gb' }
+  | { name: 'Italy'; code: 'it' };
 
 export type APIResponseType = {
   articles: Article[];
@@ -46,9 +55,11 @@ export type SavedState = Readonly<{
   error: null | string;
 }>;
 
-export type AppState = Readonly<{
+export type ProfileState = Readonly<{
   isAuth: boolean;
   userId: null | string;
+  token: null | string;
   country: Country;
-  theme: 'light' | 'dark';
+  theme: Theme;
+  loading: boolean;
 }>;

@@ -1,9 +1,14 @@
-@import "../../utilities/vars.scss";
+@import "../../../utilities/vars.scss";
 @import "./bootstrap-grid.css";
 
 .Feed {
   position: relative;
   width: 100%;
+
+  &__main-title {
+    font-size: 40px;
+    line-height: normal;
+  }
 
   &__header {
     padding: 20px 40px;

@@ -10,7 +10,8 @@ export const SUBSCRIBE = 'SUBSCRIBE';
 export const UNSUBSCRIBE = 'UNSUBSCRIBE';
 
 export const SET_COUNTRY = 'SET_COUNTRY';
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const SET_THEME = 'SET_THEME';
 

@@ -3,8 +3,8 @@ import classes from './Button.module.scss';
 
 type Button = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
   btnType: 'primary' | 'secondary';
-  onClick?: any;
-  disabled: boolean;
+  onClick: () => void;
+  disabled?: boolean;
   value: string;
   type?: 'button' | 'submit' | 'reset';
 };

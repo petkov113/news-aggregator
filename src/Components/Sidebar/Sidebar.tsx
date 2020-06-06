@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { NavLink, withRouter, RouteComponentProps } from 'react-router-dom';
 import './Sidebar.scss';
-import { NavLink, withRouter } from 'react-router-dom';
 
 type link = {
   to: string;
@@ -8,14 +8,22 @@ type link = {
   icon: string;
 };
 
-const links: link[] = [
-  { to: '/profile', exact: false, icon: 'fas fa-user-circle' },
-  { to: '/', exact: true, icon: 'fas fa-stream' },
-  { to: '/subscriptions', exact: false, icon: 'fas fa-plus' },
-  { to: '/saved', exact: false, icon: 'fas fa-clock' },
-];
+type SidebarProps = RouteComponentProps & {
+  isAuthenticated: boolean;
+};
 
-const Sidebar: React.FC = () => {
+const Sidebar: FC<SidebarProps> = ({ isAuthenticated }) => {
+  const links: Array<link> = [
+    { to: '/profile', exact: false, icon: 'fas fa-user-circle' },
+    { to: '/', exact: true, icon: 'fas fa-stream' },
+  ];
+
+  isAuthenticated &&
+    links.push(
+      { to: '/subscriptions', exact: false, icon: 'fas fa-plus' },
+      { to: '/saved', exact: false, icon: 'fas fa-clock' }
+    );
+
   return (
     <nav className='Sidebar'>
       <ul className='Sidebar__wrapper'>

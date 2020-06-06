@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import { connect } from 'react-redux';
-import { RootState } from '../../redux/reducers/rootReducer';
+import { RootState } from '../../../redux/reducers/rootReducer';
 import { PropsTypes, MapStateTypes, MapDispatchTypes } from './FeedTypes';
-import { requestArticles } from '../../redux/actions/feedActions';
-import { Category } from '../../redux/reducers/ReducersTypes';
-import Search from '../UI/Search/Search';
-import Loader from '../UI/Loader/Loader';
-import Grid from '../Grid/Grid';
+import { requestArticles } from '../../../redux/actions/feedActions';
+import { Category } from '../../../redux/reducers/ReducersTypes';
+import Search from '../../UI/Search/Search';
+import Loader from '../../UI/Loader/Loader';
+import Grid from '../../Grid/Grid';
 import './Feed.scss';
 
 const categoriesList: Category[] = [
@@ -18,7 +18,7 @@ const categoriesList: Category[] = [
   'sports',
 ];
 
-const Feed: FC<PropsTypes> = ({ articles, loading, requestArticles, error }) => {
+const Feed: FC<PropsTypes> = ({ articles, loading, requestArticles, error, isAuthenticated }) => {
   useEffect(() => {
     requestArticles();
   }, [requestArticles]);
@@ -49,7 +49,7 @@ const Feed: FC<PropsTypes> = ({ articles, loading, requestArticles, error }) => 
   return (
     <main className='Feed'>
       <div className='Feed__header'>
-        <h1>Top News</h1>
+        <h1 className='Feed__main-title'>Top News</h1>
         <div className='Feed__nav'>
           <ul className='Feed__categories_wrapper'>
             {categoriesList.map((categoryItem: Category, index: number) => (
@@ -70,7 +70,7 @@ const Feed: FC<PropsTypes> = ({ articles, loading, requestArticles, error }) => 
           {loading ? (
             <Loader />
           ) : articles ? (
-            <Grid items={articles} />
+            <Grid showButtons={isAuthenticated} items={articles} />
           ) : (
             error && <span className='Feed__error'>{error}</span>
           )}
@@ -92,6 +92,7 @@ const mapState = (state: RootState): MapStateTypes => ({
   loading: state.feed.loading,
   articles: state.feed.articles,
   error: state.feed.error,
+  isAuthenticated: state.profile.isAuth,
 });
 
 const mapDispatch: MapDispatchTypes = {

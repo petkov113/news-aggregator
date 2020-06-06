@@ -1,4 +1,4 @@
-import { Country } from './../reducers/ReducersTypes';
+import { Country } from '../reducers/ReducersTypes';
 import { Article } from '../reducers/ReducersTypes';
 import {
   SET_ARTICLES,
@@ -10,10 +10,24 @@ import {
   SUBSCRIBE,
   UNSUBSCRIBE,
   SET_COUNTRY,
-  LOGIN,
-  LOGOUT,
   SET_THEME,
+  AUTH_SUCCESS,
+  AUTH_ERROR,
+  AUTH_LOGOUT,
 } from '../constants';
+
+export type AuthResponse = {
+  data: {
+    email: string,
+    expiresIn: string,
+    idToken: string,
+    kind: string,
+    localId: string,
+    refreshToken: string
+  },
+  status: number,
+  statusText: string
+}
 
 interface SetArticles {
   type: typeof SET_ARTICLES;
@@ -56,18 +70,19 @@ interface SetCountry {
   type: typeof SET_COUNTRY;
   country: Country;
 }
-
-interface Login {
-  type: typeof LOGIN;
-}
-
-interface Logout {
-  type: typeof LOGOUT;
-}
-
 interface SetTheme {
   type: typeof SET_THEME;
   theme: 'light' | 'dark';
+}
+
+interface AuthSucces {
+  type: typeof AUTH_SUCCESS
+  userId: string,
+  token: string
+}
+
+interface Logout {
+  type: typeof AUTH_LOGOUT
 }
 
 export type ActionTypes =
@@ -80,6 +95,6 @@ export type ActionTypes =
   | Subscribe
   | Unsubscribe
   | SetCountry
-  | Login
-  | Logout
-  | SetTheme;
+  | SetTheme
+  | AuthSucces
+  | Logout;

@@ -1,0 +1,14 @@
+@import '../../../utilities/vars';
+
+.Select {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__options {
+        padding: 10px;
+        border: 1px solid $color-light;
+        margin-left: 50px;
+    }
+}

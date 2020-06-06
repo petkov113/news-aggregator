@@ -6,7 +6,6 @@
   border: 1px solid $color-accent;
   padding: 10px 40px;
   font-size: 16px;
-  margin: 0px 15px 15px 15px;
   font-weight: 600;
   cursor: pointer;
   color: $color-accent;
@@ -15,6 +14,7 @@
   &:hover {
     color: #fff;
     background-color: $color-accent;
+    border: 1px solid $color-accent;
   }
 }
 
@@ -36,5 +36,4 @@ a {
 .secondary {
   border: 1px solid $color-text-secondary;
   color: $color-text-secondary;
-  
 }

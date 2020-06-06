@@ -2,6 +2,7 @@
 
 .Form {
   color: $color-dark;
+  min-height: 290px;
 
   &__wrapper {
     width: 100%;
@@ -11,6 +12,7 @@
     &-buttons {
       display: flex;
       justify-content: center;
+      justify-content: space-evenly;
     }
   }
 

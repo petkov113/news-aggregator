@@ -1,5 +1,5 @@
 import { FeedState } from './ReducersTypes';
-import { ActionTypes } from "../actions/ActionTypes";
+import { ActionTypes } from "../actions/ActionsTypes";
 import {
   SET_ARTICLES,
   SET_ERROR,

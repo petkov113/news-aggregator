@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
 import feedReducer from "./feedReducer";
 import savedReducer from "./savedReducer";
-import appReducer from "./appReducer";
+import profileReducer from './profileReducer';
 
 const rootReducer = combineReducers({
-  app: appReducer,
+  profile: profileReducer,
   feed: feedReducer,
-  saved: savedReducer
+  saved: savedReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>
