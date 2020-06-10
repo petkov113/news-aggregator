@@ -18,7 +18,7 @@ type CardTypes = {
   source: { id: string | null; name: string };
   title: string;
   description: string;
-  showButtons: boolean;
+  showButtons?: boolean;
 };
 
 const Card: FC<CardTypes> = ({ url, urlToImage, source, title, description, showButtons }) => {
@@ -35,7 +35,7 @@ const Card: FC<CardTypes> = ({ url, urlToImage, source, title, description, show
         className='Card__image'
         effect='blur'
       />
-      <h3 className='Card__title'>{title}</h3>
+      <span className='Card__title'>{title}</span>
       <div className='Card__source'>{source.name}</div>
       {showButtons && (
         <div className='Card__buttons'>

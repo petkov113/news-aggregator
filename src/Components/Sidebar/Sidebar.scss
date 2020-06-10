@@ -1,14 +1,18 @@
-@import "../../utilities/vars.scss";
+@import '../../utilities/vars.scss';
 
 .Sidebar {
   background-color: $color-dark;
   flex: 0 0 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 0;
 
   &__wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 25px;
     height: 200px;
   }
 
@@ -17,14 +21,14 @@
     margin-bottom: 25px;
 
     & a {
-      color: $color-light;   
-      transition: all .2s;
+      color: $color-light;
+      transition: all 0.2s;
 
       &.active {
         color: $color-accent;
       }
       &:hover {
-        color: $color-accent-light
+        color: $color-accent-light;
       }
     }
   }

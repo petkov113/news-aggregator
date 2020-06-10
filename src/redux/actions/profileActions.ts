@@ -1,11 +1,8 @@
-import { Theme } from './../reducers/ReducersTypes';
-import { AUTH_SUCCESS, AUTH_LOGOUT, SET_COUNTRY, SET_THEME } from '../constants';
-import { ActionTypes, AuthResponse } from './ActionsTypes';
+import { AUTH_SUCCESS, AUTH_LOGOUT, SET_COUNTRY } from '../constants';
+import { ActionTypes, AuthResponse, ThunkAsync, Thunk } from './ActionsTypes';
 import { showLoader, hideLoader } from './commonActions';
 import { FormikValues } from 'formik';
 import { AuthFunction } from '../../Components/Form/AuthTypes';
-import { ThunkAction } from 'redux-thunk';
-import { RootState } from '../reducers/rootReducer';
 import { Country } from '../reducers/ReducersTypes';
 import axios from 'axios';
 
@@ -13,7 +10,7 @@ export const auth: AuthFunction = (
   values: FormikValues,
   setStatus: (status: any) => void,
   isLogin: boolean
-): ThunkAction<Promise<void>, RootState, unknown, ActionTypes> => async (dispatch) => {
+): ThunkAsync => async (dispatch) => {
   dispatch(showLoader());
   const authData = {
     email: values.email,
@@ -71,7 +68,7 @@ export const logout = (): ActionTypes => {
   };
 };
 
-export const autoLogin = (): ThunkAction<void, RootState, unknown, ActionTypes> => (dispatch) => {
+export const autoLogin = (): Thunk => (dispatch) => {
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
   const expirationDate = localStorage.getItem('expirationDate');
@@ -88,9 +85,7 @@ export const autoLogin = (): ThunkAction<void, RootState, unknown, ActionTypes> 
   }
 };
 
-const autoLogout = (time: number): ThunkAction<void, RootState, unknown, ActionTypes> => (
-  dispatch
-) => {
+const autoLogout = (time: number): Thunk => (dispatch) => {
   setTimeout(() => {
     dispatch(logout());
   }, time * 1000);
@@ -100,12 +95,5 @@ export const setCountry = (country: Country): ActionTypes => {
   return {
     type: SET_COUNTRY,
     country,
-  };
-};
-
-export const setTheme = (theme: Theme): ActionTypes => {
-  return {
-    type: SET_THEME,
-    theme,
   };
 };

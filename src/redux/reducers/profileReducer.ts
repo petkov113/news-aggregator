@@ -3,7 +3,6 @@ import { ProfileState } from './ReducersTypes';
 import {
   SET_COUNTRY,
   AUTH_LOGOUT,
-  SET_THEME,
   AUTH_SUCCESS,
   SHOW_LOADER,
   HIDE_LOADER,
@@ -14,7 +13,6 @@ const initialState: ProfileState = {
   userId: null,
   token: null,
   country: { name: 'USA', code: 'us' },
-  theme: 'light',
   loading: false,
 };
 
@@ -26,8 +24,6 @@ export default (state = initialState, action: ActionTypes): ProfileState => {
       return { ...state, isAuth: true, userId: action.userId, token: action.token };
     case AUTH_LOGOUT:
       return { ...state, isAuth: false };
-    case SET_THEME:
-      return { ...state, theme: action.theme };
     case SHOW_LOADER:
       return { ...state, loading: true };
     case HIDE_LOADER:

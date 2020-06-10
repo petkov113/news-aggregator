@@ -1,3 +1,4 @@
+import { ThunkAction } from 'redux-thunk';
 import { Country } from '../reducers/ReducersTypes';
 import { Article } from '../reducers/ReducersTypes';
 import {
@@ -10,11 +11,13 @@ import {
   SUBSCRIBE,
   UNSUBSCRIBE,
   SET_COUNTRY,
-  SET_THEME,
   AUTH_SUCCESS,
-  AUTH_ERROR,
   AUTH_LOGOUT,
 } from '../constants';
+import { RootState } from '../reducers/rootReducer';
+
+export type ThunkAsync = ThunkAction<Promise<void>, RootState, unknown, ActionTypes>;
+export type Thunk = ThunkAction<void, RootState, unknown, ActionTypes>;
 
 export type AuthResponse = {
   data: {
@@ -70,10 +73,6 @@ interface SetCountry {
   type: typeof SET_COUNTRY;
   country: Country;
 }
-interface SetTheme {
-  type: typeof SET_THEME;
-  theme: 'light' | 'dark';
-}
 
 interface AuthSucces {
   type: typeof AUTH_SUCCESS
@@ -95,6 +94,5 @@ export type ActionTypes =
   | Subscribe
   | Unsubscribe
   | SetCountry
-  | SetTheme
   | AuthSucces
   | Logout;

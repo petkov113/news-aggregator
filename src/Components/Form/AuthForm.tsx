@@ -68,12 +68,14 @@ const AuthForm: FC<AuthProps> = ({ handleRegister, isLoading, handleLogin }) => 
           </div>
           <div className='Form__wrapper-buttons'>
             <Button
+              type='button'
               btnType='primary'
               disabled={!(props.isValid && props.dirty)}
               onClick={() => handleLogin(props.values, props.setStatus, true)}
               value='Login'
             />
             <Button
+              type='button'
               btnType='secondary'
               onClick={() => handleRegister(props.values, props.setStatus, false)}
               disabled={!(props.isValid && props.dirty)}
@@ -85,7 +87,6 @@ const AuthForm: FC<AuthProps> = ({ handleRegister, isLoading, handleLogin }) => 
           ) : (
             props.status && <span className='Form__error-form'>{props.status.generall}</span>
           )}
-          {/* {props.status && <span className='Form__error-form'>{props.status.generall}</span>} */}
         </Form>
       )}
     </Formik>

@@ -1,19 +1,17 @@
+import { Article, APIResponseType, Category } from '../reducers/ReducersTypes';
+import { SET_ARTICLES, SET_ERROR } from '../constants';
+import { ActionTypes, ThunkAsync } from './ActionsTypes';
 import { showLoader, hideLoader } from './commonActions';
 import axios from '../../axios/axios';
-import { ThunkAction } from 'redux-thunk';
-import { SET_ARTICLES, SET_ERROR } from '../constants';
-import { ActionTypes } from './ActionsTypes';
-import { RootState } from '../reducers/rootReducer';
-import { Article, APIResponseType, Category } from '../reducers/ReducersTypes';
 
-export const requestArticles = (
-  category: Category = 'all',
-  keyword?: string
-): ThunkAction<Promise<void>, RootState, unknown, ActionTypes> => async (dispatch, getState) => {
+export const requestArticles = (category: Category = 'all', keyword?: string): ThunkAsync => async (
+  dispatch,
+  getState
+) => {
   const state = getState();
   let url: string;
-  const country = state.profile.country.code
-  
+  const country = state.profile.country.code;
+
   category !== 'all'
     ? (url = `top-headlines?country=${country}&category=${category}&pageSize=100&apiKey=${process.env.REACT_APP_API_KEY}`)
     : keyword

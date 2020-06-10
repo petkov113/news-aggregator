@@ -7,8 +7,6 @@ export type Category =
   | 'sports'
   | 'technology';
 
-export type Theme = 'light' | 'dark'
-
   export type Country =
   | { name: 'USA'; code: 'us' }
   | { name: 'Russia'; code: 'ru' }
@@ -60,6 +58,5 @@ export type ProfileState = Readonly<{
   userId: null | string;
   token: null | string;
   country: Country;
-  theme: Theme;
   loading: boolean;
 }>;

@@ -1,18 +1,39 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import { autoLogin } from './redux/actions/profileActions';
 import { RootState } from './redux/reducers/rootReducer';
+import { Thunk } from './redux/actions/ActionsTypes';
 import Subscriptions from './Components/Containers/Subscriptions/Subscriptions';
+import ThemeToggle from './Components/UI/ThemeToggler/ThemeToggle';
 import Sidebar from './Components/Sidebar/Sidebar';
 import Profile from './Components/Containers/Profile/Profile';
 import Saved from './Components/Containers/Saved/Saved';
 import Feed from './Components/Containers/Feed/Feed';
 import './App.scss';
-import { ThunkAction } from 'redux-thunk';
-import { ActionTypes } from './redux/actions/ActionsTypes';
+
+type Theme = 'light' | 'dark';
+
+const getInitialTheme = () => {
+  return localStorage.getItem('NEWSIUM/theme') as undefined | Theme;
+};
 
 const App: FC<AppProps> = ({ isAuthenticated, autoLogin }) => {
+  const [theme, setTheme] = useState<Theme>('light');
+
+  const onThemeChange = () => {
+    theme === 'light' ? setTheme('dark') : setTheme('light');
+  };
+
+  useEffect(() => {
+    const theme = getInitialTheme();
+    if (theme) setTheme(theme);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('NEWSIUM/theme', theme);
+  }, [theme]);
+
   useEffect(() => {
     autoLogin();
   }, [autoLogin]);
@@ -29,8 +50,10 @@ const App: FC<AppProps> = ({ isAuthenticated, autoLogin }) => {
     );
 
   return (
-    <div className='App'>
-      <Sidebar isAuthenticated={isAuthenticated} />
+    <div className={`App ${theme}`}>
+      <Sidebar isAuthenticated={isAuthenticated}>
+        <ThemeToggle theme={theme} onChange={onThemeChange} />
+      </Sidebar>
       <Switch>
         {routes}
         <Redirect to='/' />
@@ -42,7 +65,7 @@ const App: FC<AppProps> = ({ isAuthenticated, autoLogin }) => {
 type MapState = { isAuthenticated: boolean };
 const mapStateToProps = (state: RootState): MapState => ({ isAuthenticated: state.profile.isAuth });
 
-type MapDispatch = { autoLogin: () =>  ThunkAction<void, RootState, unknown, ActionTypes> };
+type MapDispatch = { autoLogin: () => Thunk };
 const mapDispatchToProps: MapDispatch = { autoLogin };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

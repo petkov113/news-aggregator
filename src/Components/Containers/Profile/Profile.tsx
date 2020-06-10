@@ -1,8 +1,8 @@
 import React, { FC, ChangeEvent } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { MapStateTypes, MapDispatchTypes } from './ProfileTypes';
-import { auth, setCountry, setTheme, logout } from '../../../redux/actions/profileActions';
-import { Country, Theme } from '../../../redux/reducers/ReducersTypes';
+import { auth, setCountry, logout } from '../../../redux/actions/profileActions';
+import { Country } from '../../../redux/reducers/ReducersTypes';
 import { RootState } from '../../../redux/reducers/rootReducer';
 import AuthForm from '../../Form/AuthForm';
 import Select from '../../UI/Select/Select';
@@ -26,15 +26,10 @@ export const Profile: FC<ProfileProps> = ({
   loading,
   logout,
   setCountry,
-  theme,
 }) => {
   const onCoutryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const item = countries.find((country) => country.name === e.target.value) as Country;
     setCountry(item);
-  };
-
-  const onThemeChange = (event: ChangeEvent<HTMLSelectElement> & { target: { value: Theme } }) => {
-    setTheme(event.target.value);
   };
 
   return (
@@ -51,13 +46,6 @@ export const Profile: FC<ProfileProps> = ({
                 return [...acc, country.name];
               }, [])}
               onChange={onCoutryChange}
-            />
-            <Select
-              title='Theme'
-              defValue={theme}
-              name='theme'
-              items={['light', 'dark']}
-              onChange={onThemeChange}
             />
             <Button btnType='primary' onClick={logout} value='Logout' />
           </div>
@@ -90,7 +78,6 @@ const mapStateToProps = (state: RootState): MapStateTypes => ({
   isAuthentiphicated: state.profile.isAuth,
   country: state.profile.country,
   loading: state.profile.loading,
-  theme: state.profile.theme,
 });
 
 const mapDispatchToProps: MapDispatchTypes = { auth, setCountry, logout };

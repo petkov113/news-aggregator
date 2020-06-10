@@ -1,0 +1,150 @@
+$light-toggle: #ffc361;
+$dark-toggle: #fffbf3;
+
+$dark-toggle-background: #6d51aa;
+$light-toggle-background: #8eb4e0;
+
+$crater: #d8d3cb;
+$glare: #ffe1a9;
+
+$time: 200ms;
+
+$height: 25px;
+$width: 45px;
+$offset: 6px;
+
+.toggle-wrapper {
+  user-select: none;
+  position: relative;
+
+  input {
+    visibility: hidden;
+  }
+
+  .toggle {
+    cursor: pointer;
+    display: block;
+    position: relative;
+    width: $width;
+    height: $height;
+    background-color: $light-toggle-background;
+    border-radius: $width - $offset;
+    transition: background-color $time;
+  }
+
+  .toggle__items {
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    top: $offset / 2;
+    left: $offset / 2;
+    width: $height - $offset;
+    height: $height - $offset;
+    background-color: $light-toggle;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition-property: transform, top, left;
+    transition-duration: $time;
+    transform: rotate(-90deg);
+
+    .glare {
+      position: absolute;
+      width: $height / 2.5;
+      height: $height / 2.5;
+      border: solid ($height / 14) $glare;
+      border-color: transparent transparent $glare transparent;
+      border-radius: 0 0 200px 200px;
+      transform: rotate(220deg);
+      top: 15%;
+      left: 15%;
+      opacity: 1;
+      transition: opacity $time / 4;
+    }
+
+    .dot {
+      position: absolute;
+      background-color: $crater;
+      opacity: 0;
+      transition: opacity $time / 4;
+      border-radius: 100%;
+
+      &--1 {
+        top: 30%;
+        left: 25%;
+        width: $height / 7;
+        height: $height / 7;
+      }
+
+      &--2 {
+        top: 60%;
+        left: 50%;
+        width: $height / 6;
+        height: $height / 6;
+      }
+
+      &--3 {
+        top: 20%;
+        right: 20%;
+        width: $height / 5;
+        height: $height / 5;
+      }
+    }
+  }
+
+  .toggle__ray {
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity $time / 4;
+    transition-delay: $time / 4;
+  }
+
+  .ray {
+    width: $height / 4;
+    height: 2px;
+    position: absolute;
+    background: $light-toggle;
+    border-radius: $offset;
+    left: $height;
+    z-index: 1;
+
+    &--1 {
+      top: $height / 2 - ($offset / 4);
+      left: $height + 1;
+    }
+
+    &--2 {
+      width: $height / 5;
+      top: calc(20% - 1px);
+      transform: rotate(-20deg);
+      left: $height;
+    }
+
+    &--3 {
+      width: $height / 5;
+      top: calc(80% - 2px);
+      transform: rotate(20deg);
+    }
+  }
+
+  input:checked {
+    + .toggle {
+      background-color: $dark-toggle-background;
+
+      .toggle__items {
+        background-color: $dark-toggle;
+        transform: translate3d($width - $height, 0, 0) rotate(0);
+
+        .dot {
+          opacity: 1;
+        }
+        .glare {
+          opacity: 0;
+        }
+      }
+
+      .toggle__ray {
+        opacity: 0;
+      }
+    }
+  }
+}

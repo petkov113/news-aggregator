@@ -6,7 +6,6 @@ export type MapStateTypes = {
   isAuthentiphicated: boolean;
   country: Country;
   loading: boolean;
-  theme: 'dark' | 'light'
 };
 
 export type MapDispatchTypes = {

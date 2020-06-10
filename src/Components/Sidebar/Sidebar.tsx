@@ -12,7 +12,7 @@ type SidebarProps = RouteComponentProps & {
   isAuthenticated: boolean;
 };
 
-const Sidebar: FC<SidebarProps> = ({ isAuthenticated }) => {
+const Sidebar: FC<SidebarProps> = ({ isAuthenticated, children }) => {
   const links: Array<link> = [
     { to: '/profile', exact: false, icon: 'fas fa-user-circle' },
     { to: '/', exact: true, icon: 'fas fa-stream' },
@@ -35,6 +35,7 @@ const Sidebar: FC<SidebarProps> = ({ isAuthenticated }) => {
           </li>
         ))}
       </ul>
+        {children}
     </nav>
   );
 };

@@ -4,8 +4,8 @@ import { RootState } from '../../../redux/reducers/rootReducer';
 import { PropsTypes, MapStateTypes, MapDispatchTypes } from './FeedTypes';
 import { requestArticles } from '../../../redux/actions/feedActions';
 import { Category } from '../../../redux/reducers/ReducersTypes';
-import Search from '../../UI/Search/Search';
-import Loader from '../../UI/Loader/Loader';
+import PostPlaceholder from '../../UI/PostPlaceholder/PostPlaceholder';
+import Search from '../../Search/Search';
 import Grid from '../../Grid/Grid';
 import './Feed.scss';
 
@@ -68,7 +68,7 @@ const Feed: FC<PropsTypes> = ({ articles, loading, requestArticles, error, isAut
       <div className='Feed__wrapper container-fluid'>
         <div className='Feed__content'>
           {loading ? (
-            <Loader />
+            <Grid items={new Array(8).fill(<PostPlaceholder />)} />
           ) : articles ? (
             <Grid showButtons={isAuthenticated} items={articles} />
           ) : (

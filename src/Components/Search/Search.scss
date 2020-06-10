@@ -1,0 +1,33 @@
+@import '../../utilities/vars';
+
+.Search {
+  width: 300px;
+  border: 1px solid $color-light;
+  display: flex;
+  justify-content: space-between;
+
+  & > input {
+    color: $color-text-secondary;
+    padding: 7px 20px;
+    &::placeholder {
+      color: $color-border;
+    }
+  }
+
+  & > button {
+    width: 60px;
+    cursor: pointer;
+    border-left: 1px solid $color-light;
+    & > i {
+      color: $color-light;
+      transition: all 0.2s;
+    }
+
+    &:hover {
+      & > i {
+        color: $color-accent;
+        transform: scale(1.2);
+      }
+    }
+  }
+}
