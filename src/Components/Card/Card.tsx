@@ -3,16 +3,15 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import './Card.scss';
 
-const validateSrc = (url: null | string): string => {
-  const imagesBlacklist = new RegExp(/(.*kubrick.*)|(.*wthr.*)|(.*nydailynews.*)/);
-  const validUrl = url && !imagesBlacklist.test(url) ? url : './placeholder.jpg';
-  return validUrl;
+const validateImgSrc = (url: null | string): string => {
+  const imagesBlacklist = new RegExp(/(.*kubrick.*)|(.*wthr.*)|(.*nydailynews.*)|(.*statesman.*)/);
+  return url && !imagesBlacklist.test(url) ? url : './placeholder.jpg';
 };
 
 const validateDescription = (description: null | string): string =>
   description ? description : '';
 
-type CardTypes = {
+export type CardProps = {
   url: string;
   urlToImage: string;
   source: { id: string | null; name: string };
@@ -21,7 +20,7 @@ type CardTypes = {
   showButtons?: boolean;
 };
 
-const Card: FC<CardTypes> = ({ url, urlToImage, source, title, description, showButtons }) => {
+const Card: FC<CardProps> = ({ url, urlToImage, source, title, description, showButtons }) => {
   return (
     <a
       href={url}
@@ -30,7 +29,7 @@ const Card: FC<CardTypes> = ({ url, urlToImage, source, title, description, show
       rel='noopener noreferrer'
       data-tooltip={validateDescription(description)}>
       <LazyLoadImage
-        src={validateSrc(urlToImage)}
+        src={validateImgSrc(urlToImage)}
         alt='Article'
         className='Card__image'
         effect='blur'

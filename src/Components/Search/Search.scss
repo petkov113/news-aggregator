@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
 
-  & > input {
+  > input {
     color: $color-text-secondary;
     padding: 7px 20px;
     &::placeholder {
@@ -14,17 +14,17 @@
     }
   }
 
-  & > button {
+  > button {
     width: 60px;
     cursor: pointer;
     border-left: 1px solid $color-light;
-    & > i {
+    > i {
       color: $color-light;
       transition: all 0.2s;
     }
 
     &:hover {
-      & > i {
+      > i {
         color: $color-accent;
         transform: scale(1.2);
       }

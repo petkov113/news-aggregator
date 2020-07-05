@@ -1,0 +1,153 @@
+.toggle-wrapper {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative;
+}
+
+.toggle-wrapper input {
+  visibility: hidden;
+}
+
+.toggle-wrapper .toggle {
+  cursor: pointer;
+  display: block;
+  position: relative;
+  width: 45px;
+  height: 25px;
+  background-color: #8eb4e0;
+  border-radius: 39px;
+  -webkit-transition: background-color 200ms;
+  transition: background-color 200ms;
+}
+
+.toggle-wrapper .toggle__items {
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  top: 3px;
+  left: 3px;
+  width: 19px;
+  height: 19px;
+  background-color: #ffc361;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  -webkit-transition-property: top, left, -webkit-transform;
+  transition-property: top, left, -webkit-transform;
+  transition-property: transform, top, left;
+  transition-property: transform, top, left, -webkit-transform;
+  -webkit-transition-duration: 200ms;
+          transition-duration: 200ms;
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+}
+
+.toggle-wrapper .toggle__items .glare {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: solid 1.78571px #ffe1a9;
+  border-color: transparent transparent #ffe1a9 transparent;
+  border-radius: 0 0 200px 200px;
+  -webkit-transform: rotate(220deg);
+          transform: rotate(220deg);
+  top: 15%;
+  left: 15%;
+  opacity: 1;
+  -webkit-transition: opacity 50ms;
+  transition: opacity 50ms;
+}
+
+.toggle-wrapper .toggle__items .dot {
+  position: absolute;
+  background-color: #d8d3cb;
+  opacity: 0;
+  -webkit-transition: opacity 50ms;
+  transition: opacity 50ms;
+  border-radius: 100%;
+}
+
+.toggle-wrapper .toggle__items .dot--1 {
+  top: 30%;
+  left: 25%;
+  width: 3.57143px;
+  height: 3.57143px;
+}
+
+.toggle-wrapper .toggle__items .dot--2 {
+  top: 60%;
+  left: 50%;
+  width: 4.16667px;
+  height: 4.16667px;
+}
+
+.toggle-wrapper .toggle__items .dot--3 {
+  top: 20%;
+  right: 20%;
+  width: 5px;
+  height: 5px;
+}
+
+.toggle-wrapper .toggle__ray {
+  pointer-events: none;
+  opacity: 1;
+  -webkit-transition: opacity 50ms;
+  transition: opacity 50ms;
+  -webkit-transition-delay: 50ms;
+          transition-delay: 50ms;
+}
+
+.toggle-wrapper .ray {
+  width: 6.25px;
+  height: 2px;
+  position: absolute;
+  background: #ffc361;
+  border-radius: 6px;
+  left: 25px;
+  z-index: 1;
+}
+
+.toggle-wrapper .ray--1 {
+  top: 11px;
+  left: 26px;
+}
+
+.toggle-wrapper .ray--2 {
+  width: 5px;
+  top: calc(20% - 1px);
+  -webkit-transform: rotate(-20deg);
+          transform: rotate(-20deg);
+  left: 25px;
+}
+
+.toggle-wrapper .ray--3 {
+  width: 5px;
+  top: calc(80% - 2px);
+  -webkit-transform: rotate(20deg);
+          transform: rotate(20deg);
+}
+
+.toggle-wrapper input:checked + .toggle {
+  background-color: #6d51aa;
+}
+
+.toggle-wrapper input:checked + .toggle .toggle__items {
+  background-color: #fffbf3;
+  -webkit-transform: translate3d(20px, 0, 0) rotate(0);
+          transform: translate3d(20px, 0, 0) rotate(0);
+}
+
+.toggle-wrapper input:checked + .toggle .toggle__items .dot {
+  opacity: 1;
+}
+
+.toggle-wrapper input:checked + .toggle .toggle__items .glare {
+  opacity: 0;
+}
+
+.toggle-wrapper input:checked + .toggle .toggle__ray {
+  opacity: 0;
+}
+/*# sourceMappingURL=ThemeToggler.css.map */

@@ -1,13 +1,13 @@
-import React, { FC, ChangeEvent } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { MapStateTypes, MapDispatchTypes } from './ProfileTypes';
-import { auth, setCountry, logout } from '../../../redux/actions/profileActions';
-import { Country } from '../../../redux/reducers/ReducersTypes';
-import { RootState } from '../../../redux/reducers/rootReducer';
-import AuthForm from '../../Form/AuthForm';
-import Select from '../../UI/Select/Select';
-import Button from '../../UI/Button/Button';
-import './Profile.scss';
+import React, { FC, ChangeEvent } from 'react'
+import { connect, ConnectedProps } from 'react-redux'
+import { MapStateTypes, MapDispatchTypes } from './ProfileTypes'
+import { auth, setCountry, logout } from '../../../redux/actions/profileActions'
+import { RootState } from '../../../redux/reducers/rootReducer'
+import { Country } from '../../../redux/reducers/ReducersTypes'
+import AuthForm from '../../Form/AuthForm'
+import Button from '../../UI/Button/Button'
+import Select from '../../UI/Select/Select'
+import './Profile.scss'
 
 const countries: Country[] = [
   { name: 'USA', code: 'us' },
@@ -17,7 +17,11 @@ const countries: Country[] = [
   { name: 'Austria', code: 'au' },
   { name: 'Great Britain', code: 'gb' },
   { name: 'Italy', code: 'it' },
-];
+]
+
+export const countriesNames = countries.reduce((acc: string[], country) => {
+  return [...acc, country.name]
+}, [])
 
 export const Profile: FC<ProfileProps> = ({
   isAuthentiphicated,
@@ -28,23 +32,20 @@ export const Profile: FC<ProfileProps> = ({
   setCountry,
 }) => {
   const onCoutryChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const item = countries.find((country) => country.name === e.target.value) as Country;
-    setCountry(item);
-  };
-
+    const item = countries.find((country) => country.name === e.target.value) as Country
+    setCountry(item)
+  }
   return (
     <div className='Profile'>
       {isAuthentiphicated ? (
         <div className='Profile__settings'>
-          <h1 className='Profile__title'> Settings </h1>
+          <h1 className='Profile__title'>Settings</h1>
           <div className='Profile__inputs'>
             <Select
-              title='Select your country'
+              label='Select your country'
               defValue={country.name}
               name='countries'
-              items={countries.reduce((acc: string[], country) => {
-                return [...acc, country.name];
-              }, [])}
+              items={countriesNames}
               onChange={onCoutryChange}
             />
             <Button btnType='primary' onClick={logout} value='Logout' />
@@ -60,10 +61,10 @@ export const Profile: FC<ProfileProps> = ({
             <h2 className='Profile__subtitle'>Log in to get the full access</h2>
             <AuthForm handleRegister={auth} isLoading={loading} handleLogin={auth} />
             <div className='Profile__info'>
-              <span>Creating an account will give you ability to:</span>
+              <span>Creating an account will give you the ability to:</span>
               <ul>
                 <li>Save articles to read them later</li>
-                <li>Select country</li>
+                <li>Select the country</li>
                 <li>Subscribe to a particular sources</li>
               </ul>
             </div>
@@ -71,20 +72,20 @@ export const Profile: FC<ProfileProps> = ({
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state: RootState): MapStateTypes => ({
   isAuthentiphicated: state.profile.isAuth,
   country: state.profile.country,
   loading: state.profile.loading,
-});
+})
 
-const mapDispatchToProps: MapDispatchTypes = { auth, setCountry, logout };
+const mapDispatchToProps: MapDispatchTypes = { auth, setCountry, logout }
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type ProfileProps = ConnectedProps<typeof connector>;
+const connector = connect(mapStateToProps, mapDispatchToProps)
+type ProfileProps = ConnectedProps<typeof connector>
 
-export default connector(Profile);
+export default connector(Profile)
 
 // "https://newsapi.org/v2/sources?apiKey=${}"

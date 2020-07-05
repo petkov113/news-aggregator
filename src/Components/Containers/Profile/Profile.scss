@@ -7,6 +7,8 @@
   display: flex;
   flex-wrap: wrap;
   padding: 20px 40px;
+  animation: fadein 0.7s;
+  overflow: hidden;
 
   &__title {
     font-size: 40px;
@@ -28,6 +30,7 @@
     background: no-repeat url('./intro.svg');
     background-size: 80%;
     background-position: 50% 80%;
+    animation: slideInLeft 0.7s;
   }
 
   &__form {
@@ -37,6 +40,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    animation: slideInRight 0.7s;
 
     & li {
       padding-left: 20px;

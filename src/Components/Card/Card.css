@@ -1,0 +1,80 @@
+.Card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 350px;
+  margin-bottom: 40px;
+}
+
+.Card__title {
+  margin-top: 10px;
+  line-height: 25px;
+  font-weight: 600;
+}
+
+.Card__source {
+  margin-top: 10px;
+  color: #707070;
+}
+
+.Card__image {
+  display: block;
+  height: 220px;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.Card__buttons {
+  opacity: 0;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  margin-top: 15px;
+}
+
+.Card__btn {
+  cursor: pointer;
+  color: #707070;
+  padding: 5px 15px;
+  border: 1px solid #707070;
+  margin-right: 10px;
+}
+
+.Card__btn:hover {
+  background-color: #E43F5A;
+  color: #fff;
+  border: 1px solid #E43F5A;
+}
+
+.Card:hover .Card__buttons {
+  opacity: 1;
+}
+
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 220px;
+  color: #fff;
+  padding: 1rem;
+  pointer-events: none;
+  opacity: 0;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+  background-color: rgba(228, 63, 90, 0.681);
+}
+/*# sourceMappingURL=Card.css.map */

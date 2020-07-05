@@ -1,5 +1,7 @@
+@import './utilities/animations.scss';
 @import './utilities/reset.scss';
-@import './utilities/vars';
+@import './utilities/tooltip.css';
+@import './utilities/vars.scss';
 
 .App {
   display: flex;
@@ -8,15 +10,15 @@
   font-family: 'Open-sans', sans-serif;
   color: $color-dark;
   font-size: 16px;
-  & h1 {
+  h1 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     color: $color-accent;
   }
 
   &.light {
-    & a {
-      & > span {
+    a {
+      > span {
         color: $color-dark;
       }
     }
@@ -24,20 +26,20 @@
 
   &.dark {
     background-color: $color-background;
-    & a {
-      & > span {
+    a {
+      > span {
         color: $color-text-light;
       }
     }
-    & label {
+    label {
       color: $color-text-light;
     }
 
-    & input {
+    input {
       color: $color-light;
     }
 
-    & .background-masker {
+    .background-masker {
       background: $color-background;
     }
   }

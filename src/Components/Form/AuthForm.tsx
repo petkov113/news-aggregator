@@ -1,24 +1,16 @@
-import {
-  Formik,
-  Form,
-  FormikValues,
-  ErrorMessage,
-  FormikHelpers,
-  FormikProps,
-  Field,
-} from 'formik';
-import { FieldType, AuthProps } from './AuthTypes';
-import Button from '../UI/Button/Button';
-import React, { FC } from 'react';
-import * as Yup from 'yup';
-import './AuthForm.scss';
-import Loader from '../UI/Loader/Loader';
+import { Formik, Form, FormikValues, ErrorMessage, FormikHelpers, FormikProps, Field } from 'formik'
+import { FieldType, AuthProps } from './AuthTypes'
+import Button from '../UI/Button/Button'
+import React, { FC } from 'react'
+import * as Yup from 'yup'
+import './AuthForm.scss'
+import Loader from '../UI/Loader/Loader'
 
-const initialValues: FormikValues = { email: '', password: '' };
+const initialValues: FormikValues = { email: '', password: '' }
 
 const onSubmit = async (values: FormikValues, actions: FormikHelpers<FormikValues>) => {
-  actions.setSubmitting(false);
-};
+  actions.setSubmitting(false)
+}
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email().required('The field is required'),
@@ -26,7 +18,7 @@ const validationSchema = Yup.object().shape({
     .min(6, 'The password should contain at least 6 symbols')
     .required('The field is required'),
   generall: Yup.string(),
-});
+})
 
 const renderError = (message: string) => {
   return (
@@ -34,8 +26,8 @@ const renderError = (message: string) => {
       <i className='fas fa-exclamation-circle'></i>
       {message}
     </span>
-  );
-};
+  )
+}
 
 const renderField = (type: FieldType, name?: string) => {
   return (
@@ -46,18 +38,18 @@ const renderField = (type: FieldType, name?: string) => {
       id={name || type}
       placeholder={
         name
-          ? name.replace(/^\w/, (l) => l.toLocaleUpperCase())
+          ? name.replace(/^\w/, (l) => l.toUpperCase())
           : type.replace(/^\w/, (l) => l.toUpperCase())
       }
     />
-  );
-};
+  )
+}
 
 const AuthForm: FC<AuthProps> = ({ handleRegister, isLoading, handleLogin }) => {
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
       {(props: FormikProps<FormikValues>) => (
-        <Form className='Form'>
+        <Form name='auth' className='Form'>
           <div className='Form__wrapper'>
             {renderField('email')}
             <ErrorMessage name='email' render={renderError} />
@@ -85,12 +77,16 @@ const AuthForm: FC<AuthProps> = ({ handleRegister, isLoading, handleLogin }) => 
           {isLoading ? (
             <Loader />
           ) : (
-            props.status && <span className='Form__error-form'>{props.status.generall}</span>
+            props.status && (
+              <span className='Form__error-form'>
+                {props.status.generall}
+              </span>
+            )
           )}
         </Form>
       )}
     </Formik>
-  );
-};
+  )
+}
 
-export default AuthForm;
+export default AuthForm

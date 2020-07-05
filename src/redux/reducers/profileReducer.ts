@@ -8,7 +8,7 @@ import {
   HIDE_LOADER,
 } from '../constants';
 
-const initialState: ProfileState = {
+export const initialState: ProfileState = {
   isAuth: false,
   userId: null,
   token: null,

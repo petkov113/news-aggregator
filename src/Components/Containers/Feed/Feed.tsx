@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, ChangeEvent, FormEvent } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../../redux/reducers/rootReducer';
 import { PropsTypes, MapStateTypes, MapDispatchTypes } from './FeedTypes';
@@ -9,7 +9,7 @@ import Search from '../../Search/Search';
 import Grid from '../../Grid/Grid';
 import './Feed.scss';
 
-const categoriesList: Category[] = [
+export const categoriesList: Category[] = [
   'all',
   'business',
   'entertainment',
@@ -24,27 +24,19 @@ const Feed: FC<PropsTypes> = ({ articles, loading, requestArticles, error, isAut
   }, [requestArticles]);
 
   const [category, setCategory] = useState<Category>('all');
-  const [keyword, setKeyord] = useState<string>('');
 
   const changeCategory = (category: Category): void => {
     requestArticles(category);
     setCategory(category);
-    setKeyord('');
   };
 
-  const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setKeyord(event.target.value);
+  const onSearchSubmit = (keyword: string) => {
+    const encodedKeyword = encodeURIComponent(keyword.toString());
+    requestArticles('all', encodedKeyword);
+    setCategory('all');
   };
-
-  const onSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (keyword.trim()) {
-      const encodedKeyword = encodeURIComponent(keyword.toString());
-      requestArticles('all', encodedKeyword);
-      setCategory('all');
-    }
-  };
+  
+  const placeholders = Array(8).fill(<PostPlaceholder />);
 
   return (
     <main className='Feed'>
@@ -62,17 +54,21 @@ const Feed: FC<PropsTypes> = ({ articles, loading, requestArticles, error, isAut
               </li>
             ))}
           </ul>
-          <Search onChange={onSearchChange} onSubmit={onSearchSubmit} value={keyword} />
+          <Search handleSubmit={onSearchSubmit} />
         </div>
       </div>
       <div className='Feed__wrapper container-fluid'>
         <div className='Feed__content'>
           {loading ? (
-            <Grid items={new Array(8).fill(<PostPlaceholder />)} />
+            <Grid items={placeholders} />
           ) : articles ? (
             <Grid showButtons={isAuthenticated} items={articles} />
           ) : (
-            error && <span className='Feed__error'>{error}</span>
+            error && (
+              <span data-testid='error' className='Feed__error'>
+                {error}
+              </span>
+            )
           )}
         </div>
         <div className='Feed__footer'>

@@ -7,7 +7,7 @@ import {
   HIDE_LOADER,
 } from "../constants";
 
-const initialState: FeedState = {
+export const initialState: FeedState = {
 	loading: false,
 	articles: null,
 	error: null,

@@ -1,0 +1,50 @@
+.Form {
+  color: #1B1B2F;
+  min-height: 290px;
+}
+
+.Form__wrapper {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 90px;
+}
+
+.Form__wrapper-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  margin-bottom: 15px;
+}
+
+.Form__field {
+  display: block;
+  width: 100%;
+  border: 1px solid #ADCCF1;
+  padding: 15px 30px;
+  margin-bottom: 5px;
+}
+
+.Form__error {
+  color: #E43F5A;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.Form__error > i {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.Form__error-form {
+  color: #E43F5A;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+/*# sourceMappingURL=AuthForm.css.map */

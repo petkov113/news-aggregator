@@ -1,13 +1,28 @@
-import React, { FC } from "react";
-import { PropsTypes } from "./SearchTypes";
+import React, { FC, useState } from "react";
+import { ChangeEvent, FormEvent } from 'react';
 import "./Search.scss";
 
-const Search: FC<PropsTypes> = ({ onChange, onSubmit, value }) => {
+export type PropsTypes = {
+  handleSubmit: (keyword: string) => void;
+};
+
+const Search: FC<PropsTypes> = ({ handleSubmit }) => {
+  const [keyword, setKeyord] = useState<string>('');
+
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setKeyord(event.target.value);
+  };
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    keyword.trim() && handleSubmit(keyword);
+  };
+
   return (
-    <form className="Search" name="search" onSubmit={onSubmit}>
-      <input type="text" placeholder="Search" onChange={onChange} value={value}/>
-      <button type="submit">
-        <i className="fas fa-search"></i>
+    <form className='Search' name='search' onSubmit={onSubmit}>
+      <input type='text' placeholder='Search' onChange={onChange} value={keyword} />
+      <button type='submit'>
+        <i className='fas fa-search'></i>
       </button>
     </form>
   );

@@ -3,7 +3,7 @@ import './PostPlaceholder.scss'
 
 export default function PostPlaceholder() {
   return (
-    <div className='timeline-wrapper'>
+    <div className='timeline-wrapper' data-testid='post-placeholder'>
       <div className='timeline-item'>
         <div className='animated-background'>
           <div className='background-masker content-image'></div>
