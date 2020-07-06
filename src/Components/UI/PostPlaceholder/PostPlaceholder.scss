@@ -1,6 +1,5 @@
 .timeline-item {
   margin: 0 0 40px;
-  max-width: 300px;
   min-height: 360px;
 }
 
@@ -24,6 +23,8 @@
   background-size: 800px 104px;
   height: 340px;
   position: relative;
+  left: 0;
+  right: 0;
 }
 
 .background-masker {

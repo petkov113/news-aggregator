@@ -54,6 +54,7 @@ interface DeleteArticle {
   type: typeof DELETE_ARTICLE;
   id: string;
 }
+
 interface SaveArticle {
   type: typeof SAVE_ARTICLE;
   payload: Article;

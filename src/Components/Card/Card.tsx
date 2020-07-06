@@ -4,7 +4,9 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import './Card.scss';
 
 const validateImgSrc = (url: null | string): string => {
-  const imagesBlacklist = new RegExp(/(.*kubrick.*)|(.*wthr.*)|(.*nydailynews.*)|(.*statesman.*)/);
+  const imagesBlacklist = new RegExp(
+    /(.*kubrick.*)|(.*wthr.*)|(.*nydailynews.*)|(.*statesman.*)|(.*arabnews.*)|(.*washingtonpost.*)/
+  )
   return url && !imagesBlacklist.test(url) ? url : './placeholder.jpg';
 };
 
