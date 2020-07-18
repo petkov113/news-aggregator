@@ -1,55 +1,102 @@
-import React, { FC, ChangeEvent } from 'react'
+import React, { FC, ChangeEvent, useEffect } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
+import {
+  auth,
+  sendCountry,
+  logout,
+  sendName,
+  setName,
+  getUserData,
+  sendLanguage
+} from '../../../redux/actions/profileActions'
 import { MapStateTypes, MapDispatchTypes } from './ProfileTypes'
-import { auth, setCountry, logout } from '../../../redux/actions/profileActions'
+import { routerVariants } from '../../../utilities/variants'
 import { RootState } from '../../../redux/reducers/rootReducer'
-import { Country } from '../../../redux/reducers/ReducersTypes'
+import { Country, Language } from '../../../redux/reducers/ReducersTypes'
+import { motion } from 'framer-motion'
+import { Input } from '../../UI/Input/Input'
 import AuthForm from '../../Form/AuthForm'
 import Button from '../../UI/Button/Button'
 import Select from '../../UI/Select/Select'
 import './Profile.scss'
+import Loader from '../../UI/Loader/Loader'
 
 const countries: Country[] = [
-  { name: 'USA', code: 'us' },
-  { name: 'Russia', code: 'ru' },
-  { name: 'Bulgaria', code: 'bg' },
-  { name: 'Romania', code: 'ro' },
-  { name: 'Austria', code: 'au' },
-  { name: 'Great Britain', code: 'gb' },
-  { name: 'Italy', code: 'it' },
+  { label: 'USA', value: 'US' },
+  { label: 'Russia', value: 'RU' },
+  { label: 'Bulgaria', value: 'BG' },
 ]
 
-export const countriesNames = countries.reduce((acc: string[], country) => {
-  return [...acc, country.name]
-}, [])
+const languages: Language[] = [
+  { label: 'English', value: 'EN' },
+  { label: 'Русский', value: 'RU' },
+  { label: 'Български', value: 'BG' },
+]
 
 export const Profile: FC<ProfileProps> = ({
   isAuthentiphicated,
-  country,
   auth,
   loading,
   logout,
-  setCountry,
+  sendCountry,
+  sendLanguage,
+  sendName,
+  user,
+  setName,
+  getUserData,
 }) => {
+  useEffect(() => {
+    getUserData()
+  }, [getUserData, isAuthentiphicated])
+
   const onCoutryChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const item = countries.find((country) => country.name === e.target.value) as Country
-    setCountry(item)
+    const country = countries.find((el) => el.value === e.target.value) as Country
+    sendCountry(country)
   }
+
+  const onLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const item = languages.find((el) => el.value === e.target.value) as Language
+    sendLanguage(item)
+  }
+
   return (
-    <div className='Profile'>
+    <motion.div
+      variants={routerVariants}
+      initial='hidden'
+      animate='visible'
+      exit='exit'
+      className='Profile'>
       {isAuthentiphicated ? (
         <div className='Profile__settings'>
           <h1 className='Profile__title'>Settings</h1>
-          <div className='Profile__inputs'>
-            <Select
-              label='Select your country'
-              defValue={country.name}
-              name='countries'
-              items={countriesNames}
-              onChange={onCoutryChange}
-            />
-            <Button btnType='primary' onClick={logout} value='Logout' />
-          </div>
+          {loading ? (
+            <Loader />
+          ) : (
+            <div className='Profile__inputs'>
+              <Select
+                label='Select your country'
+                defValue={countries.find((el) => user.country.label === el.label)!}
+                name='countries'
+                items={countries}
+                onChange={onCoutryChange}
+              />
+              <Select
+                label='Select news language'
+                defValue={languages.find((el) => user.language.label === el.label)!}
+                name='languages'
+                items={languages}
+                onChange={onLanguageChange}
+              />
+              <Input
+                type='text'
+                label='Name'
+                onChange={(e) => setName(e.target.value)}
+                value={user.name ?? ''}
+                onBlur={sendName}
+              />
+              <Button btnType='primary' onClick={logout} value='Logout' />
+            </div>
+          )}
         </div>
       ) : (
         <>
@@ -71,21 +118,31 @@ export const Profile: FC<ProfileProps> = ({
           </div>
         </>
       )}
-    </div>
+    </motion.div>
   )
 }
 
 const mapStateToProps = (state: RootState): MapStateTypes => ({
   isAuthentiphicated: state.profile.isAuth,
-  country: state.profile.country,
   loading: state.profile.loading,
+  user: {
+    name: state.profile.name,
+    language: state.profile.language,
+    country: state.profile.country,
+  },
 })
 
-const mapDispatchToProps: MapDispatchTypes = { auth, setCountry, logout }
+const mapDispatchToProps: MapDispatchTypes = {
+  auth,
+  sendCountry,
+  logout,
+  sendName,
+  setName,
+  getUserData,
+  sendLanguage,
+}
 
 const connector = connect(mapStateToProps, mapDispatchToProps)
 type ProfileProps = ConnectedProps<typeof connector>
 
 export default connector(Profile)
-
-// "https://newsapi.org/v2/sources?apiKey=${}"

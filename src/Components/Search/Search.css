@@ -1,0 +1,50 @@
+.Search {
+  width: 300px;
+  border: 1px solid #ADCCF1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.Search > input {
+  color: #707070;
+  padding: 7px 20px;
+}
+
+.Search > input::-webkit-input-placeholder {
+  color: #a8a8a8;
+}
+
+.Search > input:-ms-input-placeholder {
+  color: #a8a8a8;
+}
+
+.Search > input::-ms-input-placeholder {
+  color: #a8a8a8;
+}
+
+.Search > input::placeholder {
+  color: #a8a8a8;
+}
+
+.Search > button {
+  width: 60px;
+  cursor: pointer;
+  border-left: 1px solid #ADCCF1;
+}
+
+.Search > button > i {
+  color: #ADCCF1;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.Search > button:hover > i {
+  color: #E43F5A;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+/*# sourceMappingURL=Search.css.map */

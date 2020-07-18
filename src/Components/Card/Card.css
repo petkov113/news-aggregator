@@ -6,8 +6,14 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  min-height: 350px;
-  margin-bottom: 40px;
+}
+
+.Card__wrapper {
+  min-height: 400px;
+}
+
+.Card__wrapper:hover .Card__buttons {
+  opacity: 1;
 }
 
 .Card__title {
@@ -36,22 +42,47 @@
   margin-top: 15px;
 }
 
+.Card__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 .Card__btn {
   cursor: pointer;
-  color: #707070;
-  padding: 5px 15px;
-  border: 1px solid #707070;
+  color: #ADCCF1;
   margin-right: 10px;
+  font-size: 24px;
 }
 
-.Card__btn:hover {
-  background-color: #E43F5A;
-  color: #fff;
-  border: 1px solid #E43F5A;
+.Card__btn:hover > i {
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
 }
 
-.Card:hover .Card__buttons {
-  opacity: 1;
+input[type='checkbox'] {
+  display: none;
+}
+
+input[type='checkbox']:checked + label {
+  color: #E43F5A;
+}
+
+input[type='checkbox']:checked + label > i {
+  -webkit-animation: bounceIn 0.7s;
+          animation: bounceIn 0.7s;
 }
 
 [data-tooltip] {

@@ -1,0 +1,44 @@
+@import '../../utilities/vars';
+
+.SmallCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: all .3s;
+
+  &__image {
+    width: 15%;
+    margin-right: 10px;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    display: block;
+    line-height: 25px;
+    font-size: .8rem;
+  }
+  
+  &__btn {
+    margin-right: 20px;
+    color: $color-light;
+    cursor: pointer;
+    opacity: 0;
+
+    &:hover {
+      color: $color-accent;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    .SmallCard__btn {
+      opacity: 1;
+    }
+  }
+}

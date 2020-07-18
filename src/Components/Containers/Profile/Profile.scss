@@ -7,8 +7,16 @@
   display: flex;
   flex-wrap: wrap;
   padding: 20px 40px;
-  animation: fadein 0.7s;
   overflow: hidden;
+
+  &__settings {
+    width: 100%;
+    background: url('./settings.svg') no-repeat right;
+  }
+
+  &__inputs {
+    max-width: 500px;
+  }
 
   &__title {
     font-size: 40px;

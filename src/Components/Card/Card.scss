@@ -1,73 +1,92 @@
 @import '../../utilities/vars';
 
 .Card {
-	display: flex;
-	flex-direction: column;
-	min-height: 350px;
-	margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
 
-	&__title {
-		margin-top: 10px;
-		line-height: 25px;
-		font-weight: 600;
-	}
+  &__wrapper {
+    min-height: 400px;
+    &:hover {
+      .Card__buttons {
+        opacity: 1;
+      }
+    }
+  }
 
-	&__source {
-		margin-top: 10px;
-		color: $color-text-secondary;
-	}
+  &__title {
+    margin-top: 10px;
+    line-height: 25px;
+    font-weight: 600;
+  }
 
-	&__image {
-		display: block;
-		height: 220px;
-		width: 100%;
-		object-fit: cover;
-	}
+  &__source {
+    margin-top: 10px;
+    color: $color-text-secondary;
+  }
 
-	&__buttons {
-		opacity: 0;
-		transition: all 0.2s;
-		margin-top: 15px;
-	}
+  &__image {
+    display: block;
+    height: 220px;
+    width: 100%;
+    object-fit: cover;
+  }
 
-	&__btn {
+  &__buttons {
+    opacity: 0;
+    transition: all 0.2s;
+    margin-top: 15px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  &__btn {
     cursor: pointer;
-		color: $color-text-secondary;
-		padding: 5px 15px;
-		border: 1px solid $color-text-secondary;
-		margin-right: 10px;
+    color: $color-light;
+    margin-right: 10px;
+    font-size: 24px;
 
-		&:hover {
-			background-color: $color-accent;
-			color: #fff;
-			border: 1px solid $color-accent;
-		}
-	}
+    &:hover {
+      > i {
+        transition: all 0.2s;
+        transform: scale(1.2);
+      }
+    }
+  }
+}
 
-	&:hover {
-		.Card__buttons {
-			opacity: 1;
-		}
-	}
+input[type='checkbox'] {
+  display: none;
+  &:checked + label {
+    color: $color-accent;
+
+    > i {
+      animation: bounceIn 0.7s;
+    }
+  }
 }
 
 [data-tooltip] {
-	position: relative;
-	&::after {
-		content: attr(data-tooltip);
-		position: absolute;
-		left: 0;
-		top: 0;
-		right: 0;
-		height: 220px;
-		color: #fff;
-		padding: 1rem;
-		pointer-events: none;
-		opacity: 0;
-		transition: 0.5s;
-	}
-	&:hover::after {
-		opacity: 1;
-		background-color: rgba(228, 63, 90, 0.681);
-	}
+  position: relative;
+  &::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 220px;
+    color: #fff;
+    padding: 1rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.5s;
+  }
+  &:hover::after {
+    opacity: 1;
+    background-color: rgba(228, 63, 90, 0.681);
+  }
 }

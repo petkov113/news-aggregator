@@ -1,0 +1,52 @@
+@import '../../../utilities/vars';
+
+.Comment {
+  display: flex;
+  color: $color-dark;
+  margin: 2em 0;
+  padding: 1em;
+  position: relative;
+  background-color: $color-background-light;
+
+  ::after {
+    z-index: 9002;
+    display: block;
+    content: '';
+    position: absolute;
+    bottom: -11px;
+    left: 0;
+    border-top: 0 $color-background-light solid;
+    border-bottom: 12px transparent solid;
+    border-left: 20px $color-background-light solid;
+  }
+
+  & > i {
+    color: $color-light;
+    font-size: 1em;
+    margin-right: 0.5em;
+    font-size: 2em;
+  }
+
+  &__area {
+    width: 100%;
+  }
+
+  &__info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  &__author {
+    line-height: 15px;
+    margin-bottom: 0.4em;
+    color: $color-text-secondary;
+    font-weight: 600;
+  }
+
+  &__date {
+    font-size: 0.7em;
+    color: $color-text-light;
+    margin-bottom: 0.5em;
+  }
+}

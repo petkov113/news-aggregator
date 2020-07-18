@@ -1,0 +1,13 @@
+@import '../../../utilities/vars';
+
+.Input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1em 0;
+  &__field {
+    padding: 10px;
+    border: 1px solid $color-light;
+    background-color: #ffffff;
+  }
+}

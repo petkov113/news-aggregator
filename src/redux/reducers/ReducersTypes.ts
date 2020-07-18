@@ -1,3 +1,4 @@
+import { CommentType } from './../../Components/Comments/Comments'
 export type Category =
   | 'all'
   | 'business'
@@ -5,58 +6,64 @@ export type Category =
   | 'health'
   | 'science'
   | 'sports'
-  | 'technology';
+  | 'technology'
 
-  export type Country =
-  | { name: 'USA'; code: 'us' }
-  | { name: 'Russia'; code: 'ru' }
-  | { name: 'Bulgaria'; code: 'bg' }
-  | { name: 'Romania'; code: 'ro' }
-  | { name: 'Austria'; code: 'au' }
-  | { name: 'Great Britain'; code: 'gb' }
-  | { name: 'Italy'; code: 'it' };
+export type Country =
+  | { label: 'USA'; value: 'US' }
+  | { label: 'Russia'; value: 'RU' }
+  | { label: 'Bulgaria'; value: 'BG' }
+  
+export type Language =
+  | { label: 'English'; value: 'EN' }
+  | { label: 'Русский'; value: 'RU' }
+  | { label: 'Български'; value: 'BG' }
 
 export type APIResponseType = {
-  articles: Article[];
-  status: string;
-  totalResults: number;
-};
+  articles: Article[]
+  totalResults: number
+}
 
 export type receivedArticle = {
-  source: { id: null | string; name: string };
-  title: string;
-  url: string;
-  urlToImage: string;
-  description: string;
-  publishedAt: string;
-};
+  source: { id: null | string; name: string }
+  title: string
+  url: string
+  urlToImage: string
+  description: string
+  publishedAt: string
+}
 
 export type Article = {
-  source: { id: null | string; name: string };
-  title: string;
-  url: string;
-  urlToImage: string;
-  description: string;
-  publishedAt: string;
-  id: string;
-};
+  source: { id: null | string; name: string }
+  title: string
+  url: string
+  urlToImage: string
+  description: string
+  publishedAt: string
+  id: string
+  isSaved: boolean
+  content: string
+}
 
 export type FeedState = Readonly<{
-  loading: boolean;
-  articles: null | Article[];
-  error: null | string;
-}>;
+  loading: boolean
+  articles: null | Article[]
+  error: null | string
+  saved: null | Article[]
+  comments: null | CommentType[]
+}>
 
 export type SavedState = Readonly<{
-  loading: boolean;
-  savesArticles: null | Article[];
-  error: null | string;
-}>;
+  loading: boolean
+  savedArticles: Article[]
+  error: null | string
+}>
 
 export type ProfileState = Readonly<{
-  isAuth: boolean;
-  userId: null | string;
-  token: null | string;
-  country: Country;
-  loading: boolean;
-}>;
+  isAuth: boolean
+  userId: null | string
+  name: null | string
+  token: null | string
+  country: Country
+  loading: boolean
+  language: Language
+}>

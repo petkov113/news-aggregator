@@ -1,51 +1,83 @@
-import React, { FC } from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
-import './Card.scss';
+import React, { FC, memo } from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { Article } from '../../redux/reducers/ReducersTypes'
+import 'react-lazy-load-image-component/src/effects/blur.css'
+import './Card.scss'
 
 const validateImgSrc = (url: null | string): string => {
   const imagesBlacklist = new RegExp(
     /(.*kubrick.*)|(.*wthr.*)|(.*nydailynews.*)|(.*statesman.*)|(.*arabnews.*)|(.*washingtonpost.*)/
   )
-  return url && !imagesBlacklist.test(url) ? url : './placeholder.jpg';
-};
+  return url && !imagesBlacklist.test(url) ? url : './placeholder.jpg'
+}
 
-const validateDescription = (description: null | string): string =>
-  description ? description : '';
+const validateDescription = (description: null | string): string => (description ? description : '')
 
-export type CardProps = {
-  url: string;
-  urlToImage: string;
-  source: { id: string | null; name: string };
-  title: string;
-  description: string;
-  showButtons?: boolean;
-};
+export type CardProps = Article & {
+  showButtons?: boolean
+  onSave?: (article: Article) => void
+  onFollow?: () => void
+}
 
-const Card: FC<CardProps> = ({ url, urlToImage, source, title, description, showButtons }) => {
+const Card: FC<CardProps> = ({
+  url,
+  urlToImage,
+  source,
+  title,
+  id,
+  isSaved,
+  content,
+  publishedAt,
+  description,
+  showButtons,
+  onSave,
+  onFollow,
+}) => {
   return (
-    <a
-      href={url}
-      className='Card'
-      target='_blank'
-      rel='noopener noreferrer'
-      data-tooltip={validateDescription(description)}>
-      <LazyLoadImage
-        src={validateImgSrc(urlToImage)}
-        alt='Article'
-        className='Card__image'
-        effect='blur'
-      />
-      <span className='Card__title'>{title}</span>
-      <div className='Card__source'>{source.name}</div>
-      {showButtons && (
-        <div className='Card__buttons'>
-          <button className='Card__btn'>Save</button>
-          <button className='Card__btn'>Subscribe</button>
-        </div>
-      )}
-    </a>
-  );
-};
+    <div className='Card__wrapper'>
+      <a
+        href={url}
+        className='Card'
+        target='_blank'
+        rel='noopener noreferrer'
+        data-tooltip={validateDescription(description)}>
+        <LazyLoadImage
+          src={validateImgSrc(urlToImage)}
+          alt='Article'
+          className='Card__image'
+          effect='blur'
+        />
+        <span className='Card__title'>{title.replace(/-\s.*/, '')}</span>
+      </a>
+      <div className='Card__info'>
+        <div className='Card__source'>{source.name}</div>
+        {showButtons && (
+          <div className='Card__buttons'>
+            <input
+              checked={isSaved}
+              id={id}
+              type='checkbox'
+              onChange={() =>
+                onSave!({
+                  id,
+                  url,
+                  urlToImage,
+                  title,
+                  source,
+                  description,
+                  publishedAt,
+                  isSaved,
+                  content,
+                })
+              }></input>
+            <label htmlFor={id} className='Card__btn'>
+              <i className='fas fa-bookmark' />
+            </label>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
 
-export default Card;
+export default memo(Card)

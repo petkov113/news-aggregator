@@ -1,13 +1,15 @@
-import React, { FC, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { RootState } from '../../../redux/reducers/rootReducer';
-import { PropsTypes, MapStateTypes, MapDispatchTypes } from './FeedTypes';
-import { requestArticles } from '../../../redux/actions/feedActions';
-import { Category } from '../../../redux/reducers/ReducersTypes';
-import PostPlaceholder from '../../UI/PostPlaceholder/PostPlaceholder';
-import Search from '../../Search/Search';
-import Grid from '../../Grid/Grid';
-import './Feed.scss';
+import React, { FC, useEffect, useState, useCallback } from 'react'
+import { connect } from 'react-redux'
+import { RootState } from '../../../redux/reducers/rootReducer'
+import { PropsTypes, MapStateTypes, MapDispatchTypes } from './FeedTypes'
+import { requestArticles, toggleArticle } from '../../../redux/actions/articlesActions'
+import { routerVariants } from '../../../utilities/variants'
+import { Category } from '../../../redux/reducers/ReducersTypes'
+import { motion } from 'framer-motion'
+import PostPlaceholder from '../../UI/PostPlaceholder/PostPlaceholder'
+import Search from '../../Search/Search'
+import Grid from '../../Grid/Grid'
+import './Feed.scss'
 
 export const categoriesList: Category[] = [
   'all',
@@ -16,30 +18,46 @@ export const categoriesList: Category[] = [
   'health',
   'science',
   'sports',
-];
+]
 
-const Feed: FC<PropsTypes> = ({ articles, loading, requestArticles, error, isAuthenticated }) => {
+const Feed: FC<PropsTypes> = ({
+  articles,
+  loading,
+  requestArticles,
+  error,
+  isAuthenticated,
+  toggleArticle,
+}) => {
   useEffect(() => {
-    requestArticles();
-  }, [requestArticles]);
+    requestArticles()
+  }, [requestArticles])
 
-  const [category, setCategory] = useState<Category>('all');
+  const [category, setCategory] = useState<Category>('all')
 
   const changeCategory = (category: Category): void => {
-    requestArticles(category);
-    setCategory(category);
-  };
+    requestArticles(category)
+    setCategory(category)
+  }
 
   const onSearchSubmit = (keyword: string) => {
-    const encodedKeyword = encodeURIComponent(keyword.toString());
-    requestArticles('all', encodedKeyword);
-    setCategory('all');
-  };
-  
-  const placeholders = Array(8).fill(<PostPlaceholder />);
+    const encodedKeyword = encodeURIComponent(keyword.toString())
+    requestArticles('all', encodedKeyword)
+    setCategory('all')
+  }
+
+  const handleFollow = useCallback(() => {
+    console.log('hello')
+  }, [])
+
+  const placeholders = Array(8).fill(<PostPlaceholder />)
 
   return (
-    <main className='Feed'>
+    <motion.main
+      variants={routerVariants}
+      initial='hidden'
+      animate='visible'
+      exit='exit'
+      className='Feed'>
       <div className='Feed__header'>
         <h1 className='Feed__main-title'>Top News</h1>
         <div className='Feed__nav'>
@@ -62,7 +80,12 @@ const Feed: FC<PropsTypes> = ({ articles, loading, requestArticles, error, isAut
           {loading ? (
             <Grid items={placeholders} />
           ) : articles ? (
-            <Grid showButtons={isAuthenticated} items={articles} />
+            <Grid
+              showButtons={isAuthenticated}
+              items={articles}
+              onSave={toggleArticle}
+              onFollow={handleFollow}
+            />
           ) : (
             error && (
               <span data-testid='error' className='Feed__error'>
@@ -80,19 +103,21 @@ const Feed: FC<PropsTypes> = ({ articles, loading, requestArticles, error, isAut
           </span>
         </div>
       </div>
-    </main>
-  );
-};
+    </motion.main>
+  )
+}
 
 const mapState = (state: RootState): MapStateTypes => ({
-  loading: state.feed.loading,
-  articles: state.feed.articles,
-  error: state.feed.error,
+  loading: state.articles.loading,
+  articles: state.articles.articles,
+  error: state.articles.error,
   isAuthenticated: state.profile.isAuth,
-});
+  savedArticles: state.articles.saved,
+})
 
 const mapDispatch: MapDispatchTypes = {
   requestArticles,
-};
+  toggleArticle,
+}
 
-export default connect<MapStateTypes, MapDispatchTypes, {}, RootState>(mapState, mapDispatch)(Feed);
+export default connect<MapStateTypes, MapDispatchTypes, {}, RootState>(mapState, mapDispatch)(Feed)

@@ -3,7 +3,7 @@ import './Select.scss';
 
 type DeferTypeInference<T> = [T][T extends any ? 0 : never];
 
-export type SelectProps<T extends string> = {
+export type SelectProps<T extends { label: string, value: string}> = {
   label: string;
   name: string;
   items: T[];
@@ -11,21 +11,31 @@ export type SelectProps<T extends string> = {
   defValue: DeferTypeInference<T>;
 };
 
-const Select = <T extends string>({ label, name, items, onChange, defValue }: SelectProps<T>) => {
+const Select = <T extends { label: string; value: string }>({
+  label,
+  name,
+  items,
+  onChange,
+  defValue,
+}: SelectProps<T>) => {
   return (
     <div className='Select'>
       <label className='Select__label' htmlFor={name}>
         {label}:
       </label>
-      <select className='Select__options' name={name} onChange={onChange} defaultValue={defValue}>
+      <select
+        className='Select__options'
+        name={name}
+        onChange={onChange}
+        defaultValue={defValue.value}>
         {items.map((item) => (
-          <option value={item} key={item}>
-            {item}
+          <option value={item.value} key={item.value}>
+            {item.label}
           </option>
         ))}
       </select>
     </div>
-  );
-};
+  )
+}
 
 export default Select;

@@ -1,17 +1,21 @@
-import { ActionTypes } from './../../../redux/actions/ActionsTypes';
-import { AuthFunction } from '../../Form/AuthTypes';
-import { Country } from '../../../redux/reducers/ReducersTypes';
+import { Country, Language } from './../../../redux/reducers/ReducersTypes'
+import { ActionTypes } from './../../../redux/actions/ActionsTypes'
+import { AuthFunction } from '../../Form/AuthTypes'
 
 export type MapStateTypes = {
-  isAuthentiphicated: boolean;
-  country: Country;
-  loading: boolean;
-};
+  isAuthentiphicated: boolean
+  loading: boolean
+  user: { name: null | string; country: Country; language: Language }
+}
 
 export type MapDispatchTypes = {
-  auth: AuthFunction;
-  setCountry: (country: Country) => void,
+  auth: AuthFunction
+  sendCountry: (country: Country) => void
   logout: () => ActionTypes
-};
+  sendName: () => void
+  setName: (name: string) => void
+  getUserData: () => void
+  sendLanguage: (language: Language) => void
+}
 
-export type Props = MapStateTypes & MapDispatchTypes;
+export type Props = MapStateTypes & MapDispatchTypes

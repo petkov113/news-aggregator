@@ -20,9 +20,8 @@ const Sidebar: FC<SidebarProps> = ({ isAuthenticated, children }) => {
 
   isAuthenticated &&
     links.push(
-      { to: '/subscriptions', tooltip: 'Subscriptions', icon: 'fas fa-plus', flow: 'right' },
-      { to: '/saved', tooltip: 'Saved', icon: 'fas fa-clock', flow: 'right' }
-    );
+      { to: '/saved', tooltip: 'Saved', icon: 'fas fa-bookmark', flow: 'right' }
+    )
 
   return (
     <nav className='Sidebar'>

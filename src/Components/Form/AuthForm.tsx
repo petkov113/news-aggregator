@@ -74,15 +74,7 @@ const AuthForm: FC<AuthProps> = ({ handleRegister, isLoading, handleLogin }) => 
               value='Register'
             />
           </div>
-          {isLoading ? (
-            <Loader />
-          ) : (
-            props.status && (
-              <span className='Form__error-form'>
-                {props.status.generall}
-              </span>
-            )
-          )}
+          {props.status && <span className='Form__error-form'>{props.status.generall}</span>}
         </Form>
       )}
     </Formik>

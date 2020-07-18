@@ -1,0 +1,22 @@
+@import '../../utilities/vars';
+
+.Comments {
+  max-width: 600px;
+
+  &__loader {
+    min-height: 80px;
+  }
+
+  &__field {
+    margin-top: 1em;
+  }
+
+  &__input {
+    border: 1px solid $color-light;
+    padding: 1em;
+    display: block;
+    width: 100%;
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 1em;
+  }
+}

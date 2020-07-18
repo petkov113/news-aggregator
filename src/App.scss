@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: row;
   height: 100vh;
-  font-family: 'Open-sans', sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
   color: $color-dark;
   font-size: 16px;
   h1 {
@@ -26,12 +26,21 @@
 
   &.dark {
     background-color: $color-background;
-    a {
-      > span {
+    
+    span {
         color: $color-text-light;
       }
+    
+    h2 {
+      color: #fff;
     }
+
     label {
+      color: $color-text-light;
+    }
+
+    textarea {
+      background-color: $color-background;
       color: $color-text-light;
     }
 

@@ -1,14 +1,16 @@
-import { Article, Category } from "../../../redux/reducers/ReducersTypes";
+import { Article, Category } from '../../../redux/reducers/ReducersTypes'
 
 export type MapStateTypes = {
-  loading: boolean;
-  articles: null | Article[];
-  error: null | string;
+  loading: boolean
+  articles: null | Article[]
+  error: null | string
   isAuthenticated: boolean
-};
+  savedArticles: null | Article[]
+}
 
 export type MapDispatchTypes = {
-  requestArticles: (category?: Category, keyword?: string) => void;
-};
+  requestArticles: (category?: Category, keyword?: string) => void
+  toggleArticle: (article: Article) => void
+}
 
-export type PropsTypes = MapStateTypes & MapDispatchTypes 
+export type PropsTypes = MapStateTypes & MapDispatchTypes

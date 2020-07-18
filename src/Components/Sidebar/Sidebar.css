@@ -1,0 +1,59 @@
+.Sidebar {
+  background-color: #1B1B2F;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 70px;
+          flex: 0 0 70px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 25px 0;
+}
+
+.Sidebar__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 200px;
+  width: 100%;
+}
+
+.Sidebar__item {
+  font-size: 20px;
+  margin-bottom: 25px;
+  width: 100%;
+  text-align: center;
+}
+
+.Sidebar__item a {
+  color: #ADCCF1;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  display: block;
+  width: 100%;
+}
+
+.Sidebar__item a.active {
+  color: #E43F5A;
+}
+
+.Sidebar__item a:hover {
+  color: #e77d8e;
+}
+/*# sourceMappingURL=Sidebar.css.map */
