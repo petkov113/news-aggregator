@@ -33,6 +33,11 @@ const Feed: FC<PropsTypes> = ({
   }, [requestArticles])
 
   const [category, setCategory] = useState<Category>('all')
+  const [navigation, setNavigation] = useState<boolean>(false)
+
+  const toggleNavigation = () => {
+    setNavigation((navigation) => !navigation)
+  }
 
   const changeCategory = (category: Category): void => {
     requestArticles(category)
@@ -49,6 +54,10 @@ const Feed: FC<PropsTypes> = ({
     console.log('hello')
   }, [])
 
+  const toCapital = (el: string) => {
+    return el.replace(/^\w/, (l) => l.toUpperCase())
+  }
+
   const placeholders = Array(8).fill(<PostPlaceholder />)
 
   return (
@@ -60,14 +69,17 @@ const Feed: FC<PropsTypes> = ({
       className='Feed'>
       <div className='Feed__header'>
         <h1 className='Feed__main-title'>Top News</h1>
-        <div className='Feed__nav'>
+        <div className={navigation ? 'Feed__btn active' : 'Feed__btn'} onClick={toggleNavigation}>
+          <span className='burger'> </span>
+        </div>
+        <div className={navigation ? 'Feed__nav active' : 'Feed__nav'}>
           <ul className='Feed__categories_wrapper'>
             {categoriesList.map((categoryItem: Category, index: number) => (
               <li
                 className={categoryItem === category ? 'Feed__category active' : 'Feed__category'}
                 key={index}>
                 <button onClick={() => changeCategory(categoryItem)}>
-                  {categoryItem.replace(/^\w/, (letter) => letter.toUpperCase())}
+                  {toCapital(categoryItem)}
                 </button>
               </li>
             ))}

@@ -1,7 +1,9 @@
 import axios from 'axios'
 
-const axiosInstance = axios.create({
+export const authAxios = axios.create({
   baseURL: 'https://news-app-4c398.firebaseio.com/',
 })
 
-export default axiosInstance
+export const atriclesAxios = axios.create({
+  baseURL: 'https://api.currentsapi.services/v1/',
+})

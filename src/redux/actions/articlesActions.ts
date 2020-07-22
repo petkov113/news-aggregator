@@ -3,8 +3,8 @@ import { Article, APIResponseType, Category } from '../reducers/ReducersTypes'
 import { SET_ARTICLES, SET_ERROR, SET_SAVED, SET_COMMENTS } from '../constants'
 import { ActionTypes, ThunkAsync } from './ActionsTypes'
 import { showLoader, hideLoader } from './commonActions'
+import { authAxios, atriclesAxios } from '../../axios/axios'
 import moment from 'moment'
-import axios from '../../axios/axios'
 
 export const requestArticles = (category: Category = 'all', keyword?: string): ThunkAsync => async (
   dispatch,
@@ -19,7 +19,7 @@ export const requestArticles = (category: Category = 'all', keyword?: string): T
 
   dispatch(showLoader())
   try {
-    const response = await axios.get<APIResponseType>(`/articles/${url}`)
+    const response = await authAxios.get<APIResponseType>(`/articles/${url}`)
     if (response.data.totalResults === 0) dispatch(setError('Nothing has been found'))
     else {
       let articles = response.data.articles.map((article) => ({
@@ -29,7 +29,6 @@ export const requestArticles = (category: Category = 'all', keyword?: string): T
         id: article.publishedAt.concat(article.source.name).replace(/\s/g, ''),
         isSaved: false,
       }))
-
       if (getState().profile.userId) {
         await dispatch(requestSaved())
         const savedArticles = getState().articles.saved
@@ -80,7 +79,7 @@ export const toggleArticle = (article: Article, refreshFeed = true): ThunkAsync 
   }
 
   try {
-    await axios.patch(`/users/${userId}.json`, { articles })
+    await authAxios.patch(`/users/${userId}.json`, { articles })
   } catch (e) {
     console.log(e)
   }
@@ -96,7 +95,7 @@ const setSaved = (articles: Article[]): ActionTypes => {
 export const requestSaved = (): ThunkAsync => async (dispatch, getState) => {
   const userId = getState().profile.userId
   try {
-    const response = await axios.get<Pick<APIResponseType, 'articles'>>(`/users/${userId}.json`)
+    const response = await authAxios.get<Pick<APIResponseType, 'articles'>>(`/users/${userId}.json`)
     response.data.articles && dispatch(setSaved(response.data.articles))
   } catch (error) {
     console.log(error)
@@ -106,7 +105,7 @@ export const requestSaved = (): ThunkAsync => async (dispatch, getState) => {
 export const getComments = (id: string): ThunkAsync => async (dispatch) => {
   dispatch(showLoader())
   try {
-    const response = await axios.get<{ [id: string]: CommentType }>(`/comments/${id}.json`)
+    const response = await authAxios.get<{ [id: string]: CommentType }>(`/comments/${id}.json`)
     if (response.data) {
       const comments = Object.entries(response.data).reduce((acc, el) => {
         const comment: CommentType = {
@@ -138,7 +137,7 @@ export const saveComment = (message: string, articleId: string): ThunkAsync => a
     date: moment().format('MMM Do YY'),
   }
   try {
-    await axios.post(`/comments/${articleId}.json`, { ...comment })
+    await authAxios.post(`/comments/${articleId}.json`, { ...comment })
     dispatch(getComments(articleId))
   } catch (e) {
     console.log(e)
@@ -167,5 +166,4 @@ const setError = (error: string): ActionTypes => {
   }
 }
 
-// https://api.currentsapi.services/v1/latest-news?country=US&apiKey=c9SCRSA_4i0oyXRWXT-SNTX4NYJm-JlB_-YRLO5gt8Wkdan3
-// https://api.currentsapi.services/v1/latest-news?country=ru&language=ru&apiKey=c9SCRSA_4i0oyXRWXT-SNTX4NYJm-JlB_-YRLO5gt8Wkdan3
+// latest-news?country=US&language=ru&apiKey=${REACT_APP_API_KEY}

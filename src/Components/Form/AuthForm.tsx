@@ -1,10 +1,10 @@
 import { Formik, Form, FormikValues, ErrorMessage, FormikHelpers, FormikProps, Field } from 'formik'
 import { FieldType, AuthProps } from './AuthTypes'
-import Button from '../UI/Button/Button'
 import React, { FC } from 'react'
+import Button from '../UI/Button/Button'
+import Loader from '../UI/Loader/Loader'
 import * as Yup from 'yup'
 import './AuthForm.scss'
-import Loader from '../UI/Loader/Loader'
 
 const initialValues: FormikValues = { email: '', password: '' }
 
@@ -74,6 +74,11 @@ const AuthForm: FC<AuthProps> = ({ handleRegister, isLoading, handleLogin }) => 
               value='Register'
             />
           </div>
+          {isLoading && (
+            <div className='Form__loader'>
+              <Loader />
+            </div>
+          )}
           {props.status && <span className='Form__error-form'>{props.status.generall}</span>}
         </Form>
       )}

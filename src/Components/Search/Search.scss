@@ -30,4 +30,15 @@
       }
     }
   }
+
+  @media screen and (max-width: 900px) {
+    padding: 1em;
+    font-size: 1.3em;
+    margin-bottom: 1em;
+    width: 100%;
+
+    > input {
+      padding: 0;
+    }
+  }
 }

@@ -38,4 +38,25 @@
       }
     }
   }
+
+  @media screen and (max-width: 900px) {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1em;
+
+    i {
+      font-size: 1.3em;
+    }
+
+    &__wrapper {
+      flex-direction: row;
+      height: auto;
+    }
+
+    &__item {
+      margin-bottom: 0;
+    }
+  }
 }

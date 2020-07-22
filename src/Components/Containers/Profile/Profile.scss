@@ -62,4 +62,37 @@
       }
     }
   }
+
+  @media screen and (max-width: 900px) {
+    flex-direction: column;
+    overflow: auto;
+    height: fit-content;
+
+    &__settings {
+      background: none;
+      min-height: 100px;
+    }
+    &__intro {
+      background: none;
+      flex: 0 1 auto;
+    }
+
+    &__form {
+      padding: 0;
+    }
+
+    h1 {
+      font-size: 2em;
+      line-height: 49px;
+    }
+
+    h2 {
+      font-size: 1.5em;
+      line-height: 37px;
+    }
+
+    &__subtitle {
+      margin-bottom: 1em;
+    }
+  }
 }

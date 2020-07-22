@@ -6,6 +6,7 @@ import { FormikValues } from 'formik'
 import { AuthFunction } from '../../Components/Form/AuthTypes'
 import { Country } from '../reducers/ReducersTypes'
 import axios from 'axios'
+import { authAxios } from '../../axios/axios'
 
 export const auth: AuthFunction = (
   values: FormikValues,
@@ -104,7 +105,7 @@ export const sendCountry = (country: Country): ThunkAsync => async (dispatch, ge
   dispatch(setCountry(country))
   const id = getState().profile.userId
   try {
-    await axios.patch(`https://news-app-4c398.firebaseio.com/users/${id}.json`, {
+    await authAxios.patch(`/users/${id}.json`, {
       country,
     })
   } catch (e) {
@@ -116,7 +117,7 @@ export const sendName = (): ThunkAsync => async (dispatch, getState) => {
   const userId = getState().profile.userId
   const name = getState().profile.name
   try {
-    await axios.patch(`https://news-app-4c398.firebaseio.com/users/${userId}.json`, { name })
+    await authAxios.patch(`/users/${userId}.json`, { name })
   } catch (error) {
     console.log(error)
   }
@@ -126,7 +127,7 @@ export const sendLanguage = (language: Language): ThunkAsync => async (dispatch,
   dispatch(setLanguage(language))
   const userId = getState().profile.userId
   try {
-    await axios.patch(`https://news-app-4c398.firebaseio.com/users/${userId}.json`, { language })
+    await authAxios.patch(`/users/${userId}.json`, { language })
   } catch (error) {
     console.log(error)
   }
@@ -150,9 +151,7 @@ export const getUserData = (): ThunkAsync => async (dispatch, getState) => {
   dispatch(showLoader())
   const id = getState().profile.userId
   try {
-    const response = await axios.get<UserData>(
-      `https://news-app-4c398.firebaseio.com/users/${id}.json`
-    )
+    const response = await authAxios.get<UserData>(`/users/${id}.json`)
     if (response.data) {
       response.data.name && dispatch(setName(response.data.name))
       response.data.country && dispatch(setCountry(response.data.country))

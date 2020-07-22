@@ -15,3 +15,16 @@ export const savedVariants = {
     },
   },
 }
+
+export const readerVariants = {
+  hidden: { x: '+100%' },
+  visible: {
+    x: 0,
+    transition: {
+      type: 'tween',
+    },
+  },
+  exit: {x: '+100%', transition: {
+    type: 'tween'
+  }}
+}

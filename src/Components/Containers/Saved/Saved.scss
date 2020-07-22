@@ -30,19 +30,24 @@
     flex-direction: column;
     background-position: center;
     background-size: cover;
+    background-color: $color-dark;
   }
 
   &__info {
     padding: 1em 2em;
-
-     i {
+    background-color: #fff;
+    i {
       font-size: 1.5em;
-      margin-left: 10px;
     }
+  }
+
+  &__closeBtn {
+    display: none;
   }
 
   &__message {
     font-size: 1.5em;
+    margin-top: 1em;
     position: relative;
     text-align: center;
     left: 50%;
@@ -53,14 +58,15 @@
 
   &__source {
     color: $color-text-secondary;
+    margin-right: 10px;
   }
 
   &__title {
     font-size: 26px;
     line-height: 42px;
-    margin-bottom: .5em;
-    align-self: flex-end;
+    margin-bottom: 0.5em;
     margin-top: auto;
+    color: #fff !important;
   }
 
   &__description {
@@ -69,7 +75,7 @@
     font-weight: 600;
     margin-bottom: 1em;
   }
-  
+
   &__comments {
     margin-top: 2em;
     > span {
@@ -79,6 +85,32 @@
     > i {
       color: $color-border;
       margin-right: 10px;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    &__cards {
+      width: auto;
+    }
+
+    &__reader {
+      display: none;
+      position: absolute;
+      width: 100%;
+      &.active {
+        display: block;
+      }
+    }
+
+    &__info {
+      margin-bottom: 5em;
+    }
+
+    &__closeBtn {
+      display: block;
+      position: absolute;
+      top: 2em;
+      color: $color-accent;
     }
   }
 }

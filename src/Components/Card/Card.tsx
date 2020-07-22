@@ -32,52 +32,47 @@ const Card: FC<CardProps> = ({
   showButtons,
   onSave,
   onFollow,
-}) => {
-  return (
-    <div className='Card__wrapper'>
-      <a
-        href={url}
-        className='Card'
-        target='_blank'
-        rel='noopener noreferrer'
-        data-tooltip={validateDescription(description)}>
-        <LazyLoadImage
-          src={validateImgSrc(urlToImage)}
-          alt='Article'
-          className='Card__image'
-          effect='blur'
-        />
-        <span className='Card__title'>{title.replace(/-\s.*/, '')}</span>
-      </a>
-      <div className='Card__info'>
-        <div className='Card__source'>{source.name}</div>
-        {showButtons && (
-          <div className='Card__buttons'>
-            <input
-              checked={isSaved}
-              id={id}
-              type='checkbox'
-              onChange={() =>
-                onSave!({
-                  id,
-                  url,
-                  urlToImage,
-                  title,
-                  source,
-                  description,
-                  publishedAt,
-                  isSaved,
-                  content,
-                })
-              }></input>
-            <label htmlFor={id} className='Card__btn'>
-              <i className='fas fa-bookmark' />
-            </label>
-          </div>
-        )}
-      </div>
+}) => (
+  <div className='Card__wrapper'>
+    <a
+      href={url}
+      className='Card'
+      target='_blank'
+      rel='noopener noreferrer'
+      data-tooltip={validateDescription(description)}>
+      <LazyLoadImage
+        src={validateImgSrc(urlToImage)}
+        alt='Article'
+        className='Card__image'
+        effect='blur' />
+      <span className='Card__title'>{title.replace(/-\s.*/, '')}</span>
+    </a>
+    <div className='Card__info'>
+      <div className='Card__source'>{source.name}</div>
+      {showButtons && (
+        <div className='Card__buttons'>
+          <input
+            checked={isSaved}
+            id={id}
+            type='checkbox'
+            onChange={() => onSave!({
+              id,
+              url,
+              urlToImage,
+              title,
+              source,
+              description,
+              publishedAt,
+              isSaved,
+              content,
+            })}></input>
+          <label htmlFor={id} className='Card__btn'>
+            <i className='fas fa-bookmark' />
+          </label>
+        </div>
+      )}
     </div>
-  )
-}
+  </div>
+)
 
 export default memo(Card)

@@ -6,7 +6,7 @@
   align-items: center;
   margin-bottom: 20px;
   cursor: pointer;
-  transition: all .3s;
+  transition: all 0.3s;
 
   &__image {
     width: 15%;
@@ -21,9 +21,9 @@
   &__title {
     display: block;
     line-height: 25px;
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
-  
+
   &__btn {
     margin-right: 20px;
     color: $color-light;
@@ -38,6 +38,12 @@
   &:hover {
     transform: translateY(-3px);
     .SmallCard__btn {
+      opacity: 1;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    &__btn {
       opacity: 1;
     }
   }

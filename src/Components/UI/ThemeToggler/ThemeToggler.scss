@@ -147,4 +147,8 @@ $offset: 6px;
       }
     }
   }
+
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
 }

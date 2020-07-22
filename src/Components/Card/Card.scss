@@ -57,6 +57,12 @@
       }
     }
   }
+
+  @media screen and (max-width: 1024px) {
+    &__buttons {
+      opacity: 1;
+    }
+  }
 }
 
 input[type='checkbox'] {
