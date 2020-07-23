@@ -4,7 +4,7 @@ import Feed, { categoriesList } from '../Components/Containers/Feed/Feed'
 import { renderWithRedux } from '../utilities/utils'
 import { Article } from '../redux/reducers/ReducersTypes'
 import { RootState } from '../redux/reducers/rootReducer'
-import axiosInstance from '../axios/axios'
+import { authAxios, atriclesAxios } from '../axios/axios'
 import MockAdapter from 'axios-mock-adapter'
 import user from '@testing-library/user-event'
 import React from 'react'
@@ -29,15 +29,23 @@ const response: ServerResponse = {
   totalResults: 2,
 }
 
-new MockAdapter(axiosInstance)
-  .onGet(/.*top-headlines\?country=.*&pageSize/).replyOnce(200, response)
-  .onGet(/.*top-headlines\?country=.*&pageSize/).replyOnce(200, response)
-  .onGet(/.*top-headlines\?country=.*&pageSize/).replyOnce(200, response)
-  .onGet(/.*top-headlines\?country=.*&pageSize/).replyOnce(200, response)
-  .onGet(/.*top-headlines\?country=.*&pageSize/).replyOnce(500)
-  .onGet(/.*top-headlines\?country=.*&category/).replyOnce(200, response)
-  .onGet(/.*everything.*/).replyOnce(200, response)
-  .onGet(/.*everything.*/).replyOnce(200, { totalResults: 0 } as ServerResponse)
+new MockAdapter(atriclesAxios)
+  .onGet(/.*top-headlines\?country=.*&pageSize/)
+  .replyOnce(200, response)
+  .onGet(/.*top-headlines\?country=.*&pageSize/)
+  .replyOnce(200, response)
+  .onGet(/.*top-headlines\?country=.*&pageSize/)
+  .replyOnce(200, response)
+  .onGet(/.*top-headlines\?country=.*&pageSize/)
+  .replyOnce(200, response)
+  .onGet(/.*top-headlines\?country=.*&pageSize/)
+  .replyOnce(500)
+  .onGet(/.*top-headlines\?country=.*&category/)
+  .replyOnce(200, response)
+  .onGet(/.*everything.*/)
+  .replyOnce(200, response)
+  .onGet(/.*everything.*/)
+  .replyOnce(200, { totalResults: 0 } as ServerResponse)
 
 const searchSetup = () => {
   const searchField = screen.getByPlaceholderText(/search/i)

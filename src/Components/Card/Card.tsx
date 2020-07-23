@@ -4,15 +4,6 @@ import { Article } from '../../redux/reducers/ReducersTypes'
 import 'react-lazy-load-image-component/src/effects/blur.css'
 import './Card.scss'
 
-const validateImgSrc = (url: null | string): string => {
-  const imagesBlacklist = new RegExp(
-    /(.*kubrick.*)|(.*wthr.*)|(.*nydailynews.*)|(.*statesman.*)|(.*arabnews.*)|(.*washingtonpost.*)/
-  )
-  return url && !imagesBlacklist.test(url) ? url : './placeholder.jpg'
-}
-
-const validateDescription = (description: null | string): string => (description ? description : '')
-
 export type CardProps = Article & {
   showButtons?: boolean
   onSave?: (article: Article) => void
@@ -21,13 +12,12 @@ export type CardProps = Article & {
 
 const Card: FC<CardProps> = ({
   url,
-  urlToImage,
-  source,
+  image,
+  author,
   title,
   id,
   isSaved,
-  content,
-  publishedAt,
+  published,
   description,
   showButtons,
   onSave,
@@ -39,16 +29,16 @@ const Card: FC<CardProps> = ({
       className='Card'
       target='_blank'
       rel='noopener noreferrer'
-      data-tooltip={validateDescription(description)}>
+      data-tooltip={description}>
       <LazyLoadImage
-        src={validateImgSrc(urlToImage)}
+        src={image}
         alt='Article'
         className='Card__image'
         effect='blur' />
       <span className='Card__title'>{title.replace(/-\s.*/, '')}</span>
     </a>
     <div className='Card__info'>
-      <div className='Card__source'>{source.name}</div>
+      <div className='Card__source'>{author}</div>
       {showButtons && (
         <div className='Card__buttons'>
           <input
@@ -58,13 +48,12 @@ const Card: FC<CardProps> = ({
             onChange={() => onSave!({
               id,
               url,
-              urlToImage,
+              image,
               title,
-              source,
+              author,
               description,
-              publishedAt,
+              published,
               isSaved,
-              content,
             })}></input>
           <label htmlFor={id} className='Card__btn'>
             <i className='fas fa-bookmark' />

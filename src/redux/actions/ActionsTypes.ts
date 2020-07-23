@@ -1,7 +1,6 @@
-import { Language } from './../reducers/ReducersTypes';
+import { Language, Region } from './../reducers/ReducersTypes';
 import { CommentType } from './../../Components/Comments/Comments'
 import { ThunkAction } from 'redux-thunk'
-import { Country } from '../reducers/ReducersTypes'
 import { Article } from '../reducers/ReducersTypes'
 import {
   SET_ARTICLES,
@@ -10,7 +9,7 @@ import {
   HIDE_LOADER,
   SUBSCRIBE,
   UNSUBSCRIBE,
-  SET_COUNTRY,
+  SET_REGION,
   AUTH_SUCCESS,
   AUTH_LOGOUT,
   SET_SAVED,
@@ -24,7 +23,7 @@ export type ThunkAsync = ThunkAction<Promise<void>, RootState, unknown, ActionTy
 export type Thunk = ThunkAction<void, RootState, unknown, ActionTypes>
 export type UserData = {
   name: null | string
-  country: null | Country
+  region: null | Region
   language: Language
 }
 
@@ -79,9 +78,9 @@ interface SetComments {
   payload: CommentType[] | null
 }
 
-interface SetCountry {
-  type: typeof SET_COUNTRY
-  country: Country
+interface SetRegion {
+  type: typeof SET_REGION
+  region: Region
 }
 
 interface SetName {
@@ -112,7 +111,7 @@ export type ActionTypes =
   | Subscribe
   | Unsubscribe
   | SetLanguage
-  | SetCountry
+  | SetRegion
   | SetSaved
   | SetName
   | SetComments

@@ -70,7 +70,7 @@ const Saved: FC<PropsTypes> = ({
                 backgroundImage:
                   'linear-gradient(0deg, rgba(0,0,0,0.7047820104604341) 0%, rgba(255,255,255,0) 49%,' +
                   'rgba(0,0,0,0.755202178527661) 100%),' +
-                  `url(${activeArticle.urlToImage})`,
+                  `url(${activeArticle.image})`,
               }}>
               <h1 className='Saved__title'>{activeArticle.title}</h1>
               <SocialButtons url={activeArticle.url} />
@@ -80,7 +80,7 @@ const Saved: FC<PropsTypes> = ({
                 <i className='fas fa-arrow-left' />
               </button>{' '}
               <h2 className='Saved__description'>{activeArticle.description}</h2>
-              <span className='Saved__source'>{activeArticle.source.name}</span>
+              <span className='Saved__source'>{activeArticle.author}</span>
               <a href={activeArticle.url} target='blank'>
                 <i className='fas fa-external-link-alt' title='Read the article' />
               </a>

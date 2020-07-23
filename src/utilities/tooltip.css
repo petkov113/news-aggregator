@@ -154,7 +154,11 @@
   [tooltip][flow^='left']:hover::before,
   [tooltip][flow^='left']:hover::after,
   [tooltip][flow^='right']:hover::before,
-  [tooltip][flow^='right']:hover::after {
+  [tooltip][flow^='right']:hover::after,
+  [tooltip][flow^='up']:hover::before,
+  [tooltip][flow^='up']:hover::after,
+  [tooltip][flow^='down']:hover::before,
+  [tooltip][flow^='down']:hover::after {
     display: none;
   }
 }

@@ -8,19 +8,18 @@ export type Category =
   | 'sports'
   | 'technology'
 
-export type Country =
+export type Region =
   | { label: 'USA'; value: 'US' }
   | { label: 'Russia'; value: 'RU' }
-  | { label: 'Bulgaria'; value: 'BG' }
+  | { label: 'Europe'; value: 'EU' }
   
 export type Language =
-  | { label: 'English'; value: 'EN' }
-  | { label: 'Русский'; value: 'RU' }
-  | { label: 'Български'; value: 'BG' }
+  | { label: 'English'; value: 'en' }
+  | { label: 'Русский'; value: 'ru' }
+  | { label: 'German'; value: 'de' }
 
 export type APIResponseType = {
-  articles: Article[]
-  totalResults: number
+  news: Article[]
 }
 
 export type receivedArticle = {
@@ -33,15 +32,14 @@ export type receivedArticle = {
 }
 
 export type Article = {
-  source: { id: null | string; name: string }
+  author: string
   title: string
   url: string
-  urlToImage: string
+  image: string
   description: string
-  publishedAt: string
+  published: string
   id: string
   isSaved: boolean
-  content: string
 }
 
 export type FeedState = Readonly<{
@@ -63,7 +61,7 @@ export type ProfileState = Readonly<{
   userId: null | string
   name: null | string
   token: null | string
-  country: Country
+  region: Region
   loading: boolean
   language: Language
 }>

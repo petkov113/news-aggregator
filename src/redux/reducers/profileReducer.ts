@@ -1,7 +1,7 @@
 import { ActionTypes } from '../actions/ActionsTypes'
 import { ProfileState } from './ReducersTypes'
 import {
-  SET_COUNTRY,
+  SET_REGION,
   AUTH_LOGOUT,
   AUTH_SUCCESS,
   SHOW_LOADER,
@@ -15,15 +15,15 @@ export const initialState: ProfileState = {
   userId: null,
   name: null,
   token: null,
-  country: { label: 'USA', value: 'US' },
-  language: { label: 'English', value: 'EN' },
+  region: { label: 'Europe', value: 'EU' },
+  language: { label: 'English', value: 'en' },
   loading: false,
 }
 
 export default (state = initialState, action: ActionTypes): ProfileState => {
   switch (action.type) {
-    case SET_COUNTRY:
-      return { ...state, country: action.country }
+    case SET_REGION:
+      return { ...state, region: action.region }
     case SET_LANGUAGE:
       return { ...state, language: action.language }
     case SET_NAME:

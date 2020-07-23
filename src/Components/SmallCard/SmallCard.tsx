@@ -19,19 +19,19 @@ const validateImgSrc = (url: null | string): string => {
   return url && !imagesBlacklist.test(url) ? url : './placeholder.jpg'
 }
 
-export type CardProps = Pick<Article, 'title' | 'urlToImage' | 'id'> & {
+export type CardProps = Pick<Article, 'title' | 'image' | 'id'> & {
   onClick: (id: Article['id']) => void
   onDelete: (id: Article['id']) => void
 }
 
-const SmallCard: FC<CardProps> = ({ urlToImage, title, id, onClick, onDelete }) => {
+const SmallCard: FC<CardProps> = ({ image, title, id, onClick, onDelete }) => {
   return (
     <motion.div variants={variants} initial='hidden' exit='exit'  whileHover={{ y: -2 }} className='SmallCard'>
       <button className='SmallCard__btn' onClick={() => onDelete(id)}>
         <i className='fas fa-times' />
       </button>
       <div className='SmallCard__info' onClick={() => onClick(id)}>
-        <img src={validateImgSrc(urlToImage)} alt='Article' className='SmallCard__image' />
+        <img src={validateImgSrc(image)} alt='Article' className='SmallCard__image' />
         <span className='SmallCard__title'>{title}</span>
       </div>
     </motion.div>

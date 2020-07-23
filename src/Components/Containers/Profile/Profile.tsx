@@ -2,7 +2,7 @@ import React, { FC, ChangeEvent, useEffect } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import {
   auth,
-  sendCountry,
+  sendRegion,
   logout,
   sendName,
   setName,
@@ -12,7 +12,7 @@ import {
 import { MapStateTypes, MapDispatchTypes } from './ProfileTypes'
 import { routerVariants } from '../../../utilities/variants'
 import { RootState } from '../../../redux/reducers/rootReducer'
-import { Country, Language } from '../../../redux/reducers/ReducersTypes'
+import { Region, Language } from '../../../redux/reducers/ReducersTypes'
 import { motion } from 'framer-motion'
 import { Input } from '../../UI/Input/Input'
 import AuthForm from '../../Form/AuthForm'
@@ -21,16 +21,16 @@ import Select from '../../UI/Select/Select'
 import './Profile.scss'
 import Loader from '../../UI/Loader/Loader'
 
-const countries: Country[] = [
+const regions: Region[] = [
   { label: 'USA', value: 'US' },
   { label: 'Russia', value: 'RU' },
-  { label: 'Bulgaria', value: 'BG' },
+  { label: 'Europe', value: 'EU' },
 ]
 
 const languages: Language[] = [
-  { label: 'English', value: 'EN' },
-  { label: 'Русский', value: 'RU' },
-  { label: 'Български', value: 'BG' },
+  { label: 'English', value: 'en' },
+  { label: 'Русский', value: 'ru' },
+  { label: 'German', value: 'de' },
 ]
 
 export const Profile: FC<ProfileProps> = ({
@@ -38,7 +38,7 @@ export const Profile: FC<ProfileProps> = ({
   auth,
   loading,
   logout,
-  sendCountry,
+  sendRegion,
   sendLanguage,
   sendName,
   user,
@@ -50,8 +50,8 @@ export const Profile: FC<ProfileProps> = ({
   }, [getUserData, isAuthentiphicated])
 
   const onCoutryChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const country = countries.find((el) => el.value === e.target.value) as Country
-    sendCountry(country)
+    const region = regions.find((el) => el.value === e.target.value) as Region
+    sendRegion(region)
   }
 
   const onLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -74,10 +74,10 @@ export const Profile: FC<ProfileProps> = ({
           ) : (
             <div className='Profile__inputs'>
               <Select
-                label='Select your country'
-                defValue={countries.find((el) => user.country.label === el.label)!}
+                label='Select your region'
+                defValue={regions.find((el) => user.region.label === el.label)!}
                 name='countries'
-                items={countries}
+                items={regions}
                 onChange={onCoutryChange}
               />
               <Select
@@ -111,8 +111,7 @@ export const Profile: FC<ProfileProps> = ({
               <span>Creating an account will give you the ability to:</span>
               <ul>
                 <li>Save articles to read them later</li>
-                <li>Select the country</li>
-                <li>Subscribe to a particular sources</li>
+                <li>Select the region and news language</li>
               </ul>
             </div>
           </div>
@@ -128,13 +127,13 @@ const mapStateToProps = (state: RootState): MapStateTypes => ({
   user: {
     name: state.profile.name,
     language: state.profile.language,
-    country: state.profile.country,
+    region: state.profile.region,
   },
 })
 
 const mapDispatchToProps: MapDispatchTypes = {
   auth,
-  sendCountry,
+  sendRegion,
   logout,
   sendName,
   setName,

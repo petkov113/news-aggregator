@@ -10,23 +10,36 @@ export const requestArticles = (category: Category = 'all', keyword?: string): T
   dispatch,
   getState
 ) => {
+  const language = getState().profile.language.value
+  const country = getState().profile.region.value
   let url: string
   category !== 'all'
-    ? (url = `${category}.json`)
-    : keyword // for NEWSAPI
-    ? (url = 'search.json')
-    : (url = 'all.json')
+    ? (url = `latest-news?country=${country}&language=${language}&category=${category}&apiKey=${process.env.REACT_APP_API_KEY}`)
+    : keyword
+    ? (url = `search?country=${country}&language=${language}&start_date=${moment()
+        .subtract(1, 'days')
+        .format()}&apiKey=${process.env.REACT_APP_API_KEY}`)
+    : (url = `latest-news?country=${country}&language=${language}&apiKey=${process.env.REACT_APP_API_KEY}`)
 
   dispatch(showLoader())
   try {
-    const response = await authAxios.get<APIResponseType>(`/articles/${url}`)
-    if (response.data.totalResults === 0) dispatch(setError('Nothing has been found'))
-    else {
-      let articles = response.data.articles.map((article) => ({
+    const response = await atriclesAxios.get<APIResponseType>(url)
+    if (response.data.news.length === 0)
+      dispatch(setError('Nothing has been found. Please change the region or the language.'))
+    else if (keyword) {
+      const regKeyword = new RegExp(`${keyword}`, 'g')
+      const articles = response.data.news.filter(
+        (article) => regKeyword.test(article.description) || regKeyword.test(article.title)
+      )
+      articles.length > 0
+        ? dispatch(setArticles(articles))
+        : dispatch(setError('Nothing has been found.'))
+    } else {
+      let articles = response.data.news.map((article) => ({
         ...article,
-        content: article.content ?? 'Read on the source',
-        title: article.title.replace(/-\s.*/, ''),
-        id: article.publishedAt.concat(article.source.name).replace(/\s/g, ''),
+        description: validateDescription(article.description),
+        author: validateAuthor(article.author),
+        image: article.image === 'None' ? './placeholder.jpg' : validateImgSrc(article.image),
         isSaved: false,
       }))
       if (getState().profile.userId) {
@@ -42,6 +55,7 @@ export const requestArticles = (category: Category = 'all', keyword?: string): T
       dispatch(setArticles(articles))
     }
   } catch (e) {
+    console.log(e)
     dispatch(setError('Server error. Please, try again later.'))
   }
   dispatch(hideLoader())
@@ -95,7 +109,7 @@ const setSaved = (articles: Article[]): ActionTypes => {
 export const requestSaved = (): ThunkAsync => async (dispatch, getState) => {
   const userId = getState().profile.userId
   try {
-    const response = await authAxios.get<Pick<APIResponseType, 'articles'>>(`/users/${userId}.json`)
+    const response = await authAxios.get<{ articles: Article[] }>(`/users/${userId}.json`)
     response.data.articles && dispatch(setSaved(response.data.articles))
   } catch (error) {
     console.log(error)
@@ -166,4 +180,16 @@ const setError = (error: string): ActionTypes => {
   }
 }
 
-// latest-news?country=US&language=ru&apiKey=${REACT_APP_API_KEY}
+const validateImgSrc = (url: null | string): string => {
+  const imagesBlacklist = new RegExp(
+    /(.*kubrick.*)|(.*wthr.*)|(.*nydailynews.*)|(.*statesman.*)|(.*arabnews.*)|(.*washingtonpost.*)/
+  )
+  return url && !imagesBlacklist.test(url) ? url : './placeholder.jpg'
+}
+
+const validateAuthor = (author: null | string): string => {
+  const authorBlacklist = new RegExp(/.*arxiv.*/)
+  return author && !authorBlacklist.test(author) ? author.toUpperCase() : ''
+}
+
+const validateDescription = (description: null | string): string => (description ? description : '')

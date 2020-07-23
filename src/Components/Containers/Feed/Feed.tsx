@@ -68,7 +68,7 @@ const Feed: FC<PropsTypes> = ({
       exit='exit'
       className='Feed'>
       <div className='Feed__header'>
-        <h1 className='Feed__main-title'>Top News</h1>
+        <h1 className='Feed__main-title'>Latest news</h1>
         <div className={navigation ? 'Feed__btn active' : 'Feed__btn'} onClick={toggleNavigation}>
           <span className='burger'> </span>
         </div>
@@ -109,8 +109,8 @@ const Feed: FC<PropsTypes> = ({
         <div className='Feed__footer'>
           <span>
             Powered by{' '}
-            <a href='http://newsapi.org' target='_blank' rel='noopener noreferrer'>
-              newsapi.com
+            <a href='https://currentsapi.services/en' target='_blank' rel='noopener noreferrer'>
+              currentsapi
             </a>
           </span>
         </div>

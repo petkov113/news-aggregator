@@ -27,6 +27,11 @@
     border: 1px solid $color-light;
     padding: 15px 30px;
     margin-bottom: 5px;
+    transition: all 0.3s ease-in-out;
+    &:focus {
+      box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+      border: 1px solid rgba(81, 203, 238, 1);
+    }
   }
 
   &__error {

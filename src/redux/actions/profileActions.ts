@@ -1,10 +1,15 @@
-import { Language } from './../reducers/ReducersTypes'
-import { AUTH_SUCCESS, AUTH_LOGOUT, SET_COUNTRY, SET_NAME, SET_LANGUAGE } from '../constants'
+import { Language, Region } from './../reducers/ReducersTypes'
+import {
+  AUTH_SUCCESS,
+  AUTH_LOGOUT,
+  SET_NAME,
+  SET_LANGUAGE,
+  SET_REGION,
+} from '../constants'
 import { ActionTypes, AuthResponse, ThunkAsync, Thunk, UserData } from './ActionsTypes'
 import { showLoader, hideLoader } from './commonActions'
 import { FormikValues } from 'formik'
 import { AuthFunction } from '../../Components/Form/AuthTypes'
-import { Country } from '../reducers/ReducersTypes'
 import axios from 'axios'
 import { authAxios } from '../../axios/axios'
 
@@ -94,19 +99,19 @@ const autoLogout = (time: number): Thunk => (dispatch) => {
   }, time * 1000)
 }
 
-export const setCountry = (country: Country): ActionTypes => {
+export const setRegion = (region: Region): ActionTypes => {
   return {
-    type: SET_COUNTRY,
-    country,
+    type: SET_REGION,
+    region,
   }
 }
 
-export const sendCountry = (country: Country): ThunkAsync => async (dispatch, getState) => {
-  dispatch(setCountry(country))
+export const sendRegion = (region: Region): ThunkAsync => async (dispatch, getState) => {
+  dispatch(setRegion(region))
   const id = getState().profile.userId
   try {
     await authAxios.patch(`/users/${id}.json`, {
-      country,
+      region,
     })
   } catch (e) {
     console.log(e)
@@ -154,7 +159,7 @@ export const getUserData = (): ThunkAsync => async (dispatch, getState) => {
     const response = await authAxios.get<UserData>(`/users/${id}.json`)
     if (response.data) {
       response.data.name && dispatch(setName(response.data.name))
-      response.data.country && dispatch(setCountry(response.data.country))
+      response.data.region && dispatch(setRegion(response.data.region))
       response.data.language && dispatch(setLanguage(response.data.language))
     }
   } catch (e) {
