@@ -7,7 +7,6 @@ import './Card.scss'
 export type CardProps = Article & {
   showButtons?: boolean
   onSave?: (article: Article) => void
-  onFollow?: () => void
 }
 
 const Card: FC<CardProps> = ({
@@ -21,7 +20,6 @@ const Card: FC<CardProps> = ({
   description,
   showButtons,
   onSave,
-  onFollow,
 }) => (
   <div className='Card__wrapper'>
     <a
@@ -30,11 +28,7 @@ const Card: FC<CardProps> = ({
       target='_blank'
       rel='noopener noreferrer'
       data-tooltip={description}>
-      <LazyLoadImage
-        src={image}
-        alt='Article'
-        className='Card__image'
-        effect='blur' />
+      <LazyLoadImage src={image} alt='Article' className='Card__image' effect='blur' />
       <span className='Card__title'>{title.replace(/-\s.*/, '')}</span>
     </a>
     <div className='Card__info'>
@@ -45,17 +39,19 @@ const Card: FC<CardProps> = ({
             checked={isSaved}
             id={id}
             type='checkbox'
-            onChange={() => onSave!({
-              id,
-              url,
-              image,
-              title,
-              author,
-              description,
-              published,
-              isSaved,
-            })}></input>
-          <label htmlFor={id} className='Card__btn'>
+            onChange={() =>
+              onSave!({
+                id,
+                url,
+                image,
+                title,
+                author,
+                description,
+                published,
+                isSaved,
+              })
+            }></input>
+          <label htmlFor={id} className='Card__btn' title='Save'>
             <i className='fas fa-bookmark' />
           </label>
         </div>

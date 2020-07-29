@@ -6,7 +6,7 @@ import {
   getComments,
 } from '../../../redux/actions/articlesActions'
 import { PropsTypes, MapStateTypes, MapDispatchTypes } from './SavedTypes'
-import { savedVariants, readerVariants } from '../../../utilities/variants'
+import { savedVariants, readerVariants } from '../../../utilities/js/variants'
 import { RootState } from '../../../redux/reducers/rootReducer'
 import { Article } from '../../../redux/reducers/ReducersTypes'
 import { connect } from 'react-redux'

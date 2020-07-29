@@ -1,4 +1,4 @@
-@import '../../utilities/vars';
+@import '../../utilities/styles/vars';
 
 .Search {
   width: 300px;
@@ -32,8 +32,7 @@
   }
 
   @media screen and (max-width: 900px) {
-    padding: 1em;
-    font-size: 1.3em;
+    padding: .7em 1em;
     margin-bottom: 1em;
     width: 100%;
 

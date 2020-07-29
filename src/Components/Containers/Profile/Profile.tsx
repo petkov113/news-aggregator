@@ -10,7 +10,7 @@ import {
   sendLanguage
 } from '../../../redux/actions/profileActions'
 import { MapStateTypes, MapDispatchTypes } from './ProfileTypes'
-import { routerVariants } from '../../../utilities/variants'
+import { routerVariants } from '../../../utilities/js/variants'
 import { RootState } from '../../../redux/reducers/rootReducer'
 import { Region, Language } from '../../../redux/reducers/ReducersTypes'
 import { motion } from 'framer-motion'
@@ -75,14 +75,14 @@ export const Profile: FC<ProfileProps> = ({
             <div className='Profile__inputs'>
               <Select
                 label='Select your region'
-                defValue={regions.find((el) => user.region.label === el.label)!}
+                defValue={regions.find((el) => user.region.value === el.value)!}
                 name='countries'
                 items={regions}
                 onChange={onCoutryChange}
               />
               <Select
                 label='Select news language'
-                defValue={languages.find((el) => user.language.label === el.label)!}
+                defValue={languages.find((el) => user.language.value === el.value)!}
                 name='languages'
                 items={languages}
                 onChange={onLanguageChange}
@@ -102,7 +102,7 @@ export const Profile: FC<ProfileProps> = ({
         <>
           <div className='Profile__intro'>
             <h1 className='Profile__title'>Newsium</h1>
-            <h2 className='Profile__subtitle'>News from all over the world in one place</h2>
+            <span>News from all over the world in one place</span>
           </div>
           <div className='Profile__form'>
             <h2 className='Profile__subtitle'>Log in to get the full access</h2>

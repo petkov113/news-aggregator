@@ -17,6 +17,7 @@ export const Input: FC<InputProps> = ({ label, type, value, onChange, onBlur }) 
         {label}:
       </label>
       <input
+        id={`input${id}`}
         className='Input__field'
         onChange={onChange}
         type={type}

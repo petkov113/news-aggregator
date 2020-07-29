@@ -1,5 +1,5 @@
-@import '../../../utilities/vars.scss';
-@import '../../../utilities/bootstrap-grid.min.css';
+@import '../../../utilities/styles/vars.scss';
+@import '../../../utilities/styles/bootstrap-grid.min.css';
 .Feed {
   position: relative;
   width: 100%;
@@ -119,15 +119,17 @@
       position: static;
       background-color: #fff;
       padding: 1em 2em;
+      align-items: center;
     }
 
     &__main-title {
       z-index: 100;
+      font-size: 32px;
     }
 
     &__category {
       margin-bottom: 1.3em;
-      font-size: 1.3em;
+      font-size: 1em;
     }
 
     &__btn {
@@ -147,17 +149,18 @@
 
     &__nav {
       position: fixed;
-      left: 0;
+      top: 3rem;
+      width: 100%;
       right: 0;
       padding: 1em 2em;
       background-color: #fff;
       justify-content: center;
       flex-direction: column;
-      top: -100%;
+      right: -100%;
       transition: 0.5s ease-in-out;
       z-index: 99;
       &.active {
-        top: 3rem;
+        right: 0;
       }
     }
 

@@ -1,4 +1,4 @@
-@import '../../../utilities/vars.scss';
+@import '../../../utilities/styles/vars.scss';
 
 .Profile {
   position: relative;
@@ -23,14 +23,14 @@
   }
 
   &__subtitle {
-    color: $color-text-secondary;
+    color: $color-accent-light;
     font-size: 25px;
     align-self: center;
     margin-bottom: 50px;
   }
 
   &__info {
-    line-height: 34px;
+    line-height: 32px;
   }
 
   &__intro {
@@ -39,6 +39,7 @@
     background-size: 80%;
     background-position: 50% 80%;
     animation: slideInLeft 0.7s;
+    color: $color-text-secondary;
   }
 
   &__form {
@@ -72,9 +73,11 @@
       background: none;
       min-height: 100px;
     }
+
     &__intro {
       background: none;
       flex: 0 1 auto;
+      margin-bottom: 3em;
     }
 
     &__form {

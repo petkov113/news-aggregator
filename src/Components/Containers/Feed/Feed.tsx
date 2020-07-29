@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useState, useCallback } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { RootState } from '../../../redux/reducers/rootReducer'
 import { PropsTypes, MapStateTypes, MapDispatchTypes } from './FeedTypes'
 import { requestArticles, toggleArticle } from '../../../redux/actions/articlesActions'
-import { routerVariants } from '../../../utilities/variants'
+import { routerVariants } from '../../../utilities/js/variants'
 import { Category } from '../../../redux/reducers/ReducersTypes'
 import { motion } from 'framer-motion'
 import PostPlaceholder from '../../UI/PostPlaceholder/PostPlaceholder'
@@ -50,10 +50,6 @@ const Feed: FC<PropsTypes> = ({
     setCategory('all')
   }
 
-  const handleFollow = useCallback(() => {
-    console.log('hello')
-  }, [])
-
   const toCapital = (el: string) => {
     return el.replace(/^\w/, (l) => l.toUpperCase())
   }
@@ -69,7 +65,10 @@ const Feed: FC<PropsTypes> = ({
       className='Feed'>
       <div className='Feed__header'>
         <h1 className='Feed__main-title'>Latest news</h1>
-        <div className={navigation ? 'Feed__btn active' : 'Feed__btn'} onClick={toggleNavigation}>
+        <div
+          className={navigation ? 'Feed__btn active' : 'Feed__btn'}
+          onClick={toggleNavigation}
+          data-testid='burger'>
           <span className='burger'> </span>
         </div>
         <div className={navigation ? 'Feed__nav active' : 'Feed__nav'}>
@@ -92,12 +91,7 @@ const Feed: FC<PropsTypes> = ({
           {loading ? (
             <Grid items={placeholders} />
           ) : articles ? (
-            <Grid
-              showButtons={isAuthenticated}
-              items={articles}
-              onSave={toggleArticle}
-              onFollow={handleFollow}
-            />
+            <Grid showButtons={isAuthenticated} items={articles} onSave={toggleArticle} />
           ) : (
             error && (
               <span data-testid='error' className='Feed__error'>

@@ -1,17 +1,10 @@
 import { Language, Region } from './../reducers/ReducersTypes'
-import {
-  AUTH_SUCCESS,
-  AUTH_LOGOUT,
-  SET_NAME,
-  SET_LANGUAGE,
-  SET_REGION,
-} from '../constants'
+import { AUTH_SUCCESS, AUTH_LOGOUT, SET_NAME, SET_LANGUAGE, SET_REGION } from '../constants'
 import { ActionTypes, AuthResponse, ThunkAsync, Thunk, UserData } from './ActionsTypes'
 import { showLoader, hideLoader } from './commonActions'
 import { FormikValues } from 'formik'
 import { AuthFunction } from '../../Components/Form/AuthTypes'
-import axios from 'axios'
-import { authAxios } from '../../axios/axios'
+import { authAxios, userAxios } from '../../axios/axios'
 
 export const auth: AuthFunction = (
   values: FormikValues,
@@ -27,11 +20,11 @@ export const auth: AuthFunction = (
   let url
 
   isLogin
-    ? (url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API_KEY}`)
-    : (url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API_KEY}`);
+    ? (url = `:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API_KEY}`)
+    : (url = `:signUp?key=${process.env.REACT_APP_FIREBASE_API_KEY}`);
 
   try {
-    const response: AuthResponse = await axios.post(url, authData)
+    const response: AuthResponse = await authAxios.post(url, authData)
     const { expiresIn, idToken, localId } = response.data
 
     const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000)
@@ -109,8 +102,9 @@ export const setRegion = (region: Region): ActionTypes => {
 export const sendRegion = (region: Region): ThunkAsync => async (dispatch, getState) => {
   dispatch(setRegion(region))
   const id = getState().profile.userId
+  const token = getState().profile.token
   try {
-    await authAxios.patch(`/users/${id}.json`, {
+    await userAxios.patch(`/users/${id}.json?auth=${token}`, {
       region,
     })
   } catch (e) {
@@ -121,20 +115,22 @@ export const sendRegion = (region: Region): ThunkAsync => async (dispatch, getSt
 export const sendName = (): ThunkAsync => async (dispatch, getState) => {
   const userId = getState().profile.userId
   const name = getState().profile.name
+  const token = getState().profile.token
   try {
-    await authAxios.patch(`/users/${userId}.json`, { name })
-  } catch (error) {
-    console.log(error)
+    await userAxios.patch(`/users/${userId}.json?auth=${token}`, { name })
+  } catch (e) {
+    console.log(e)
   }
 }
 
 export const sendLanguage = (language: Language): ThunkAsync => async (dispatch, getState) => {
   dispatch(setLanguage(language))
   const userId = getState().profile.userId
+  const token = getState().profile.token
   try {
-    await authAxios.patch(`/users/${userId}.json`, { language })
-  } catch (error) {
-    console.log(error)
+    await userAxios.patch(`/users/${userId}.json?auth=${token}`, { language })
+  } catch (e) {
+    console.log(e)
   }
 }
 
@@ -155,8 +151,13 @@ export const setLanguage = (language: Language): ActionTypes => {
 export const getUserData = (): ThunkAsync => async (dispatch, getState) => {
   dispatch(showLoader())
   const id = getState().profile.userId
+  if (!id) {
+    dispatch(hideLoader())
+    return
+  }
+  const token = getState().profile.token
   try {
-    const response = await authAxios.get<UserData>(`/users/${id}.json`)
+    const response = await userAxios.get<UserData>(`/users/${id}.json?auth=${token}`)
     if (response.data) {
       response.data.name && dispatch(setName(response.data.name))
       response.data.region && dispatch(setRegion(response.data.region))

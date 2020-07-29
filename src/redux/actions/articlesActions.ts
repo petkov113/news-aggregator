@@ -3,7 +3,7 @@ import { Article, APIResponseType, Category } from '../reducers/ReducersTypes'
 import { SET_ARTICLES, SET_ERROR, SET_SAVED, SET_COMMENTS } from '../constants'
 import { ActionTypes, ThunkAsync } from './ActionsTypes'
 import { showLoader, hideLoader } from './commonActions'
-import { authAxios, atriclesAxios } from '../../axios/axios'
+import { atriclesAxios, userAxios } from '../../axios/axios'
 import moment from 'moment'
 
 export const requestArticles = (category: Category = 'all', keyword?: string): ThunkAsync => async (
@@ -55,7 +55,6 @@ export const requestArticles = (category: Category = 'all', keyword?: string): T
       dispatch(setArticles(articles))
     }
   } catch (e) {
-    console.log(e)
     dispatch(setError('Server error. Please, try again later.'))
   }
   dispatch(hideLoader())
@@ -68,6 +67,7 @@ export const toggleArticle = (article: Article, refreshFeed = true): ThunkAsync 
   const userId = getState().profile.userId
   const feedAritcles = getState().articles.articles
   const savedArticles = getState().articles.saved
+  const token = getState().profile.token
   let articles = [article]
 
   if (savedArticles) {
@@ -93,7 +93,7 @@ export const toggleArticle = (article: Article, refreshFeed = true): ThunkAsync 
   }
 
   try {
-    await authAxios.patch(`/users/${userId}.json`, { articles })
+    await userAxios.patch(`/users/${userId}.json?auth=${token}`, { articles })
   } catch (e) {
     console.log(e)
   }
@@ -108,9 +108,10 @@ const setSaved = (articles: Article[]): ActionTypes => {
 
 export const requestSaved = (): ThunkAsync => async (dispatch, getState) => {
   const userId = getState().profile.userId
+  const token = getState().profile.token
   try {
-    const response = await authAxios.get<{ articles: Article[] }>(`/users/${userId}.json`)
-    response.data.articles && dispatch(setSaved(response.data.articles))
+    const response = await userAxios.get<Article[]>(`/users/${userId}/articles.json?auth=${token}`)
+    response.data && dispatch(setSaved(response.data))
   } catch (error) {
     console.log(error)
   }
@@ -119,7 +120,7 @@ export const requestSaved = (): ThunkAsync => async (dispatch, getState) => {
 export const getComments = (id: string): ThunkAsync => async (dispatch) => {
   dispatch(showLoader())
   try {
-    const response = await authAxios.get<{ [id: string]: CommentType }>(`/comments/${id}.json`)
+    const response = await userAxios.get<{ [id: string]: CommentType }>(`/comments/${id}.json`)
     if (response.data) {
       const comments = Object.entries(response.data).reduce((acc, el) => {
         const comment: CommentType = {
@@ -151,7 +152,7 @@ export const saveComment = (message: string, articleId: string): ThunkAsync => a
     date: moment().format('MMM Do YY'),
   }
   try {
-    await authAxios.post(`/comments/${articleId}.json`, { ...comment })
+    await userAxios.post(`/comments/${articleId}.json`, { ...comment })
     dispatch(getComments(articleId))
   } catch (e) {
     console.log(e)

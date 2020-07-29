@@ -13,7 +13,6 @@ const ChildComponent = () => <div>ChildComponent</div>;
 const testRoutes = [
   { path: '/profile', key: 'profile' },
   { path: '/', key: 'feed', exact: true },
-  { path: '/subscriptions', key: 'subscriptions' },
   { path: '/saved', key: 'saved' },
 ].map((route) => (
   <Route
@@ -24,7 +23,7 @@ const testRoutes = [
 ));
 
 const authenticatedLinks = ['profile', 'feed'];
-const allLinks = authenticatedLinks.concat('subscriptions', 'saved');
+const allLinks = authenticatedLinks.concat('saved');
 
 const Component = (
   isAuthenticated: boolean,
@@ -49,7 +48,7 @@ describe('SIDEBAR', () => {
     }
   });
 
-  it('should render profile, feed, subscriptions and saved links if the user is authenticated', () => {
+  it('should render profile, feed and saved links if the user is authenticated', () => {
     render(Component(true));
 
     for (let i = 0; i < allLinks.length; i++) {
