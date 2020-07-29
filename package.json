@@ -8,8 +8,11 @@
       "!src/index.tsx",
       "!.*utils.tsx"
     ],
-    "watchPathIgnorePatterns": ["src/__tests__/utilities/"]
+    "watchPathIgnorePatterns": [
+      "src/__tests__/utilities/"
+    ]
   },
+  "homepage": ".",
   "dependencies": {
     "@types/jest": "^26.0.0",
     "@types/moxios": "^0.4.9",
@@ -25,6 +28,7 @@
     "axios": "^0.19.2",
     "formik": "^2.1.4",
     "framer-motion": "^1.11.1",
+    "gh-pages": "^3.1.0",
     "moment": "^2.27.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
@@ -46,7 +50,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
     "test:debug": "react-scripts --inspect-brk test --watch --runInBand --no-cache",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

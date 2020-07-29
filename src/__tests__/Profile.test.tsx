@@ -15,8 +15,6 @@ const userData: UserData = {
   region: { label: 'Russia', value: 'RU' },
 }
 
-const log = jest.spyOn(global.console, 'log')
-
 const stateWithAuth = {
   initialState: {
     profile: {
