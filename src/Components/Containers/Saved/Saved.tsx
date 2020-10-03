@@ -7,14 +7,14 @@ import {
 } from '../../../redux/actions/articlesActions'
 import { PropsTypes, MapStateTypes, MapDispatchTypes } from './SavedTypes'
 import { savedVariants, readerVariants } from '../../../utilities/js/variants'
+import { motion, AnimatePresence } from 'framer-motion'
 import { RootState } from '../../../redux/reducers/rootReducer'
 import { Article } from '../../../redux/reducers/ReducersTypes'
 import { connect } from 'react-redux'
-import { motion, AnimatePresence } from 'framer-motion'
 import SmallCard from '../../SmallCard/SmallCard'
 import Comments from '../../Comments/Comments'
-import './Saved.scss'
 import SocialButtons from '../../SocialButtons/SocialButtons'
+import './Saved.scss'
 
 const Saved: FC<PropsTypes> = ({
   loading,

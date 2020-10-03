@@ -8,7 +8,7 @@ import './AuthForm.scss'
 
 const initialValues: FormikValues = { email: '', password: '' }
 
-const onSubmit = async (values: FormikValues, actions: FormikHelpers<FormikValues>) => {
+const onSubmit = (values: FormikValues, actions: FormikHelpers<FormikValues>) => {
   actions.setSubmitting(false)
 }
 

@@ -18,9 +18,7 @@ const Grid: FC<GridProps> = ({ items, showButtons, onSave }) => {
     <div className='row'>
       {isArticlesArray(items)
         ? items.map((item) => (
-            <div
-              key={item.id}
-              className='col-12 col-md-6 col-lg-4 col-xl-3'>
+            <div key={item.id} className='col-12 col-md-6 col-lg-4 col-xl-3'>
               <Card {...item} showButtons={showButtons} onSave={onSave} />
             </div>
           ))
