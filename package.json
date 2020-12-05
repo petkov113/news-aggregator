@@ -12,7 +12,6 @@
       "src/__tests__/utilities/"
     ]
   },
-  "homepage": ".",
   "dependencies": {
     "@types/jest": "^26.0.0",
     "@types/moxios": "^0.4.9",
