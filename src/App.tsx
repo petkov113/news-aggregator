@@ -11,17 +11,20 @@ import Saved from './Components/Containers/Saved/Saved'
 import Feed from './Components/Containers/Feed/Feed'
 import './App.scss'
 
-type Theme = 'light' | 'dark'
+export enum Theme {
+  LIGHT = 'light',
+  DARK = 'dark',
+}
 
 const getInitialTheme = () => {
   return localStorage.getItem('NEWSIUM/theme') as undefined | Theme
 }
 
 const App: FC<AppProps> = ({ isAuthenticated, autoLogin }) => {
-  const [theme, setTheme] = useState<Theme>('light')
+  const [theme, setTheme] = useState<Theme>(Theme.LIGHT)
 
   const onThemeChange = () => {
-    theme === 'light' ? setTheme('dark') : setTheme('light')
+    theme === Theme.LIGHT ? setTheme(Theme.DARK) : setTheme(Theme.LIGHT)
   }
 
   useEffect(() => {
@@ -38,11 +41,11 @@ const App: FC<AppProps> = ({ isAuthenticated, autoLogin }) => {
   }, [autoLogin])
 
   const routes = [
-    <Route path='/profile' component={Profile} key='profile' />,
-    <Route path='/' exact component={Feed} key='feed' />,
+    <Route path="/profile" component={Profile} key="profile" />,
+    <Route path="/" exact component={Feed} key="feed" />,
   ]
 
-  isAuthenticated && routes.push(<Route path='/saved' component={Saved} key='saved' />)
+  isAuthenticated && routes.push(<Route path="/saved" component={Saved} key="saved" />)
 
   return (
     <div className={`App ${theme}`}>
@@ -51,7 +54,7 @@ const App: FC<AppProps> = ({ isAuthenticated, autoLogin }) => {
       </Sidebar>
       <Switch>
         {routes}
-        <Redirect to='/' />
+        <Redirect to="/" />
       </Switch>
     </div>
   )
