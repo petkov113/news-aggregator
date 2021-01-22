@@ -1,18 +1,19 @@
 import { CommentType } from './../../Components/Comments/Comments'
-export type Category =
-  | 'all'
-  | 'business'
-  | 'entertainment'
-  | 'health'
-  | 'science'
-  | 'sports'
-  | 'technology'
+export enum Category {
+  ALL = 'all',
+  BUSINESS = 'business',
+  ENTERTAINMENT = 'entertainment',
+  health = 'health',
+  SCIENCE = 'science',
+  SPORTS = 'sports',
+  TECHNOLOGY = 'technology',
+}
 
 export type Region =
   | { label: 'USA'; value: 'US' }
   | { label: 'Russia'; value: 'RU' }
   | { label: 'Europe'; value: 'EU' }
-  
+
 export type Language =
   | { label: 'English'; value: 'en' }
   | { label: 'Русский'; value: 'ru' }

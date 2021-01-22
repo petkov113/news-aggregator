@@ -11,14 +11,7 @@ import Search from '../../Search/Search'
 import Grid from '../../Grid/Grid'
 import './Feed.scss'
 
-export const categoriesList: Category[] = [
-  'all',
-  'business',
-  'entertainment',
-  'health',
-  'science',
-  'sports',
-]
+export const categoriesList: Category[] = [...Object.values(Category)]
 
 const Feed: FC<PropsTypes> = ({
   articles,
@@ -32,7 +25,7 @@ const Feed: FC<PropsTypes> = ({
     requestArticles()
   }, [requestArticles])
 
-  const [category, setCategory] = useState<Category>('all')
+  const [category, setCategory] = useState<Category>(Category.ALL)
   const [navigation, setNavigation] = useState<boolean>(false)
 
   const toggleNavigation = () => {
@@ -46,8 +39,8 @@ const Feed: FC<PropsTypes> = ({
 
   const onSearchSubmit = (keyword: string) => {
     const encodedKeyword = encodeURIComponent(keyword.toString())
-    requestArticles('all', encodedKeyword)
-    setCategory('all')
+    requestArticles(Category.ALL, encodedKeyword)
+    setCategory(Category.ALL)
   }
 
   const toCapital = (el: string) => {
@@ -59,24 +52,27 @@ const Feed: FC<PropsTypes> = ({
   return (
     <motion.main
       variants={routerVariants}
-      initial='hidden'
-      animate='visible'
-      exit='exit'
-      className='Feed'>
-      <div className='Feed__header'>
-        <h1 className='Feed__main-title'>Latest news</h1>
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="Feed"
+    >
+      <div className="Feed__header">
+        <h1 className="Feed__main-title">Latest news</h1>
         <div
           className={navigation ? 'Feed__btn active' : 'Feed__btn'}
           onClick={toggleNavigation}
-          data-testid='burger'>
-          <span className='burger'> </span>
+          data-testid="burger"
+        >
+          <span className="burger"> </span>
         </div>
         <div className={navigation ? 'Feed__nav active' : 'Feed__nav'}>
-          <ul className='Feed__categories_wrapper'>
+          <ul className="Feed__categories_wrapper">
             {categoriesList.map((categoryItem: Category, index: number) => (
               <li
                 className={categoryItem === category ? 'Feed__category active' : 'Feed__category'}
-                key={index}>
+                key={index}
+              >
                 <button onClick={() => changeCategory(categoryItem)}>
                   {toCapital(categoryItem)}
                 </button>
@@ -86,24 +82,24 @@ const Feed: FC<PropsTypes> = ({
           <Search handleSubmit={onSearchSubmit} />
         </div>
       </div>
-      <div className='Feed__wrapper container-fluid'>
-        <div className='Feed__content'>
+      <div className="Feed__wrapper container-fluid">
+        <div className="Feed__content">
           {loading ? (
             <Grid items={placeholders} />
           ) : articles ? (
             <Grid showButtons={isAuthenticated} items={articles} onSave={toggleArticle} />
           ) : (
             error && (
-              <span data-testid='error' className='Feed__error'>
+              <span data-testid="error" className="Feed__error">
                 {error}
               </span>
             )
           )}
         </div>
-        <div className='Feed__footer'>
+        <div className="Feed__footer">
           <span>
             Powered by{' '}
-            <a href='https://currentsapi.services/en' target='_blank' rel='noopener noreferrer'>
+            <a href="https://currentsapi.services/en" target="_blank" rel="noopener noreferrer">
               currentsapi
             </a>
           </span>
