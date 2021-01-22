@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
 import { autoLogin } from './redux/actions/profileActions'
 import { RootState } from './redux/reducers/rootReducer'
+import { useTheme } from './utilities/js/hooks'
 import { Thunk } from './redux/actions/ActionsTypes'
 import ThemeToggle from './Components/UI/ThemeToggler/ThemeToggle'
 import Sidebar from './Components/Sidebar/Sidebar'
@@ -11,30 +12,8 @@ import Saved from './Components/Containers/Saved/Saved'
 import Feed from './Components/Containers/Feed/Feed'
 import './App.scss'
 
-export enum Theme {
-  LIGHT = 'light',
-  DARK = 'dark',
-}
-
-const getInitialTheme = () => {
-  return localStorage.getItem('NEWSIUM/theme') as undefined | Theme
-}
-
 const App: FC<AppProps> = ({ isAuthenticated, autoLogin }) => {
-  const [theme, setTheme] = useState<Theme>(Theme.LIGHT)
-
-  const onThemeChange = () => {
-    theme === Theme.LIGHT ? setTheme(Theme.DARK) : setTheme(Theme.LIGHT)
-  }
-
-  useEffect(() => {
-    const theme = getInitialTheme()
-    if (theme) setTheme(theme)
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem('NEWSIUM/theme', theme)
-  }, [theme])
+  const { theme, changeTheme } = useTheme()
 
   useEffect(() => {
     autoLogin()
@@ -50,7 +29,7 @@ const App: FC<AppProps> = ({ isAuthenticated, autoLogin }) => {
   return (
     <div className={`App ${theme}`}>
       <Sidebar isAuthenticated={isAuthenticated}>
-        <ThemeToggle theme={theme} onChange={onThemeChange} />
+        <ThemeToggle theme={theme} onChange={changeTheme} />
       </Sidebar>
       <Switch>
         {routes}

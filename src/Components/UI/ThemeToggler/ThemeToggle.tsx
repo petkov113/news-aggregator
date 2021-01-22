@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Theme } from '../../../App'
+import { Theme } from '../../../utilities/js/hooks'
 import './ThemeToggler.scss'
 
 type Props = {
