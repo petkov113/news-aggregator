@@ -5,15 +5,16 @@ import { ActionTypes, ThunkAsync } from './ActionsTypes'
 import { showLoader, hideLoader } from './commonActions'
 import { atriclesAxios, userAxios } from '../../axios/axios'
 import moment from 'moment'
+import { validateAuthor, validateDescription, validateImgSrc } from '../../utilities/js/validation'
 
-export const requestArticles = (category: Category = 'all', keyword?: string): ThunkAsync => async (
-  dispatch,
-  getState
-) => {
+export const requestArticles = (
+  category: Category = Category.ALL,
+  keyword?: string
+): ThunkAsync => async (dispatch, getState) => {
   const language = getState().profile.language.value
   const country = getState().profile.region.value
   let url: string
-  category !== 'all'
+  category !== Category.ALL
     ? (url = `latest-news?country=${country}&language=${language}&category=${category}&apiKey=${process.env.REACT_APP_API_KEY}`)
     : keyword
     ? (url = `search?country=${country}&language=${language}&start_date=${moment()
@@ -181,16 +182,3 @@ const setError = (error: string): ActionTypes => {
   }
 }
 
-const validateImgSrc = (url: null | string): string => {
-  const imagesBlacklist = new RegExp(
-    /(.*kubrick.*)|(.*wthr.*)|(.*nydailynews.*)|(.*statesman.*)|(.*arabnews.*)|(.*washingtonpost.*)/
-  )
-  return url && !imagesBlacklist.test(url) ? url : './placeholder.jpg'
-}
-
-const validateAuthor = (author: null | string): string => {
-  const authorBlacklist = new RegExp(/.*arxiv.*/)
-  return author && !authorBlacklist.test(author) ? author.toUpperCase() : ''
-}
-
-const validateDescription = (description: null | string): string => (description ? description : '')
