@@ -20,7 +20,7 @@ const Search: FC<PropsTypes> = ({ handleSubmit }) => {
 
   return (
     <form className='Search' name='search' onSubmit={onSubmit}>
-      <input type='text' placeholder='Search' onChange={onChange} value={keyword} />
+      <input type='text' placeholder='Search...' onChange={onChange} value={keyword} />
       <button type='submit'>
         <i className='fas fa-search'></i>
       </button>

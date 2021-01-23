@@ -37,7 +37,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 1ch 1.5ch;
-  border-radius: 0.3ch;
+  border-radius: 10px;
   box-shadow: 0 1em 2em -0.5em rgba(0, 0, 0, 0.35);
   background: #333;
   color: #fff;
