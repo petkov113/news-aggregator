@@ -26,6 +26,10 @@
 
   &.dark {
     background-color: $color-background;
+
+    .animated-background {
+      background: linear-gradient(to right, #303030 8%, #3f3f3f 18%, #303030 33%);
+    }
     
     span {
         color: $color-text-light;
