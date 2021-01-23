@@ -4,6 +4,7 @@ import { RootState } from '../../../redux/reducers/rootReducer'
 import { PropsTypes, MapStateTypes, MapDispatchTypes } from './FeedTypes'
 import { requestArticles, toggleArticle } from '../../../redux/actions/articlesActions'
 import { routerVariants } from '../../../utilities/js/variants'
+import { toCapital } from '../../../utilities/js/string'
 import { Category } from '../../../redux/reducers/ReducersTypes'
 import { motion } from 'framer-motion'
 import PostPlaceholder from '../../UI/PostPlaceholder/PostPlaceholder'
@@ -41,10 +42,6 @@ const Feed: FC<PropsTypes> = ({
     const encodedKeyword = encodeURIComponent(keyword.toString())
     requestArticles(Category.ALL, encodedKeyword)
     setCategory(Category.ALL)
-  }
-
-  const toCapital = (el: string) => {
-    return el.replace(/^\w/, (l) => l.toUpperCase())
   }
 
   const placeholders = Array(8).fill(<PostPlaceholder />)

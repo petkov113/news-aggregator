@@ -1,5 +1,6 @@
 import { Formik, Form, FormikValues, ErrorMessage, FormikHelpers, FormikProps, Field } from 'formik'
 import { FieldType, AuthProps } from './AuthTypes'
+import { toCapital } from '../../utilities/js/string'
 import React, { FC } from 'react'
 import Button from '../UI/Button/Button'
 import Loader from '../UI/Loader/Loader'
@@ -38,8 +39,8 @@ const renderField = (type: FieldType, name?: string) => {
       id={name || type}
       placeholder={
         name
-          ? name.replace(/^\w/, (l) => l.toUpperCase())
-          : type.replace(/^\w/, (l) => l.toUpperCase())
+          ? toCapital(name)
+          : toCapital(type)
       }
     />
   )

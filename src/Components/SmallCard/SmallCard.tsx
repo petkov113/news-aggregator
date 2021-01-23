@@ -3,6 +3,7 @@ import { Article } from '../../redux/reducers/ReducersTypes'
 import { motion } from 'framer-motion'
 import 'react-lazy-load-image-component/src/effects/blur.css'
 import './SmallCard.scss'
+import { validateImgSrc } from '../../utilities/js/validation'
 
 const variants = {
   hidden: { x: '-100%' },
@@ -10,13 +11,6 @@ const variants = {
   exit: {
     x: '-100%'
   }
-}
-
-const validateImgSrc = (url: null | string): string => {
-  const imagesBlacklist = new RegExp(
-    /(.*kubrick.*)|(.*wthr.*)|(.*nydailynews.*)|(.*statesman.*)|(.*arabnews.*)|(.*washingtonpost.*)/
-  )
-  return url && !imagesBlacklist.test(url) ? url : './placeholder.jpg'
 }
 
 export type CardProps = Pick<Article, 'title' | 'image' | 'id'> & {
