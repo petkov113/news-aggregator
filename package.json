@@ -24,7 +24,7 @@
     "@types/react-transition-group": "^4.4.0",
     "@types/redux-thunk": "^2.1.0",
     "@types/yup": "^0.29.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "formik": "^2.1.4",
     "framer-motion": "^1.11.1",
     "gh-pages": "^3.1.0",
