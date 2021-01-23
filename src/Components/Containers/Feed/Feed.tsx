@@ -100,7 +100,7 @@ const Feed: FC<PropsTypes> = ({
           <span>
             Powered by{' '}
             <a href="https://currentsapi.services/en" target="_blank" rel="noopener noreferrer">
-              currentsapi
+              Currentsapi
             </a>
           </span>
         </div>
