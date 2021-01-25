@@ -11,6 +11,7 @@ import { motion } from 'framer-motion'
 import PostPlaceholder from '../../UI/PostPlaceholder/PostPlaceholder'
 import Search from '../../Search/Search'
 import Grid from '../../Grid/Grid'
+import meme from './meme.gif'
 import './Feed.scss'
 
 export const categoriesList: Category[] = [...Object.values(Category)]
@@ -89,9 +90,12 @@ const Feed: FC<PropsTypes> = ({
             <Grid showButtons={isAuthenticated} items={articles} onSave={toggleArticle} />
           ) : (
             error && (
-              <span data-testid="error" className="Feed__error">
-                {error}
-              </span>
+              <div className="Feed__errorscreen">
+                <span data-testid="error" className="Feed__error">
+                  {error}
+                </span>
+                <img src={meme} alt="meme" style={{ transform: 'translateX(40px)' }} />
+              </div>
             )
           )}
         </div>
