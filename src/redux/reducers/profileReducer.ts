@@ -20,7 +20,7 @@ export const initialState: ProfileState = {
   loading: false,
 }
 
-export default (state = initialState, action: ActionTypes): ProfileState => {
+const reducer = (state = initialState, action: ActionTypes): ProfileState => {
   switch (action.type) {
     case SET_REGION:
       return { ...state, region: action.region }
@@ -40,3 +40,5 @@ export default (state = initialState, action: ActionTypes): ProfileState => {
       return state
   }
 }
+
+export default reducer

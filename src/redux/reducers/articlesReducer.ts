@@ -18,7 +18,7 @@ export const initialState: FeedState = {
   comments: null
 }
 
-export default (state = initialState, action: ActionTypes): FeedState => {
+const reducer = (state = initialState, action: ActionTypes): FeedState => {
   switch (action.type) {
     case SET_ARTICLES:
       return {
@@ -57,3 +57,5 @@ export default (state = initialState, action: ActionTypes): FeedState => {
       return state
   }
 }
+
+export default reducer
