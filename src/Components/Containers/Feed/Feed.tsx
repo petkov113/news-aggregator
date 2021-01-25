@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { RootState } from '../../../redux/reducers/rootReducer'
 import { PropsTypes, MapStateTypes, MapDispatchTypes } from './FeedTypes'
 import { requestArticles, toggleArticle } from '../../../redux/actions/articlesActions'
+import { cancellPendingRequests } from '../../../axios/requestStore'
 import { routerVariants } from '../../../utilities/js/variants'
 import { toCapital } from '../../../utilities/js/string'
 import { Category } from '../../../redux/reducers/ReducersTypes'
@@ -24,6 +25,7 @@ const Feed: FC<PropsTypes> = ({
 }) => {
   useEffect(() => {
     requestArticles()
+    return () => cancellPendingRequests()
   }, [requestArticles])
 
   const [category, setCategory] = useState<Category>(Category.ALL)

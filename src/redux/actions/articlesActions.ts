@@ -1,11 +1,13 @@
-import { CommentType } from './../../Components/Comments/Comments'
-import { Article, APIResponseType, Category } from '../reducers/ReducersTypes'
+import { validateAuthor, validateDescription, validateImgSrc } from '../../utilities/js/validation'
 import { SET_ARTICLES, SET_ERROR, SET_SAVED, SET_COMMENTS } from '../constants'
+import { Article, APIResponseType, Category } from '../reducers/ReducersTypes'
+import requestStore, { createRequestObject } from '../../axios/requestStore'
+import { atriclesAxios, userAxios } from '../../axios/axios'
 import { ActionTypes, ThunkAsync } from './ActionsTypes'
 import { showLoader, hideLoader } from './commonActions'
-import { atriclesAxios, userAxios } from '../../axios/axios'
+import { CommentType } from './../../Components/Comments/Comments'
 import moment from 'moment'
-import { validateAuthor, validateDescription, validateImgSrc } from '../../utilities/js/validation'
+import axios from 'axios'
 
 export const requestArticles = (
   category: Category = Category.ALL,
@@ -13,6 +15,11 @@ export const requestArticles = (
 ): ThunkAsync => async (dispatch, getState) => {
   const language = getState().profile.language.value
   const country = getState().profile.region.value
+  const source = axios.CancelToken.source()
+  const request = createRequestObject(source)
+
+  requestStore.addRequest(request)
+
   let url: string
   category !== Category.ALL
     ? (url = `latest-news?country=${country}&language=${language}&category=${category}&apiKey=${process.env.REACT_APP_API_KEY}`)
@@ -24,7 +31,7 @@ export const requestArticles = (
 
   dispatch(showLoader())
   try {
-    const response = await atriclesAxios.get<APIResponseType>(url)
+    const response = await atriclesAxios.get<APIResponseType>(url, { cancelToken: source.token })
     if (response.data.news.length === 0)
       dispatch(setError('Nothing has been found. Please change the region or the language.'))
     else if (keyword) {
@@ -57,8 +64,10 @@ export const requestArticles = (
     }
   } catch (e) {
     dispatch(setError('Server error. Please, try again later.'))
+  } finally {
+    requestStore.removeRequest(request)
+    dispatch(hideLoader())
   }
-  dispatch(hideLoader())
 }
 
 export const toggleArticle = (article: Article, refreshFeed = true): ThunkAsync => async (
@@ -181,4 +190,3 @@ const setError = (error: string): ActionTypes => {
     payload: error,
   }
 }
-
