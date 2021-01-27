@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom'
 import Profile from '../../Components/Containers/Profile/Profile'
 import Feed from '../../Components/Containers/Feed/Feed'
 import Saved from '../../Components/Containers/Saved/Saved'
+import axios from 'axios'
 
 export enum Theme {
   LIGHT = 'light',
@@ -46,3 +47,57 @@ export const useRoutes = (isAuth: boolean) => {
   }, [isAuth, isAuthenticated])
   return routes
 }
+
+export const useExchangeRates = () => {
+  const [currency, setCurrency] = useState('')
+  const [rate, setRate] = useState('')
+
+  const [exchangeRateArray, setExchangeRateArray] = useState<CurrencyRate[]>()
+
+  const [counter, setCounter] = useState(0)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get<ApiResponse>('https://api.exchangeratesapi.io/latest')
+        const ratesArray = Object.entries(response.data.rates).reduce<CurrencyRate[]>(
+          (acc, cur) => {
+            return [
+              ...acc,
+              {
+                currency: cur[0],
+                rate: cur[1].toFixed(2).toString(),
+              },
+            ]
+          },
+          []
+        )
+        setExchangeRateArray(ratesArray)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    fetchData()
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (exchangeRateArray) {
+        setCurrency(exchangeRateArray[counter].currency)
+        setRate(exchangeRateArray[counter].rate)
+        setCounter((count) => (count < exchangeRateArray.length - 1 ? ++count : 0))
+      }
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [exchangeRateArray, counter])
+
+  return { currency, rate }
+}
+
+type ApiResponse = {
+  rates: { [currency: string]: number }
+  base: string
+  date: string
+}
+
+type CurrencyRate = { currency: string; rate: string }

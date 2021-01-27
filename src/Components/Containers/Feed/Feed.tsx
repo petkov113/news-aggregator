@@ -13,6 +13,7 @@ import Search from '../../Search/Search'
 import Grid from '../../Grid/Grid'
 import meme from './meme.gif'
 import './Feed.scss'
+import { useExchangeRates } from '../../../utilities/js/hooks'
 
 export const categoriesList: Category[] = [...Object.values(Category)]
 
@@ -24,13 +25,9 @@ const Feed: FC<PropsTypes> = ({
   isAuthenticated,
   toggleArticle,
 }) => {
-  useEffect(() => {
-    requestArticles()
-    return () => cancellPendingRequests()
-  }, [requestArticles])
-
   const [category, setCategory] = useState<Category>(Category.ALL)
   const [navigation, setNavigation] = useState<boolean>(false)
+  const { currency, rate } = useExchangeRates()
 
   const toggleNavigation = () => {
     setNavigation((navigation) => !navigation)
@@ -49,6 +46,11 @@ const Feed: FC<PropsTypes> = ({
 
   const placeholders = Array(8).fill(<PostPlaceholder />)
 
+  useEffect(() => {
+    requestArticles()
+    return () => cancellPendingRequests()
+  }, [requestArticles])
+
   return (
     <motion.main
       variants={routerVariants}
@@ -58,13 +60,23 @@ const Feed: FC<PropsTypes> = ({
       className="Feed"
     >
       <div className="Feed__header">
-        <h1 className="Feed__main-title">Latest news</h1>
-        <div
-          className={navigation ? 'Feed__btn active' : 'Feed__btn'}
-          onClick={toggleNavigation}
-          data-testid="burger"
-        >
-          <span className="burger"> </span>
+        <div className="Feed__top">
+          <h1 className="Feed__main-title">Latest news</h1>
+          <div
+            className={navigation ? 'Feed__btn active' : 'Feed__btn'}
+            onClick={toggleNavigation}
+            data-testid="burger"
+          >
+            <span className="burger"> </span>
+          </div>
+          <div className="Feed__info">
+            {currency && (
+              <div className="Feed__currency">
+                <span className="Feed__currency-name">{currency} / EUR</span>
+                <span className="Feed__currency-rate">{rate}</span>
+              </div>
+            )}
+          </div>
         </div>
         <div className={navigation ? 'Feed__nav active' : 'Feed__nav'}>
           <ul className="Feed__categories_wrapper">

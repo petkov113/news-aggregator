@@ -20,6 +20,14 @@
     z-index: 100;
   }
 
+  &__top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
   &__nav {
     display: flex;
     justify-content: space-between;
@@ -39,6 +47,27 @@
     width: 100%;
     text-align: center;
     font-size: 16px;
+  }
+
+  &__currency {
+    font-size: 0.9em;
+
+    > span {
+      display: block;
+      text-align: center;
+    }
+
+    &-name {
+      color: $color-text-secondary;
+    }
+
+    &-rate {
+      color: $color-accent;
+    }
+
+    @media screen and (max-width: 1024px) { 
+      display: none;
+    }
   }
 
   &__errorscreen {
