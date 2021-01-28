@@ -77,6 +77,23 @@
     }
   }
 
+  &__currency {
+    font-size: 0.9em;
+
+    > span {
+      display: block;
+      text-align: center;
+    }
+
+    &-name {
+      color: $color-text-secondary;
+    }
+
+    &-rate {
+      color: $color-accent;
+    }
+  }
+
   &__errorscreen {
     height: 100%;
     display: flex;

@@ -48,6 +48,11 @@ const Feed: FC<PropsTypes> = ({
     return () => cancellPendingRequests()
   }, [requestArticles])
 
+  useEffect(() => {
+    requestArticles()
+    return () => cancellPendingRequests()
+  }, [requestArticles])
+
   return (
     <div className="Feed">
       <div className="Feed__header">
@@ -58,7 +63,7 @@ const Feed: FC<PropsTypes> = ({
             onClick={toggleNavigation}
             data-testid="burger"
           >
-            <span className="burger"></span>
+            <span className="burger"> </span>
           </div>
           <div className="Feed__info">
             {currency && (
