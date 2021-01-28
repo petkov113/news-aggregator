@@ -7,19 +7,17 @@ import {
   sendName,
   setName,
   getUserData,
-  sendLanguage
+  sendLanguage,
 } from '../../../redux/actions/profileActions'
 import { MapStateTypes, MapDispatchTypes } from './ProfileTypes'
-import { routerVariants } from '../../../utilities/js/variants'
 import { RootState } from '../../../redux/reducers/rootReducer'
 import { Region, Language } from '../../../redux/reducers/ReducersTypes'
-import { motion } from 'framer-motion'
 import { Input } from '../../UI/Input/Input'
 import AuthForm from '../../Form/AuthForm'
 import Button from '../../UI/Button/Button'
+import Loader from '../../UI/Loader/Loader'
 import Select from '../../UI/Select/Select'
 import './Profile.scss'
-import Loader from '../../UI/Loader/Loader'
 
 const regions: Region[] = [
   { label: 'USA', value: 'US' },
@@ -60,54 +58,49 @@ export const Profile: FC<ProfileProps> = ({
   }
 
   return (
-    <motion.div
-      variants={routerVariants}
-      initial='hidden'
-      animate='visible'
-      exit='exit'
-      className='Profile'>
+    <div className="Profile">
       {isAuthentiphicated ? (
-        <div className='Profile__settings'>
-          <h1 className='Profile__title'>Settings</h1>
+        <div className="Profile__settings">
+          <h1 className="Profile__title">Settings</h1>
           {loading ? (
             <Loader />
           ) : (
-            <div className='Profile__inputs'>
+            <div className="Profile__inputs">
               <Select
-                label='Select your region'
+                label="Select your region"
                 defValue={regions.find((el) => user.region.value === el.value)!}
-                name='countries'
+                name="countries"
                 items={regions}
                 onChange={onCoutryChange}
               />
               <Select
-                label='Select news language'
+                label="Select news language"
                 defValue={languages.find((el) => user.language.value === el.value)!}
-                name='languages'
+                name="languages"
                 items={languages}
                 onChange={onLanguageChange}
               />
               <Input
-                type='text'
-                label='Name'
+                type="text"
+                label="Name"
                 onChange={(e) => setName(e.target.value)}
                 value={user.name ?? ''}
                 onBlur={sendName}
               />
-              <Button btnType='primary' onClick={logout} value='Logout' />
+              <Button btnType="primary" onClick={logout} value="Logout" />
             </div>
           )}
         </div>
       ) : (
         <>
-          <div className='Profile__intro'>
-            <h1 className='Profile__title'>Newsium</h1>
+          <div className="Profile__intro">
+            <h1 className="Profile__title">Newsium</h1>
             <span>News from all over the world in one place</span>
           </div>
-          <div className='Profile__form'>
-            <h2 className='Profile__subtitle'>Log in to get the full access</h2>
+          <div className="Profile__form">
+            <h2 className="Profile__subtitle">Log in to get the full access</h2>
             <AuthForm handleRegister={auth} isLoading={loading} handleLogin={auth} />
-            <div className='Profile__info'>
+            <div className="Profile__info">
               <span>Creating an account will give you the ability to:</span>
               <ul>
                 <li>Save articles to read them later</li>
@@ -117,7 +110,7 @@ export const Profile: FC<ProfileProps> = ({
           </div>
         </>
       )}
-    </motion.div>
+    </div>
   )
 }
 

@@ -30,7 +30,10 @@
   }
 }
 
-
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 
 .bounceIn {
   -webkit-animation-name: bounceIn;

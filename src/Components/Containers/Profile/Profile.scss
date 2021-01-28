@@ -1,4 +1,5 @@
 @import '../../../utilities/styles/vars.scss';
+@import '../../../utilities/styles/animations.scss';
 
 .Profile {
   position: relative;
@@ -8,6 +9,7 @@
   flex-wrap: wrap;
   padding: 20px 40px;
   overflow: hidden;
+  animation: fadein 0.3s;
 
   &__settings {
     width: 100%;

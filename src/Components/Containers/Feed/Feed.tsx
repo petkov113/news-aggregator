@@ -4,18 +4,17 @@ import { RootState } from '../../../redux/reducers/rootReducer'
 import { PropsTypes, MapStateTypes, MapDispatchTypes } from './FeedTypes'
 import { requestArticles, toggleArticle } from '../../../redux/actions/articlesActions'
 import { cancellPendingRequests } from '../../../axios/requestStore'
-import { routerVariants } from '../../../utilities/js/variants'
+import { useExchangeRates } from '../../../utilities/js/hooks'
 import { toCapital } from '../../../utilities/js/string'
 import { Category } from '../../../redux/reducers/ReducersTypes'
-import { motion } from 'framer-motion'
 import PostPlaceholder from '../../UI/PostPlaceholder/PostPlaceholder'
 import Search from '../../Search/Search'
 import Grid from '../../Grid/Grid'
 import meme from './meme.gif'
 import './Feed.scss'
-import { useExchangeRates } from '../../../utilities/js/hooks'
 
 export const categoriesList: Category[] = [...Object.values(Category)]
+const placeholders = Array(8).fill(<PostPlaceholder />)
 
 const Feed: FC<PropsTypes> = ({
   articles,
@@ -44,21 +43,13 @@ const Feed: FC<PropsTypes> = ({
     setCategory(Category.ALL)
   }
 
-  const placeholders = Array(8).fill(<PostPlaceholder />)
-
   useEffect(() => {
     requestArticles()
     return () => cancellPendingRequests()
   }, [requestArticles])
 
   return (
-    <motion.main
-      variants={routerVariants}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      className="Feed"
-    >
+    <div className="Feed">
       <div className="Feed__header">
         <div className="Feed__top">
           <h1 className="Feed__main-title">Latest news</h1>
@@ -67,7 +58,7 @@ const Feed: FC<PropsTypes> = ({
             onClick={toggleNavigation}
             data-testid="burger"
           >
-            <span className="burger"> </span>
+            <span className="burger"></span>
           </div>
           <div className="Feed__info">
             {currency && (
@@ -120,7 +111,7 @@ const Feed: FC<PropsTypes> = ({
           </span>
         </div>
       </div>
-    </motion.main>
+    </div>
   )
 }
 
