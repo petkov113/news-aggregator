@@ -23,25 +23,21 @@ const validationSchema = Yup.object().shape({
 
 const renderError = (message: string) => {
   return (
-    <span className='Form__error'>
-      <i className='fas fa-exclamation-circle'></i>
+    <span className="Form__error">
+      <i className="fas fa-exclamation-circle"></i>
       {message}
     </span>
   )
 }
 
-const renderField = (type: FieldType, name?: string) => {
+const FormField: FC<{ type: FieldType; name?: string }> = ({ type, name }) => {
   return (
     <Field
-      className='Form__field'
+      className="Form__field"
       type={type}
       name={name || type}
       id={name || type}
-      placeholder={
-        name
-          ? toCapital(name)
-          : toCapital(type)
-      }
+      placeholder={name ? toCapital(name) : toCapital(type)}
     />
   )
 }
@@ -50,37 +46,37 @@ const AuthForm: FC<AuthProps> = ({ handleRegister, isLoading, handleLogin }) => 
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
       {(props: FormikProps<FormikValues>) => (
-        <Form name='auth' className='Form'>
-          <div className='Form__wrapper'>
-            {renderField('email')}
-            <ErrorMessage name='email' render={renderError} />
+        <Form name="auth" className="Form">
+          <div className="Form__wrapper">
+            <FormField type="email" />
+            <ErrorMessage name="email" render={renderError} />
           </div>
-          <div className='Form__wrapper'>
-            {renderField('password')}
-            <ErrorMessage name='password' render={renderError} />
+          <div className="Form__wrapper">
+            <FormField type="password" />
+            <ErrorMessage name="password" render={renderError} />
           </div>
-          <div className='Form__wrapper-buttons'>
+          <div className="Form__wrapper-buttons">
             <Button
-              type='button'
-              btnType='primary'
+              type="button"
+              btnType="primary"
               disabled={!(props.isValid && props.dirty)}
               onClick={() => handleLogin(props.values, props.setStatus, true)}
-              value='Login'
+              value="Login"
             />
             <Button
-              type='button'
-              btnType='secondary'
+              type="button"
+              btnType="secondary"
               onClick={() => handleRegister(props.values, props.setStatus, false)}
               disabled={!(props.isValid && props.dirty)}
-              value='Register'
+              value="Register"
             />
           </div>
           {isLoading ? (
-            <div className='Form__loader'>
+            <div className="Form__loader">
               <Loader />
             </div>
           ) : (
-            props.status && <span className='Form__error-form'>{props.status.generall}</span>
+            props.status && <span className="Form__error-form">{props.status.generall}</span>
           )}
         </Form>
       )}
