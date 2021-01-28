@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
 import PostPlaceholder from '../UI/PostPlaceholder/PostPlaceholder'
 import { Article } from '../../redux/reducers/ReducersTypes'
 import Card from '../Card/Card'

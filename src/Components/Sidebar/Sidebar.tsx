@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { NavLink, withRouter, RouteComponentProps } from 'react-router-dom';
 import './Sidebar.scss';
 

@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import { ChangeEvent } from 'react'
 import './Select.scss'
 
 type DeferTypeInference<T> = [T][T extends any ? 0 : never]

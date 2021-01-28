@@ -1,4 +1,3 @@
-import React from 'react';
 import './PostPlaceholder.scss'
 
 export default function PostPlaceholder() {

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { Theme } from '../../../utilities/js/hooks'
 import './ThemeToggler.scss'
 

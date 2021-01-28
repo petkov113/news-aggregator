@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { Article } from '../../redux/reducers/ReducersTypes'
 import { motion } from 'framer-motion'
 import 'react-lazy-load-image-component/src/effects/blur.css'
