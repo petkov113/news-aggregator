@@ -1,12 +1,12 @@
 import { FC, useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import { RootState } from '../../../redux/reducers/rootReducer'
 import { PropsTypes, MapStateTypes, MapDispatchTypes } from './FeedTypes'
 import { requestArticles, toggleArticle } from '../../../redux/actions/articlesActions'
 import { cancellPendingRequests } from '../../../axios/requestStore'
 import { useExchangeRates } from '../../../utilities/js/hooks'
 import { toCapital } from '../../../utilities/js/string'
+import { RootState } from '../../../redux/reducers/rootReducer'
 import { Category } from '../../../redux/reducers/ReducersTypes'
+import { connect } from 'react-redux'
 import PostPlaceholder from '../../UI/PostPlaceholder/PostPlaceholder'
 import Search from '../../Search/Search'
 import Grid from '../../Grid/Grid'
@@ -42,11 +42,6 @@ const Feed: FC<PropsTypes> = ({
     requestArticles(Category.ALL, encodedKeyword)
     setCategory(Category.ALL)
   }
-
-  useEffect(() => {
-    requestArticles()
-    return () => cancellPendingRequests()
-  }, [requestArticles])
 
   useEffect(() => {
     requestArticles()

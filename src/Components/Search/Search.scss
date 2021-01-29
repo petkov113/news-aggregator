@@ -4,12 +4,11 @@
   width: 300px;
   border: 1px solid $color-light;
   border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
+  height: 100%;
+  padding: 7px 20px;
 
   > input {
     color: $color-text-secondary;
-    padding: 7px 20px;
     &::placeholder {
       color: $color-text-secondary;
     }
