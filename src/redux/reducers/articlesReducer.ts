@@ -15,7 +15,7 @@ export const initialState: FeedState = {
   articles: null,
   saved: null,
   error: null,
-  comments: null
+  comments: null,
 }
 
 const reducer = (state = initialState, action: ActionTypes): FeedState => {

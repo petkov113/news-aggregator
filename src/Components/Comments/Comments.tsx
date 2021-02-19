@@ -30,22 +30,22 @@ const Comments: FC<CommentsProps> = ({ comments, saveComment, loading }) => {
   }
 
   return (
-    <div className='Comments'>
+    <div className="Comments">
       {loading ? (
-        <div className='Comments__loader'>
+        <div className="Comments__loader">
           <Loader />
         </div>
       ) : (
         comments && comments.map((comment) => <Comment comment={comment} key={comment.id} />)
       )}
-      <div className='Comments__field'>
+      <div className="Comments__field">
         <textarea
-          className='Comments__input'
-          placeholder='Add a comment...'
+          className="Comments__input"
+          placeholder="Add a comment..."
           onChange={handleChange}
           value={comment}
         />
-        <Button type='button' btnType='primary' onClick={handleSave} value='Submit' />
+        <Button type="button" btnType="primary" onClick={handleSave} value="Submit" />
       </div>
     </div>
   )

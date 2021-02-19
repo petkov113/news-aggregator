@@ -21,24 +21,25 @@ const Card: FC<CardProps> = ({
   showButtons,
   onSave,
 }) => (
-  <div className='Card__wrapper'>
+  <div className="Card__wrapper">
     <a
       href={url}
-      className='Card'
-      target='_blank'
-      rel='noopener noreferrer'
-      data-tooltip={description}>
-      <LazyLoadImage src={image} alt='Article' className='Card__image' effect='blur' />
-      <span className='Card__title'>{title.replace(/-\s.*/, '')}</span>
+      className="Card"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-tooltip={description}
+    >
+      <LazyLoadImage src={image} alt="Article" className="Card__image" effect="blur" />
+      <span className="Card__title">{title.replace(/-\s.*/, '')}</span>
     </a>
-    <div className='Card__info'>
-      <div className='Card__source'>{author}</div>
+    <div className="Card__info">
+      <div className="Card__source">{author}</div>
       {showButtons && (
-        <div className='Card__buttons'>
+        <div className="Card__buttons">
           <input
             checked={isSaved}
             id={id}
-            type='checkbox'
+            type="checkbox"
             onChange={() =>
               onSave!({
                 id,
@@ -50,9 +51,10 @@ const Card: FC<CardProps> = ({
                 published,
                 isSaved,
               })
-            }></input>
-          <label htmlFor={id} className='Card__btn' title='Save'>
-            <i className='fas fa-bookmark' />
+            }
+          ></input>
+          <label htmlFor={id} className="Card__btn" title="Save">
+            <i className="fas fa-bookmark" />
           </label>
         </div>
       )}
