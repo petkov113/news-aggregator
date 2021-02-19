@@ -57,9 +57,12 @@ export const useExchangeRates = () => {
   const [counter, setCounter] = useState(0)
 
   useEffect(() => {
+    const request = axios.CancelToken.source()
     const fetchData = async () => {
       try {
-        const response = await axios.get<ApiResponse>('https://api.exchangeratesapi.io/latest')
+        const response = await axios.get<ApiResponse>('https://api.exchangeratesapi.io/latest', {
+          cancelToken: request.token,
+        })
         const ratesArray = Object.entries(response.data.rates).reduce<CurrencyRate[]>(
           (acc, cur) => {
             return [
@@ -73,11 +76,10 @@ export const useExchangeRates = () => {
           []
         )
         setExchangeRateArray(ratesArray)
-      } catch (e) {
-        console.log(e)
-      }
+      } catch (e) {}
     }
     fetchData()
+    return () => request.cancel()
   }, [])
 
   useEffect(() => {

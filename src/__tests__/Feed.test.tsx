@@ -31,9 +31,7 @@ new MockAdapter(atriclesAxios)
 
 const searchSetup = () => {
   const searchField = screen.getByPlaceholderText(/search/i)
-  const btn = screen.getByRole('button', { name: '' })
   user.type(searchField, 'test')
-  user.click(btn)
 }
 
 const categoryChangeSetup = () => {
@@ -106,23 +104,6 @@ describe('FEED', () => {
       expect(btn).not.toBeChecked()
       user.click(btn)
       expect(btn).toBeChecked()
-    })
-  })
-
-  it('shows burger button only on mobile devices', async () => {
-    expect(screen.getByTestId('burger')).not.toBeVisible()
-    global.innerWidth = 800
-    await waitFor(() => {
-      expect(screen.getByTestId('burger')).toBeVisible()
-    })
-  })
-
-  it('does not show the categories on mobile devices', async () => {
-    global.innerWidth = 800
-    await waitFor(() => {
-      categoriesList.forEach((category) =>
-        expect(screen.getByText(new RegExp(`${category}`, 'i'))).not.toBeVisible()
-      )
     })
   })
 
