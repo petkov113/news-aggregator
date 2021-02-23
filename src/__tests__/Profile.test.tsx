@@ -168,7 +168,7 @@ describe('PROFILE', () => {
 
     fireEvent.click(login)
     await waitFor(() => {
-      expect(screen.getByText(/this email haven't been registered yet/i)).toBeInTheDocument()
+      expect(screen.getByText(/this email hasn't been registered yet/i)).toBeInTheDocument()
     })
   })
 
@@ -226,10 +226,4 @@ describe('PROFILE', () => {
       expect(screen.getByDisplayValue(/test/i))
     })
   })
-
-  it('shows errors in the console', async () => {
-    renderWithRedux(<Profile />, stateWithAuth)
-    
-  })
-
 })

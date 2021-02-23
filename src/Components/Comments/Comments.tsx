@@ -11,6 +11,8 @@ export type CommentType = {
   date: string
 }
 
+export type CommentApiResponse = { [id: string]: CommentType }
+
 type CommentsProps = {
   comments: null | CommentType[]
   saveComment: (comment: CommentType['message']) => void

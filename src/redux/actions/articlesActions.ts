@@ -1,56 +1,52 @@
 import { validateAuthor, validateDescription, validateImgSrc } from '../../utilities/js/validation'
 import { SET_ARTICLES, SET_ERROR, SET_SAVED, SET_COMMENTS } from '../constants'
+import { Errors, getDate, getNewsUrl, getSearchUrl, testArticle } from '../../utilities/js/utils'
 import { Article, APIResponseType, Category } from '../reducers/ReducersTypes'
 import requestStore, { createRequestObject } from '../../axios/requestStore'
+import { CommentApiResponse, CommentType } from './../../Components/Comments/Comments'
 import { atriclesAxios, userAxios } from '../../axios/axios'
 import { ActionTypes, ThunkAsync } from './ActionsTypes'
 import { showLoader, hideLoader } from './commonActions'
-import { CommentType } from './../../Components/Comments/Comments'
-import moment from 'moment'
 import axios from 'axios'
 
 export const requestArticles = (
   category: Category = Category.ALL,
   keyword?: string
 ): ThunkAsync => async (dispatch, getState) => {
-  const language = getState().profile.language.value
-  const country = getState().profile.region.value
+  const { language, region, userId } = getState().profile
   const source = axios.CancelToken.source()
-  const request = createRequestObject(source)
 
+  const request = createRequestObject(source)
   requestStore.addRequest(request)
 
   let url: string
-  category !== Category.ALL
-    ? (url = `latest-news?country=${country}&language=${language}&category=${category}&apiKey=${process.env.REACT_APP_API_KEY}`)
-    : keyword
-    ? (url = `search?country=${country}&language=${language}&start_date=${moment()
-        .subtract(1, 'days')
-        .format()}&apiKey=${process.env.REACT_APP_API_KEY}`)
-    : (url = `latest-news?country=${country}&language=${language}&apiKey=${process.env.REACT_APP_API_KEY}`)
+  if (category !== Category.ALL) {
+    url = getNewsUrl(region, language, category)
+  } else if (keyword) {
+    url = getSearchUrl(region, language)
+  } else {
+    url = getNewsUrl(region, language)
+  }
 
   dispatch(showLoader())
   try {
     const response = await atriclesAxios.get<APIResponseType>(url, { cancelToken: source.token })
-    if (response.data.news.length === 0)
-      dispatch(setError('Nothing has been found. Please change the region or the language.'))
-    else if (keyword) {
-      const regKeyword = new RegExp(`${keyword}`, 'g')
-      const articles = response.data.news.filter(
-        (article) => regKeyword.test(article.description) || regKeyword.test(article.title)
-      )
-      articles.length > 0
-        ? dispatch(setArticles(articles))
-        : dispatch(setError('Nothing has been found.'))
+    const { news } = response.data
+
+    if (news.length < 1) {
+      dispatch(setError(Errors.NOT_FOUND))
+    } else if (keyword) {
+      const articles = news.filter((article) => testArticle(article, keyword))
+      articles.length > 0 ? dispatch(setArticles(articles)) : dispatch(setError(Errors.NOT_FOUND))
     } else {
-      let articles = response.data.news.map((article) => ({
+      let articles = news.map((article) => ({
         ...article,
         description: validateDescription(article.description),
         author: validateAuthor(article.author),
-        image: article.image === 'None' ? './placeholder.jpg' : validateImgSrc(article.image),
+        image: validateImgSrc(article.image),
         isSaved: false,
       }))
-      if (getState().profile.userId) {
+      if (userId) {
         await dispatch(requestSaved())
         const savedArticles = getState().articles.saved
         if (savedArticles) {
@@ -63,7 +59,7 @@ export const requestArticles = (
       dispatch(setArticles(articles))
     }
   } catch (e) {
-    dispatch(setError('Server error. Please, try again later.'))
+    dispatch(setError(Errors.SERVER))
   } finally {
     requestStore.removeRequest(request)
     dispatch(hideLoader())
@@ -74,10 +70,8 @@ export const toggleArticle = (article: Article, refreshFeed = true): ThunkAsync 
   dispatch,
   getState
 ) => {
-  const userId = getState().profile.userId
-  const feedAritcles = getState().articles.articles
-  const savedArticles = getState().articles.saved
-  const token = getState().profile.token
+  const { userId, token } = getState().profile
+  const { articles: feedAritcles, saved: savedArticles } = getState().articles
   let articles = [article]
 
   if (savedArticles) {
@@ -117,8 +111,7 @@ const setSaved = (articles: Article[]): ActionTypes => {
 }
 
 export const requestSaved = (): ThunkAsync => async (dispatch, getState) => {
-  const userId = getState().profile.userId
-  const token = getState().profile.token
+  const { userId, token } = getState().profile
   try {
     const response = await userAxios.get<Article[]>(`/users/${userId}/articles.json?auth=${token}`)
     response.data && dispatch(setSaved(response.data))
@@ -130,9 +123,9 @@ export const requestSaved = (): ThunkAsync => async (dispatch, getState) => {
 export const getComments = (id: string): ThunkAsync => async (dispatch) => {
   dispatch(showLoader())
   try {
-    const response = await userAxios.get<{ [id: string]: CommentType }>(`/comments/${id}.json`)
+    const response = await userAxios.get<CommentApiResponse>(`/comments/${id}.json`)
     if (response.data) {
-      const comments = Object.entries(response.data).reduce((acc, el) => {
+      const comments = Object.entries(response.data).reduce<CommentType[]>((acc, el) => {
         const comment: CommentType = {
           id: el[0],
           message: el[1].message,
@@ -140,7 +133,7 @@ export const getComments = (id: string): ThunkAsync => async (dispatch) => {
           author: el[1].author,
         }
         return [...acc, comment]
-      }, [] as CommentType[])
+      }, [])
       dispatch(setComments(comments))
     } else {
       dispatch(setComments(null))
@@ -159,7 +152,7 @@ export const saveComment = (message: string, articleId: string): ThunkAsync => a
   const comment: Omit<CommentType, 'id'> = {
     author: getState().profile.name ?? 'Anonymous',
     message,
-    date: moment().format('MMM Do YY'),
+    date: getDate(),
   }
   try {
     await userAxios.post(`/comments/${articleId}.json`, { ...comment })

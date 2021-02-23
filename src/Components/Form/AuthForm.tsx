@@ -1,6 +1,6 @@
 import { Formik, Form, FormikValues, ErrorMessage, FormikHelpers, FormikProps, Field } from 'formik'
 import { FieldType, AuthProps } from './AuthTypes'
-import { toCapital } from '../../utilities/js/string'
+import { toCapital } from '../../utilities/js/utils'
 import { FC } from 'react'
 import Button from '../UI/Button/Button'
 import Loader from '../UI/Loader/Loader'

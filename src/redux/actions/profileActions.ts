@@ -1,50 +1,53 @@
-import { Language, Region } from './../reducers/ReducersTypes'
 import { AUTH_SUCCESS, AUTH_LOGOUT, SET_NAME, SET_LANGUAGE, SET_REGION } from '../constants'
 import { ActionTypes, AuthResponse, ThunkAsync, Thunk, UserData } from './ActionsTypes'
+import {
+  Errors,
+  createExpirationDate,
+  saveAuthDataToLocalStorage,
+  getAuthDataFromLocalStorage,
+  removeAuthDataFromLocalStorage,
+} from '../../utilities/js/utils'
 import { showLoader, hideLoader } from './commonActions'
-import { FormikValues } from 'formik'
-import { AuthFunction } from '../../Components/Form/AuthTypes'
 import { authAxios, userAxios } from '../../axios/axios'
+import { Language, Region } from './../reducers/ReducersTypes'
+import { AuthFunction } from '../../Components/Form/AuthTypes'
+import Keys from '../../utilities/js/keys'
 
-export const auth: AuthFunction = (
-  values: FormikValues,
-  setStatus: (status: any) => void,
-  isLogin: boolean
-): ThunkAsync => async (dispatch) => {
+export const auth: AuthFunction = (values, setStatus, isLogin): ThunkAsync => async (dispatch) => {
   dispatch(showLoader())
+
   const authData = {
     email: values.email,
     password: values.password,
     returnSecureToken: true,
   }
-  let url
 
-  isLogin
-    ? (url = `:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API_KEY}`)
-    : (url = `:signUp?key=${process.env.REACT_APP_FIREBASE_API_KEY}`);
+  let url: string
+  if (isLogin) {
+    url = `:signInWithPassword?key=${Keys.AUTH}`
+  } else {
+    url = `:signUp?key=${Keys.AUTH}`
+  }
 
   try {
     const response: AuthResponse = await authAxios.post(url, authData)
     const { expiresIn, idToken, localId } = response.data
+    const expirationDate = createExpirationDate(expiresIn)
 
-    const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000)
-
-    localStorage.setItem('token', idToken)
-    localStorage.setItem('userId', localId)
-    localStorage.setItem('expirationDate', expirationDate.toString())
+    saveAuthDataToLocalStorage(idToken, localId, expirationDate)
 
     dispatch(authSuccess(localId, idToken))
   } catch (e) {
-    let warning
+    let warning: string
     switch (e.response.data.error.message) {
       case 'EMAIL_EXISTS':
-        warning = 'This email is already registered'
+        warning = Errors.EMAIL_EXISTS
         break
       case 'EMAIL_NOT_FOUND':
-        warning = "This email haven't been registered yet"
+        warning = Errors.EMAIL_NOT_FOUND
         break
       default:
-        warning = 'Email or password is incorrect'
+        warning = Errors.EMAIL_INCORRECT
     }
     setStatus({ generall: warning })
   }
@@ -60,18 +63,14 @@ const authSuccess = (userId: string, token: string): ActionTypes => {
 }
 
 export const logout = (): ActionTypes => {
-  localStorage.removeItem('token')
-  localStorage.removeItem('userId')
-  localStorage.removeItem('expirationDate')
+  removeAuthDataFromLocalStorage()
   return {
     type: AUTH_LOGOUT,
   }
 }
 
 export const autoLogin = (): Thunk => (dispatch) => {
-  const token = localStorage.getItem('token')
-  const userId = localStorage.getItem('userId')
-  const expirationDate = localStorage.getItem('expirationDate')
+  const { token, userId, expirationDate } = getAuthDataFromLocalStorage()
 
   if (!token || !userId || !expirationDate) {
     dispatch(logout())
@@ -101,10 +100,9 @@ export const setRegion = (region: Region): ActionTypes => {
 
 export const sendRegion = (region: Region): ThunkAsync => async (dispatch, getState) => {
   dispatch(setRegion(region))
-  const id = getState().profile.userId
-  const token = getState().profile.token
+  const { userId, token } = getState().profile
   try {
-    await userAxios.patch(`/users/${id}.json?auth=${token}`, {
+    await userAxios.patch(`/users/${userId}.json?auth=${token}`, {
       region,
     })
   } catch (e) {
@@ -112,10 +110,8 @@ export const sendRegion = (region: Region): ThunkAsync => async (dispatch, getSt
   }
 }
 
-export const sendName = (): ThunkAsync => async (dispatch, getState) => {
-  const userId = getState().profile.userId
-  const name = getState().profile.name
-  const token = getState().profile.token
+export const sendName = (): ThunkAsync => async (_, getState) => {
+  const { userId, name, token } = getState().profile
   try {
     await userAxios.patch(`/users/${userId}.json?auth=${token}`, { name })
   } catch (e) {
@@ -125,8 +121,7 @@ export const sendName = (): ThunkAsync => async (dispatch, getState) => {
 
 export const sendLanguage = (language: Language): ThunkAsync => async (dispatch, getState) => {
   dispatch(setLanguage(language))
-  const userId = getState().profile.userId
-  const token = getState().profile.token
+  const { userId, token } = getState().profile
   try {
     await userAxios.patch(`/users/${userId}.json?auth=${token}`, { language })
   } catch (e) {
@@ -158,10 +153,12 @@ export const getUserData = (): ThunkAsync => async (dispatch, getState) => {
   const token = getState().profile.token
   try {
     const response = await userAxios.get<UserData>(`/users/${id}.json?auth=${token}`)
+
     if (response.data) {
-      response.data.name && dispatch(setName(response.data.name))
-      response.data.region && dispatch(setRegion(response.data.region))
-      response.data.language && dispatch(setLanguage(response.data.language))
+      const { name, region, language } = response.data
+      name && dispatch(setName(name))
+      region && dispatch(setRegion(region))
+      language && dispatch(setLanguage(language))
     }
   } catch (e) {
     console.log(e)

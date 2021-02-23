@@ -1,15 +1,15 @@
-import { FormikValues } from "formik";
+import { FormikValues } from 'formik'
 
 export type AuthFunction = (
   values: FormikValues,
   setStatus: (status: any) => void,
   isLogin: boolean
-) => void;
+) => void
 
-export type FieldType = 'email' | 'password' | 'text' | 'checkbox';
+export type FieldType = 'email' | 'password' | 'text' | 'checkbox'
 
 export type AuthProps = {
-  handleRegister: AuthFunction;
+  handleRegister: AuthFunction
   handleLogin: AuthFunction
   isLoading: boolean
-};
+}

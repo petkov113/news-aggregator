@@ -1,5 +1,5 @@
 import { CancelTokenSource } from 'axios'
-import { createID } from '../utilities/js/string'
+import { createID } from '../utilities/js/utils'
 
 export class RequestStore {
   constructor(private pendingRequests: Request[] = []) {}
