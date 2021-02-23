@@ -23,7 +23,7 @@ export const useTheme = () => {
     localStorage.setItem('NEWSIUM/theme', theme)
   }, [theme])
 
-  return { theme, changeTheme }
+  return [theme, changeTheme] as const
 }
 
 const noAuthRoutes = [

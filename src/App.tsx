@@ -10,7 +10,7 @@ import Sidebar from './Components/Sidebar/Sidebar'
 import './App.scss'
 
 const App: FC<AppProps> = ({ isAuthenticated, autoLogin }) => {
-  const { theme, changeTheme } = useTheme()
+  const [theme, changeTheme] = useTheme()
   const routes = useRoutes(isAuthenticated)
 
   useEffect(() => {
