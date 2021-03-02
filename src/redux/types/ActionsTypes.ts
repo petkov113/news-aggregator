@@ -1,7 +1,7 @@
-import { Language, Region } from './../reducers/ReducersTypes';
-import { CommentType } from './../../Components/Comments/Comments'
+import { Language, Region } from './ReducersTypes';
+import { CommentType } from '../../Components/Comments/Comments'
 import { ThunkAction } from 'redux-thunk'
-import { Article } from '../reducers/ReducersTypes'
+import { Article } from './ReducersTypes'
 import {
   SET_ARTICLES,
   SET_ERROR,
@@ -16,7 +16,7 @@ import {
   SET_COMMENTS,
   SET_NAME,
   SET_LANGUAGE,
-} from '../constants'
+} from './constants'
 import { RootState } from '../reducers/rootReducer'
 
 export type ThunkAsync = ThunkAction<Promise<void>, RootState, unknown, ActionTypes>

@@ -16,6 +16,7 @@ const Sidebar: FC<SidebarProps> = ({ isAuthenticated, children }) => {
   const links: Array<Link> = [
     { to: '/profile', tooltip: 'Profile', icon: 'fas fa-user-circle', flow: 'right' },
     { to: '/', exact: true, tooltip: 'Feed', icon: 'fas fa-stream', flow: 'right' },
+    { to: '/crypto', tooltip: 'Cryptocyrrency rates', icon: 'fas fa-wallet', flow: 'right' },
   ]
 
   isAuthenticated &&

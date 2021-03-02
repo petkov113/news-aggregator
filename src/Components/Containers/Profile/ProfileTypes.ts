@@ -1,5 +1,5 @@
-import { Region, Language } from './../../../redux/reducers/ReducersTypes'
-import { ActionTypes } from './../../../redux/actions/ActionsTypes'
+import { Region, Language } from '../../../redux/types/ReducersTypes'
+import { ActionTypes } from '../../../redux/types/ActionsTypes'
 import { AuthFunction } from '../../Form/AuthTypes'
 
 export type MapStateTypes = {

@@ -1,5 +1,5 @@
-import { ActionTypes } from '../actions/ActionsTypes'
-import { ProfileState } from './ReducersTypes'
+import { ActionTypes } from '../types/ActionsTypes'
+import { ProfileState } from '../types/ReducersTypes'
 import {
   SET_REGION,
   AUTH_LOGOUT,
@@ -8,7 +8,7 @@ import {
   HIDE_LOADER,
   SET_NAME,
   SET_LANGUAGE,
-} from '../constants'
+} from '../types/constants'
 
 export const initialState: ProfileState = {
   isAuth: false,

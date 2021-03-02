@@ -11,7 +11,7 @@ import {
 } from '../../../redux/actions/profileActions'
 import { MapStateTypes, MapDispatchTypes } from './ProfileTypes'
 import { RootState } from '../../../redux/reducers/rootReducer'
-import { Region, Language } from '../../../redux/reducers/ReducersTypes'
+import { Region, Language } from '../../../redux/types/ReducersTypes'
 import { Input } from '../../UI/Input/Input'
 import AuthForm from '../../Form/AuthForm'
 import Button from '../../UI/Button/Button'

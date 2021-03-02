@@ -1,5 +1,5 @@
-import { AUTH_SUCCESS, AUTH_LOGOUT, SET_NAME, SET_LANGUAGE, SET_REGION } from '../constants'
-import { ActionTypes, AuthResponse, ThunkAsync, Thunk, UserData } from './ActionsTypes'
+import { AUTH_SUCCESS, AUTH_LOGOUT, SET_NAME, SET_LANGUAGE, SET_REGION } from '../types/constants'
+import { ActionTypes, AuthResponse, ThunkAsync, Thunk, UserData } from '../types/ActionsTypes'
 import {
   Errors,
   createExpirationDate,
@@ -9,7 +9,7 @@ import {
 } from '../../utilities/js/utils'
 import { showLoader, hideLoader } from './commonActions'
 import { authAxios, userAxios } from '../../axios/axios'
-import { Language, Region } from './../reducers/ReducersTypes'
+import { Language, Region } from '../types/ReducersTypes'
 import { AuthFunction } from '../../Components/Form/AuthTypes'
 import Keys from '../../utilities/js/keys'
 

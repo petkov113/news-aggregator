@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 import PostPlaceholder from '../UI/PostPlaceholder/PostPlaceholder'
-import { Article } from '../../redux/reducers/ReducersTypes'
+import { Article } from '../../redux/types/ReducersTypes'
 import Card from '../Card/Card'
 
 export type GridProps = {

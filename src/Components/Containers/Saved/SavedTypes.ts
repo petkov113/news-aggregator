@@ -1,5 +1,5 @@
 import { CommentType } from './../../Comments/Comments';
-import { Article } from '../../../redux/reducers/ReducersTypes'
+import { Article } from '../../../redux/types/ReducersTypes'
 
 export type MapStateTypes = {
   loading: boolean

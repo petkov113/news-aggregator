@@ -7,7 +7,7 @@ import React from 'react'
 import user from '@testing-library/user-event'
 import MockAdapter from 'axios-mock-adapter'
 import { authAxios, userAxios } from '../axios/axios'
-import { UserData } from '../redux/actions/ActionsTypes'
+import { UserData } from '../redux/types/ActionsTypes'
 
 const userData: UserData = {
   name: 'test',

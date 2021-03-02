@@ -1,4 +1,4 @@
-import { Article, Category } from '../../../redux/reducers/ReducersTypes'
+import { Article, Category } from '../../../redux/types/ReducersTypes'
 
 export type MapStateTypes = {
   loading: boolean

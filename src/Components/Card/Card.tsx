@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import { Article } from '../../redux/reducers/ReducersTypes'
+import { Article } from '../../redux/types/ReducersTypes'
 import 'react-lazy-load-image-component/src/effects/blur.css'
 import './Card.scss'
 

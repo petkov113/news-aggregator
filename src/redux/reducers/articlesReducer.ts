@@ -1,5 +1,5 @@
-import { FeedState } from './ReducersTypes'
-import { ActionTypes } from '../actions/ActionsTypes'
+import { FeedState } from '../types/ReducersTypes'
+import { ActionTypes } from '../types/ActionsTypes'
 import {
   SET_ARTICLES,
   SET_ERROR,
@@ -8,7 +8,7 @@ import {
   SET_SAVED,
   AUTH_LOGOUT,
   SET_COMMENTS,
-} from '../constants'
+} from '../types/constants'
 
 export const initialState: FeedState = {
   loading: false,

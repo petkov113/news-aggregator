@@ -5,7 +5,7 @@ import { createStore, Store, applyMiddleware } from 'redux'
 import { ReactElement } from 'react'
 import { render } from '@testing-library/react'
 import thunk from 'redux-thunk'
-import { Article } from '../../redux/reducers/ReducersTypes'
+import { Article } from '../../redux/types/ReducersTypes'
 
 type RenderOptions = {
   initialState?: Partial<RootState>

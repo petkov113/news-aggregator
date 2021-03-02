@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { Article, Category, Language, Region } from '../../redux/reducers/ReducersTypes'
+import { Article, Category, Language, Region } from '../../redux/types/ReducersTypes'
 import Keys from './keys'
 
 export const toCapital = (el: string) => {

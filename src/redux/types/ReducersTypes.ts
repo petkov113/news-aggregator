@@ -1,4 +1,4 @@
-import { CommentType } from './../../Components/Comments/Comments'
+import { CommentType } from '../../Components/Comments/Comments'
 export enum Category {
   ALL = 'all',
   BUSINESS = 'business',

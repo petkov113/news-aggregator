@@ -1,5 +1,5 @@
-import { ActionTypes } from './ActionsTypes';
-import { SHOW_LOADER, HIDE_LOADER } from '../constants';
+import { ActionTypes } from '../types/ActionsTypes';
+import { SHOW_LOADER, HIDE_LOADER } from '../types/constants';
 
 export const showLoader = (): ActionTypes => {
   return {

@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Article } from '../../redux/reducers/ReducersTypes'
+import { Article } from '../../redux/types/ReducersTypes'
 import { motion } from 'framer-motion'
 import 'react-lazy-load-image-component/src/effects/blur.css'
 import './SmallCard.scss'
