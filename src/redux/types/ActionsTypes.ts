@@ -1,4 +1,4 @@
-import { Language, Region } from './ReducersTypes';
+import { Language, Region } from './ReducersTypes'
 import { CommentType } from '../../Components/Comments/Comments'
 import { ThunkAction } from 'redux-thunk'
 import { Article } from './ReducersTypes'
@@ -16,6 +16,7 @@ import {
   SET_COMMENTS,
   SET_NAME,
   SET_LANGUAGE,
+  SET_RATES,
 } from './constants'
 import { RootState } from '../reducers/rootReducer'
 
@@ -103,6 +104,11 @@ interface Logout {
   type: typeof AUTH_LOGOUT
 }
 
+interface SetRates {
+  type: typeof SET_RATES
+  rates: { [k: string]: string }
+}
+
 export type ActionTypes =
   | SetArticles
   | SetError
@@ -117,3 +123,4 @@ export type ActionTypes =
   | SetComments
   | AuthSucces
   | Logout
+  | SetRates

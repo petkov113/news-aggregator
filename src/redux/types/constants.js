@@ -16,3 +16,10 @@ export const SET_NAME = 'SET_NAME'
 export const SET_LANGUAGE = 'SET_LANGUAGE'
 
 export const SET_COMMENTS = 'SET_COMMENTS'
+
+export const SET_RATES = 'SET_RATES'
+
+export const WS_CONNECT = 'WS_CONNECT'
+export const WS_CONNECTED = 'WS_CONNECTED'
+export const WS_DISCONNECT = 'WS_DISCONNECT'
+export const WS_DISCONNECTED = 'WS_DISCONNECTED'
