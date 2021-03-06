@@ -8,10 +8,10 @@ import { Dispatch, Middleware, MiddlewareAPI } from 'redux'
 import { WS_CONNECT, WS_DISCONNECT } from '../types/constants'
 
 const socketMiddleware: Middleware = (store) => (next) => (action: WebsocketActions) => {
-  let socket: any = null
+  let socket: WebSocket | null = null
   switch (action.type) {
     case WS_CONNECT:
-      socket && socket.close()
+      socket && socket!.close()
       socket = new WebSocket(
         'wss://ws.coincap.io/prices?assets=bitcoin,ethereum,monero,litecoin,maker'
       )
@@ -20,7 +20,7 @@ const socketMiddleware: Middleware = (store) => (next) => (action: WebsocketActi
       socket.onopen = onOpen(store)
       break
     case WS_DISCONNECT:
-      socket && socket.close()
+      socket && socket!.close()
       socket = null
       break
     default:
