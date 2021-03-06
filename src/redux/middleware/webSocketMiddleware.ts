@@ -6,6 +6,7 @@ import {
 } from '../actions/websocketActions'
 import { Dispatch, Middleware, MiddlewareAPI } from 'redux'
 import { WS_CONNECT, WS_DISCONNECT } from '../types/constants'
+import { RootState } from '../reducers/rootReducer'
 
 const socketMiddleware: Middleware = (store) => (next) => (action: WebsocketActions) => {
   let socket: WebSocket | null = null
@@ -30,15 +31,15 @@ const socketMiddleware: Middleware = (store) => (next) => (action: WebsocketActi
 
 export default socketMiddleware
 
-const onOpen = (store: MiddlewareAPI<Dispatch<WebsocketActions>, any>) => () => {
+const onOpen = (store: MiddlewareAPI<Dispatch<WebsocketActions>, RootState>) => () => {
   store.dispatch(wsConnected())
 }
 
-const onClose = (store: MiddlewareAPI<Dispatch<WebsocketActions>, any>) => () => {
+const onClose = (store: MiddlewareAPI<Dispatch<WebsocketActions>, RootState>) => () => {
   store.dispatch(wsDisconnected())
 }
 
-const onMessage = (store: MiddlewareAPI<Dispatch<WebsocketActions>, any>) => (
+const onMessage = (store: MiddlewareAPI<Dispatch<WebsocketActions>, RootState>) => (
   event: MessageEvent
 ) => {
   if (event && event.data) {
