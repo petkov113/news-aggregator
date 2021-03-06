@@ -1,23 +1,24 @@
 import React, { FC, useEffect } from 'react'
 import { Switch, Redirect } from 'react-router-dom'
-import { connect, ConnectedProps } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { autoLogin } from './redux/actions/profileActions'
 import { requestRates } from './redux/actions/websocketActions'
 import { RootState } from './redux/reducers/rootReducer'
 import { useRoutes, useTheme } from './utilities/js/hooks'
-import { Thunk } from './redux/types/ActionsTypes'
 import ThemeToggle from './Components/UI/ThemeToggler/ThemeToggle'
 import Sidebar from './Components/Sidebar/Sidebar'
 import './App.scss'
 
-const App: FC<AppProps> = ({ isAuthenticated, autoLogin, requestRates }) => {
+const App: FC = () => {
   const [theme, changeTheme] = useTheme()
+  const isAuthenticated = useSelector((state: RootState) => state.profile.isAuth)
   const routes = useRoutes(isAuthenticated)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    autoLogin()
-    requestRates()
-  }, [autoLogin, requestRates])
+    dispatch(autoLogin())
+    dispatch(requestRates())
+  }, [dispatch])
 
   return (
     <div className={`App ${theme}`}>
@@ -32,13 +33,4 @@ const App: FC<AppProps> = ({ isAuthenticated, autoLogin, requestRates }) => {
   )
 }
 
-type MapState = { isAuthenticated: boolean }
-const mapStateToProps = (state: RootState): MapState => ({ isAuthenticated: state.profile.isAuth })
-
-type MapDispatch = { autoLogin: () => Thunk; requestRates: () => void }
-const mapDispatchToProps: MapDispatch = { autoLogin, requestRates }
-
-const connector = connect(mapStateToProps, mapDispatchToProps)
-type AppProps = ConnectedProps<typeof connector>
-
-export default connector(App)
+export default App
