@@ -1,12 +1,11 @@
 import { FC, useEffect, useState } from 'react'
-import { PropsTypes, MapStateTypes, MapDispatchTypes } from './FeedTypes'
 import { requestArticles, toggleArticle } from '../../../redux/actions/articlesActions'
 import { cancellPendingRequests } from '../../../axios/requestStore'
 import { useExchangeRates } from '../../../utilities/js/hooks'
 import { toCapital } from '../../../utilities/js/utils'
 import { RootState } from '../../../redux/reducers/rootReducer'
 import { Category } from '../../../redux/types/ReducersTypes'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import PostPlaceholder from '../../UI/PostPlaceholder/PostPlaceholder'
 import Search from '../../Search/Search'
 import Grid from '../../Grid/Grid'
@@ -16,37 +15,35 @@ import './Feed.scss'
 export const categoriesList: Category[] = [...Object.values(Category)]
 const placeholders = Array(8).fill(<PostPlaceholder />)
 
-const Feed: FC<PropsTypes> = ({
-  articles,
-  loading,
-  requestArticles,
-  error,
-  isAuthenticated,
-  toggleArticle,
-}) => {
+const Feed: FC = () => {
   const [category, setCategory] = useState<Category>(Category.ALL)
   const [navigation, setNavigation] = useState<boolean>(false)
   const { currency, rate } = useExchangeRates()
+  const dispatch = useDispatch()
+  const isAuthenticated = useSelector((state: RootState) => state.profile.isAuth)
+  const articles = useSelector((state: RootState) => state.articles.articles)
+  const loading = useSelector((state: RootState) => state.articles.loading)
+  const error = useSelector((state: RootState) => state.articles.error)
 
   const toggleNavigation = () => {
     setNavigation((navigation) => !navigation)
   }
 
   const changeCategory = (category: Category): void => {
-    requestArticles(category)
+    dispatch(requestArticles(category))
     setCategory(category)
   }
 
   const onSearchSubmit = (keyword: string) => {
     const encodedKeyword = encodeURIComponent(keyword.toString())
-    requestArticles(Category.ALL, encodedKeyword)
+    dispatch(requestArticles(Category.ALL, encodedKeyword))
     setCategory(Category.ALL)
   }
 
   useEffect(() => {
-    requestArticles()
+    dispatch(requestArticles())
     return () => cancellPendingRequests()
-  }, [requestArticles])
+  }, [dispatch])
 
   return (
     <div className="Feed">
@@ -115,17 +112,4 @@ const Feed: FC<PropsTypes> = ({
   )
 }
 
-const mapState = (state: RootState): MapStateTypes => ({
-  loading: state.articles.loading,
-  articles: state.articles.articles,
-  error: state.articles.error,
-  isAuthenticated: state.profile.isAuth,
-  savedArticles: state.articles.saved,
-})
-
-const mapDispatch: MapDispatchTypes = {
-  requestArticles,
-  toggleArticle,
-}
-
-export default connect<MapStateTypes, MapDispatchTypes, {}, RootState>(mapState, mapDispatch)(Feed)
+export default Feed
