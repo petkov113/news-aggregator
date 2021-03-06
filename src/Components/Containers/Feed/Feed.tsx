@@ -13,7 +13,6 @@ import meme from './meme.gif'
 import './Feed.scss'
 
 export const categoriesList: Category[] = [...Object.values(Category)]
-const placeholders = Array(8).fill(<PostPlaceholder />)
 
 const Feed: FC = () => {
   const [category, setCategory] = useState<Category>(Category.ALL)
@@ -85,7 +84,7 @@ const Feed: FC = () => {
       <div className="Feed__wrapper container-fluid">
         <div className="Feed__content">
           {loading ? (
-            <Grid items={placeholders} />
+            <Grid items={Array(8).fill(<PostPlaceholder />)} />
           ) : articles ? (
             <Grid showButtons={isAuthenticated} items={articles} onSave={toggleArticle} />
           ) : (
