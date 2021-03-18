@@ -47,7 +47,6 @@ const Feed: FC = () => {
 
   return (
     <div className="Feed">
-      <RatesBar />
       <div className="Feed__header">
         <div className="Feed__top">
           <h1 className="Feed__main-title">Latest news</h1>
@@ -59,12 +58,14 @@ const Feed: FC = () => {
             <span className="burger"> </span>
           </div>
           <div className="Feed__info">
-            {currency && (
-              <div className="Feed__currency">
-                <span className="Feed__currency-name">{currency} / EUR</span>
-                <span className="Feed__currency-rate">{rate}</span>
+            <div className="Feed__currency">
+              <div className="Feed__currency__expander">Currency</div>
+              <div className="Feed__currency__wrapper">
+                <span className="Feed__currency__name">{currency} / EUR </span>
+                <span className="Feed__currency__rate">{rate}</span>
               </div>
-            )}
+            </div>
+            <RatesBar />
           </div>
         </div>
         <div className={navigation ? 'Feed__nav active' : 'Feed__nav'}>

@@ -54,43 +54,59 @@
   }
 
   &__info {
+    position: absolute;
+    right: 60px;
     @media screen and (max-width: 1024px) {
       display: none;
     }
   }
 
   &__currency {
-    font-size: 0.9em;
-    animation: fadein 0.3s;
+    display: flex;
+    align-items: center;
+    width: auto;
+    position: relative;
+    right: -380px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
+    transition-delay: 0.2s;
 
-    > span {
-      display: block;
+    &:hover {
+      right: -60px;
+    }
+
+    &__wrapper {
+      background-color: rgb(161, 221, 213);
+      padding: 5px 60px;
+      width: 380px;
       text-align: center;
     }
 
-    &-name {
+    &__name {
       color: $color-text-secondary;
     }
 
-    &-rate {
+    &__rate {
       color: $color-accent;
     }
-  }
 
-  &__currency {
-    font-size: 0.9em;
-
-    > span {
-      display: block;
-      text-align: center;
-    }
-
-    &-name {
-      color: $color-text-secondary;
-    }
-
-    &-rate {
-      color: $color-accent;
+    &__expander {
+      cursor: pointer;
+      color: $color-dark;
+      padding: 5px 12px;
+      background-color: rgb(70, 211, 192);
+      position: relative;
+      width: 90px;
+      &::after {
+        content: '';
+        position: absolute;
+        left: -10px;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-top: 16px solid transparent;
+        border-bottom: 16px solid transparent;
+        border-right: 11px solid rgb(70, 211, 192);
+      }
     }
   }
 
