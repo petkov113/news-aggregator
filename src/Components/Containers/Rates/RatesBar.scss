@@ -1,0 +1,33 @@
+.RatesBar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 5px 40px;
+  border-bottom: 1px solid #ddd;
+
+  > span {
+    font-size: 0.8em;
+  }
+
+  &__icon {
+      display: block;
+    font-size: 22px;
+    margin-right: 5px;
+  }
+
+  &__rate {
+      margin-right: 20px;
+  }
+
+  .fa-bitcoin {
+    color: orange;
+  }
+
+  .fa-monero {
+    color: rgb(209, 84, 27);
+  }
+
+  .fa-ethereum {
+    color: rgb(58, 58, 58);
+  }
+}

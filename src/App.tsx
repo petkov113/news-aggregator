@@ -1,8 +1,7 @@
-import React, { FC, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { Switch, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { autoLogin } from './redux/actions/profileActions'
-import { requestRates } from './redux/actions/websocketActions'
 import { RootState } from './redux/reducers/rootReducer'
 import { useRoutes, useTheme } from './utilities/js/hooks'
 import ThemeToggle from './Components/UI/ThemeToggler/ThemeToggle'
@@ -17,7 +16,6 @@ const App: FC = () => {
 
   useEffect(() => {
     dispatch(autoLogin())
-    dispatch(requestRates())
   }, [dispatch])
 
   return (

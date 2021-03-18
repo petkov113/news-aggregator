@@ -7,15 +7,14 @@ import {
 import { Dispatch, Middleware, MiddlewareAPI } from 'redux'
 import { WS_CONNECT, WS_DISCONNECT } from '../types/constants'
 import { RootState } from '../reducers/rootReducer'
+import { CurrencyRate } from '../../utilities/js/hooks'
 
 const socketMiddleware: Middleware = (store) => (next) => (action: WebsocketActions) => {
   let socket: WebSocket | null = null
   switch (action.type) {
     case WS_CONNECT:
       socket && socket!.close()
-      socket = new WebSocket(
-        'wss://ws.coincap.io/prices?assets=bitcoin,ethereum,monero,litecoin,maker'
-      )
+      socket = new WebSocket('wss://ws.coincap.io/prices?assets=bitcoin,ethereum,monero')
       socket.onmessage = onMessage(store)
       socket.onclose = onClose(store)
       socket.onopen = onOpen(store)
@@ -44,6 +43,10 @@ const onMessage = (store: MiddlewareAPI<Dispatch<WebsocketActions>, RootState>) 
 ) => {
   if (event && event.data) {
     const payload: { [k: string]: string } = JSON.parse(event.data)
-    store.dispatch(setRates(payload))
+    const rates = Object.entries(payload).map<CurrencyRate>((el) => ({
+      currency: el[0],
+      rate: el[1],
+    }))
+    store.dispatch(setRates(rates))
   }
 }

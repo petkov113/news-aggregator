@@ -16,7 +16,6 @@ import {
   SET_COMMENTS,
   SET_NAME,
   SET_LANGUAGE,
-  SET_RATES,
 } from './constants'
 import { RootState } from '../reducers/rootReducer'
 
@@ -104,10 +103,6 @@ interface Logout {
   type: typeof AUTH_LOGOUT
 }
 
-interface SetRates {
-  type: typeof SET_RATES
-  rates: { [k: string]: string }
-}
 
 export type ActionTypes =
   | SetArticles
@@ -123,4 +118,3 @@ export type ActionTypes =
   | SetComments
   | AuthSucces
   | Logout
-  | SetRates

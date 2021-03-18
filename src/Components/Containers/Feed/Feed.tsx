@@ -11,6 +11,7 @@ import Search from '../../Search/Search'
 import Grid from '../../Grid/Grid'
 import meme from './meme.gif'
 import './Feed.scss'
+import RatesBar from '../Rates/RatesBar'
 
 export const categoriesList: Category[] = [...Object.values(Category)]
 
@@ -46,6 +47,7 @@ const Feed: FC = () => {
 
   return (
     <div className="Feed">
+      <RatesBar />
       <div className="Feed__header">
         <div className="Feed__top">
           <h1 className="Feed__main-title">Latest news</h1>

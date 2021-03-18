@@ -29,7 +29,6 @@ export const useTheme = () => {
 const noAuthRoutes = [
   <Route path="/profile" component={Profile} key="profile" />,
   <Route path="/" exact component={Feed} key="feed" />,
-  <Route path="/crypto" component={Feed} key="crypto" />,
 ]
 const authRoutes = [...noAuthRoutes, <Route path="/saved" component={Saved} key="saved" />]
 
@@ -103,4 +102,4 @@ type ApiResponse = {
   date: string
 }
 
-type CurrencyRate = { currency: string; rate: string }
+export type CurrencyRate = { currency: string; rate: string }
