@@ -17,12 +17,15 @@ const RatesBar = () => {
 
   return (
     <section className="RatesBar">
-      <i className="RatesBar__icon fab fa-bitcoin" />
-      <span className="RatesBar__rate">{state.bitcoin?.toFixed(2)}</span>
-      <i className="RatesBar__icon fab fa-monero" />
-      <span className="RatesBar__rate">{state.monero?.toFixed(2)}</span>
-      <i className="RatesBar__icon fab fa-ethereum" />
-      <span className="RatesBar__rate">{state.ethereum?.toFixed(2)}</span>
+      <div className="RatesBar__wrapper">
+        <i className="RatesBar__icon fab fa-bitcoin" />
+        <span className="RatesBar__rate">{state.bitcoin?.toFixed(2)}</span>
+        <i className="RatesBar__icon fab fa-monero" />
+        <span className="RatesBar__rate">{state.monero?.toFixed(2)}</span>
+        <i className="RatesBar__icon fab fa-ethereum" />
+        <span className="RatesBar__rate">{state.ethereum?.toFixed(2)}</span>
+      </div>
+      <div className="RatesBar__expander">Crypto Bar</div>
     </section>
   )
 }
