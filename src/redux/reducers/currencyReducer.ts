@@ -12,7 +12,6 @@ export const initialState: CurrencyReducerState = {
 const reducer = (state = initialState, action: WebsocketActions): CurrencyReducerState => {
   switch (action.type) {
     case SET_RATES:
-      console.log(action)
       return {
         ...state,
         bitcoin:
